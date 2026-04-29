@@ -9,6 +9,8 @@ Upload these files to the `popscan` directory on the web server:
 - `script.js`
 - `robots.txt`
 - `assets/popscan-icon-512.png`
+- `assets/app-store-badge-jp.svg`
+- `assets/cafe-open-flyer.png`
 
 The page includes a Japanese-first product overview, English language toggle, support contact, and privacy policy for App Store review.
 

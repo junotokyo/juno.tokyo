@@ -138,7 +138,7 @@ p {
 h1 {
   max-width: 780px;
   margin: 0;
-  font-size: clamp(3rem, 8vw, 6.8rem);
+  font-size: clamp(3rem, 5.5vw, 5.4rem);
   line-height: 0.98;
   letter-spacing: 0;
 }
@@ -173,6 +173,18 @@ h3 {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 34px;
+}
+
+.app-store-badge {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 18px;
+}
+
+.app-store-badge img {
+  display: block;
+  width: 142px;
+  height: auto;
 }
 
 .primary-link,
@@ -258,42 +270,20 @@ h3 {
   background:
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(150deg, #574237, #201815 58%, #0d0b0a);
-  background-size: 24px 24px, 24px 24px, 100% 100%;
+    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.16), transparent 30%),
+    linear-gradient(150deg, #4b4542, #211b19 58%, #0d0b0a);
+  background-size: 24px 24px, 24px 24px, 100% 100%, 100% 100%;
   border-radius: 32px 32px 18px 18px;
 }
 
 .document-card {
-  width: 70%;
-  min-height: 62%;
-  padding: 28px 22px;
-  transform: rotate(-4deg);
+  width: 68%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  transform: rotate(-3deg);
   background: #fffaf5;
   border-radius: 10px;
-  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.32);
-}
-
-.doc-line {
-  height: 9px;
-  margin-bottom: 12px;
-  background: #d9cec5;
-  border-radius: 999px;
-}
-
-.doc-line.wide {
-  width: 86%;
-  background: #f97316;
-}
-
-.doc-line.short {
-  width: 56%;
-}
-
-.doc-photo {
-  height: 82px;
-  margin: 20px 0;
-  background: linear-gradient(135deg, var(--mint), var(--blue));
-  border-radius: 8px;
+  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.36);
 }
 
 .corner {
@@ -432,8 +422,8 @@ h3 {
 }
 
 .pill-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
   gap: 10px;
   justify-content: flex-end;
   margin: 0;
@@ -456,9 +446,9 @@ h3 {
 }
 
 .updated {
-  margin-top: 18px;
+  margin: 26px 0 0;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
@@ -555,6 +545,7 @@ h3 {
   }
 
   .pill-list {
+    grid-template-columns: repeat(3, max-content);
     justify-content: flex-start;
   }
 
@@ -584,11 +575,15 @@ h3 {
   }
 
   h1 {
-    font-size: clamp(2.7rem, 18vw, 4.6rem);
+    font-size: clamp(2.6rem, 15vw, 4.2rem);
   }
 
   .hero-actions {
     flex-direction: column;
+  }
+
+  .app-store-badge {
+    margin-top: 16px;
   }
 
   .primary-link,
@@ -618,6 +613,18 @@ h3 {
 
   .feature-card {
     min-height: auto;
+  }
+
+  .details-band {
+    gap: 24px;
+  }
+
+  .pill-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pill-list li {
+    justify-content: center;
   }
 
   .policy-panel {

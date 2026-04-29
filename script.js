@@ -4,7 +4,7 @@ const copy = {
     navPrivacy: "プライバシー",
     navSupport: "サポート",
     eyebrow: "PopScan by JUNO Tokyo",
-    heroTitle: "書類を、ポンとスキャン。",
+    heroTitle: "書類をすばやくスキャン。",
     heroLead:
       "PopScanは、iPhoneのカメラで書類や名刺、葉書、パンフレットをすばやくスキャンし、見やすく補正して写真ライブラリへ保存できるシンプルなカメラアプリです。",
     supportLink: "サポートを見る",
@@ -15,13 +15,13 @@ const copy = {
     introEyebrow: "Everyday Scanner",
     introTitle: "余分な機能を省いて、日常のスキャンを軽く。",
     introBody:
-      "複数ページ管理や保存先の細かな指定よりも、「今ここにある紙をきれいに残す」ことを優先しました。カメラを開いて、撮って、確認して、保存。必要な操作だけに集中できます。",
+      "とにかく簡単に使えるよう、「今ここにある紙をきれいに残す」ことを優先しました。カメラを開いて、撮って、確認して、保存。必要な操作だけに集中できます。",
     featuresEyebrow: "Features",
     featuresTitle: "PopScanでできること",
     feature1Title: "ドキュメントを自動認識",
     feature1Body:
       "カメラを向けると書類の輪郭を検出。シャッターを押すだけで、トリミングと見やすい補正を行います。",
-    feature2Title: "撮影前に用途を調整",
+    feature2Title: "カメラ画面で調整",
     feature2Body:
       "フラッシュ、自動タイマー、カラー・グレー・白黒・写真フィルター、保存画質をカメラ画面で選べます。",
     feature3Title: "プレビューで仕上げ",
