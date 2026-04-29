@@ -1,0 +1,169 @@
+const copy = {
+  ja: {
+    navFeatures: "機能",
+    navPrivacy: "プライバシー",
+    navSupport: "サポート",
+    eyebrow: "PopScan by JUNO Tokyo",
+    heroTitle: "書類を、ポンとスキャン。",
+    heroLead:
+      "PopScanは、iPhoneのカメラで書類や名刺、葉書、パンフレットをすばやくスキャンし、見やすく補正して写真ライブラリへ保存できるシンプルなカメラアプリです。",
+    supportLink: "サポートを見る",
+    privacyLink: "プライバシーポリシー",
+    trustSimple: "シンプル設計",
+    trustLocal: "端末内で処理",
+    trustPhotos: "写真に保存",
+    introEyebrow: "Everyday Scanner",
+    introTitle: "余分な機能を省いて、日常のスキャンを軽く。",
+    introBody:
+      "複数ページ管理や保存先の細かな指定よりも、「今ここにある紙をきれいに残す」ことを優先しました。カメラを開いて、撮って、確認して、保存。必要な操作だけに集中できます。",
+    featuresEyebrow: "Features",
+    featuresTitle: "PopScanでできること",
+    feature1Title: "ドキュメントを自動認識",
+    feature1Body:
+      "カメラを向けると書類の輪郭を検出。シャッターを押すだけで、トリミングと見やすい補正を行います。",
+    feature2Title: "撮影前に用途を調整",
+    feature2Body:
+      "フラッシュ、自動タイマー、カラー・グレー・白黒・写真フィルター、保存画質をカメラ画面で選べます。",
+    feature3Title: "プレビューで仕上げ",
+    feature3Body:
+      "撮影後に回転、トリミング、フィルター、明るさ調整、削除ができます。自動補正後に必要なところだけ手直しできます。",
+    feature4Title: "写真ライブラリへ保存",
+    feature4Body:
+      "保存ボタンを押すと、標準の写真ライブラリに保存。あとから共有、印刷、整理しやすい形で残せます。",
+    feature5Title: "既存の写真も補正",
+    feature5Body:
+      "標準カメラなどで撮った写真もPopScanで読み込み、トリミングや見やすい補正を行えます。",
+    feature6Title: "シンプルに一枚ずつ",
+    feature6Body:
+      "複雑な管理機能は入れず、書類、パンフレット、葉書、名刺をテンポよく残すための操作に絞っています。",
+    useCasesEyebrow: "Use Cases",
+    useCasesTitle: "身近な紙ものを、あとで見返せる形に。",
+    useCase1: "書類",
+    useCase2: "パンフレット",
+    useCase3: "葉書",
+    useCase4: "名刺",
+    useCase5: "メモ",
+    useCase6: "レシート",
+    privacyEyebrow: "Privacy Policy",
+    privacyTitle: "プライバシーポリシー",
+    lastUpdated: "最終更新日: 2026年4月29日",
+    policySummaryTitle: "基本方針",
+    policySummaryBody:
+      "PopScanは、個人情報、スキャン画像、写真ライブラリの内容、利用状況、解析データを収集しません。スキャンと画像補正は端末上で行われます。",
+    policyDataTitle: "収集する情報",
+    policyDataBody:
+      "本アプリはユーザーを識別する情報を収集せず、第三者へ送信しません。広告、トラッキング、独自の分析ツールも使用しません。",
+    policyPermissionTitle: "カメラと写真へのアクセス",
+    policyPermissionBody:
+      "カメラは書類を撮影するために使用します。写真ライブラリへのアクセスは、画像の読み込みと保存のために使用します。許可された範囲以外の目的には使用しません。",
+    policyContactTitle: "お問い合わせ",
+    policyContactBody:
+      "プライバシーに関するお問い合わせは、下記サポート窓口までご連絡ください。",
+    supportEyebrow: "Support",
+    supportTitle: "サポート",
+    supportBody:
+      "PopScanについてのご質問、不具合のご報告、プライバシーに関するお問い合わせは、メールでご連絡ください。",
+    mailLabel: "お問い合わせ先",
+    footerBrand: "by JUNO Tokyo",
+    footerPrivacy: "Privacy Policy",
+    footerSupport: "Support",
+  },
+  en: {
+    navFeatures: "Features",
+    navPrivacy: "Privacy",
+    navSupport: "Support",
+    eyebrow: "PopScan by JUNO Tokyo",
+    heroTitle: "Pop your papers into scans.",
+    heroLead:
+      "PopScan is a simple iPhone camera app that quickly scans documents, business cards, postcards, and handouts, enhances them for readability, and saves them to your Photos library.",
+    supportLink: "View support",
+    privacyLink: "Privacy policy",
+    trustSimple: "Simple by design",
+    trustLocal: "Processed on device",
+    trustPhotos: "Saved to Photos",
+    introEyebrow: "Everyday Scanner",
+    introTitle: "Less clutter, lighter everyday scanning.",
+    introBody:
+      "PopScan focuses on one job: keeping the paper in front of you as a clear image. Open the camera, capture, review, and save. No extra document management or complicated destination settings.",
+    featuresEyebrow: "Features",
+    featuresTitle: "What PopScan does",
+    feature1Title: "Detects documents automatically",
+    feature1Body:
+      "Point the camera at a document and PopScan detects its edges. Tap the shutter to crop and enhance it for readability.",
+    feature2Title: "Adjust before capture",
+    feature2Body:
+      "Choose flash, auto timer, color, gray, black and white, photo filters, and save quality from the camera screen.",
+    feature3Title: "Fine-tune in preview",
+    feature3Body:
+      "After capture, you can rotate, crop, change filters, adjust brightness, or delete the scan before saving.",
+    feature4Title: "Save to Photos",
+    feature4Body:
+      "Tap save and the finished scan is stored in the standard Photos library, ready to share, print, or organize.",
+    feature5Title: "Enhance existing photos",
+    feature5Body:
+      "Import photos taken with the standard Camera app or other apps, then crop and enhance them in PopScan.",
+    feature6Title: "One page, simply",
+    feature6Body:
+      "PopScan leaves out complex multi-page workflows and focuses on quickly capturing documents, handouts, postcards, and cards.",
+    useCasesEyebrow: "Use Cases",
+    useCasesTitle: "Turn everyday paper into something easy to revisit.",
+    useCase1: "Documents",
+    useCase2: "Handouts",
+    useCase3: "Postcards",
+    useCase4: "Cards",
+    useCase5: "Notes",
+    useCase6: "Receipts",
+    privacyEyebrow: "Privacy Policy",
+    privacyTitle: "Privacy Policy",
+    lastUpdated: "Last updated: April 29, 2026",
+    policySummaryTitle: "Overview",
+    policySummaryBody:
+      "PopScan does not collect personal information, scanned images, Photos library contents, usage data, or analytics data. Scanning and image enhancement are performed on your device.",
+    policyDataTitle: "Information collected",
+    policyDataBody:
+      "The app does not collect information that identifies you and does not send such information to third parties. It does not use advertising, tracking, or custom analytics tools.",
+    policyPermissionTitle: "Camera and Photos access",
+    policyPermissionBody:
+      "Camera access is used to capture documents. Photos access is used to import images and save scans. These permissions are not used for any other purpose.",
+    policyContactTitle: "Contact",
+    policyContactBody:
+      "For privacy questions, please contact the support address below.",
+    supportEyebrow: "Support",
+    supportTitle: "Support",
+    supportBody:
+      "For questions about PopScan, bug reports, or privacy inquiries, please contact us by email.",
+    mailLabel: "Contact",
+    footerBrand: "by JUNO Tokyo",
+    footerPrivacy: "Privacy Policy",
+    footerSupport: "Support",
+  },
+};
+
+const buttons = document.querySelectorAll("[data-lang]");
+const translatable = document.querySelectorAll("[data-i18n]");
+
+function setLanguage(lang) {
+  const dictionary = copy[lang] || copy.ja;
+  document.documentElement.lang = lang;
+
+  translatable.forEach((element) => {
+    const key = element.dataset.i18n;
+    if (dictionary[key]) {
+      element.textContent = dictionary[key];
+    }
+  });
+
+  buttons.forEach((button) => {
+    const isActive = button.dataset.lang === lang;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+
+  localStorage.setItem("popscan-language", lang);
+}
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.lang));
+});
+
+setLanguage(localStorage.getItem("popscan-language") || "ja");
