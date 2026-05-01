@@ -11,6 +11,10 @@ Upload these files to the `popscan` directory on the web server:
 - `assets/popscan-icon-512.png`
 - `assets/app-store-badge-jp.svg`
 - `assets/cafe-open-flyer.png`
+- `assets/cafe-open-flyer-v2.svg`
+- `assets/saved-cafe-doc.svg`
+- `assets/popscan-screen-composite.png`
+- `assets/popscan-iphone17-orange.png`
 
 The page includes a Japanese-first product overview, English language toggle, support contact, and privacy policy for App Store review.
 

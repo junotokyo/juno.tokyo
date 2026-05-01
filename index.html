@@ -24,7 +24,7 @@
     <header class="site-header">
       <a class="brand" href="#top" aria-label="PopScan home">
         <img src="assets/popscan-icon-512.png" alt="" width="40" height="40">
-        <span>PopScan</span>
+        <span class="brand-text"><strong>PopScan</strong> <span>by JUNO Tokyo</span></span>
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="#features" data-i18n="navFeatures">機能</a>
@@ -40,15 +40,16 @@
     <main id="top">
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow" data-i18n="eyebrow">PopScan by JUNO Tokyo</p>
-          <h1 data-i18n="heroTitle">書類をすばやくスキャン。</h1>
-          <p class="hero-lead" data-i18n="heroLead">
-            PopScanは、iPhoneのカメラで書類や名刺、葉書、パンフレットをすばやくスキャンし、見やすく補正して写真ライブラリへ保存できるシンプルなカメラアプリです。
-          </p>
-          <div class="hero-actions">
-            <a class="primary-link" href="#support" data-i18n="supportLink">サポートを見る</a>
-            <a class="secondary-link" href="#privacy" data-i18n="privacyLink">プライバシーポリシー</a>
+          <div class="hero-title-row">
+            <img class="hero-title-icon" src="assets/popscan-icon-512.png" alt="" width="76" height="76">
+            <h1>
+              <span data-i18n="heroTitleLine1">書類をすばやく</span>
+              <span data-i18n="heroTitleLine2">スキャン。</span>
+            </h1>
           </div>
+          <p class="hero-lead" data-i18n="heroLead">
+            PopScanは、iPhoneのカメラで書類や名刺、はがき、パンフレットをすばやくスキャンし、見やすく補正して写真ライブラリへ保存できるシンプルなカメラアプリです。
+          </p>
           <a
             class="app-store-badge"
             href="https://apps.apple.com/jp/search?term=PopScan"
@@ -61,26 +62,13 @@
           <div class="trust-row" aria-label="Highlights">
             <span data-i18n="trustSimple">シンプル設計</span>
             <span data-i18n="trustLocal">端末内で処理</span>
-            <span data-i18n="trustPhotos">写真に保存</span>
+            <span data-i18n="trustPhotos">写真ライブラリに保存</span>
           </div>
         </div>
         <div class="hero-visual" aria-label="PopScan app preview">
-          <div class="phone-shell">
-            <div class="phone-bar"></div>
-            <div class="scan-frame">
-              <img class="document-card" src="assets/cafe-open-flyer.png" alt="おしゃれなカフェのオープン案内チラシ">
-              <div class="corner tl"></div>
-              <div class="corner tr"></div>
-              <div class="corner bl"></div>
-              <div class="corner br"></div>
-            </div>
-            <div class="camera-controls">
-              <span></span>
-              <strong></strong>
-              <span></span>
-            </div>
+          <div class="iphone-mock">
+            <img class="screen-capture" src="assets/popscan-iphone17-orange.png" alt="PopScanの実際のカメラ画面">
           </div>
-          <img class="hero-icon" src="assets/popscan-icon-512.png" alt="PopScan app icon" width="128" height="128">
         </div>
       </section>
 
@@ -90,7 +78,7 @@
           <h2 id="intro-title" data-i18n="introTitle">余分な機能を省いて、日常のスキャンを軽く。</h2>
         </div>
         <p class="intro-text" data-i18n="introBody">
-          とにかく簡単に使えるよう、「今ここにある紙をきれいに残す」ことを優先しました。カメラを開いて、撮って、確認して、保存。必要な操作だけに集中できます。
+          いつでもすばやく使えるよう、「今ここにある紙をきれいに残す」ことを優先しました。カメラを開いて、撮って、確認して、保存。必要な操作だけに集中できます。
         </p>
       </section>
 
@@ -128,7 +116,7 @@
           <article class="feature-card">
             <div class="feature-icon">06</div>
             <h3 data-i18n="feature6Title">シンプルに一枚ずつ</h3>
-            <p data-i18n="feature6Body">複雑な管理機能は入れず、書類、パンフレット、葉書、名刺をテンポよく残すための操作に絞っています。</p>
+            <p data-i18n="feature6Body">複雑な管理機能は入れず、書類、パンフレット、はがき、名刺をテンポよく残すための操作に絞っています。</p>
           </article>
         </div>
       </section>
@@ -136,22 +124,70 @@
       <section class="section details-band" aria-label="Use cases">
         <div>
           <p class="eyebrow" data-i18n="useCasesEyebrow">Use Cases</p>
-          <h2 data-i18n="useCasesTitle">身近な紙ものを、あとで見返せる形に。</h2>
+          <h2 class="use-cases-title">
+            <span data-i18n="useCasesTitleLine1">紙の情報を、</span><span data-i18n="useCasesTitleLine2">後で見返せる形に。</span>
+          </h2>
         </div>
         <ul class="pill-list">
-          <li data-i18n="useCase1">書類</li>
-          <li data-i18n="useCase2">パンフレット</li>
-          <li data-i18n="useCase3">葉書</li>
-          <li data-i18n="useCase4">名刺</li>
-          <li data-i18n="useCase5">メモ</li>
-          <li data-i18n="useCase6">レシート</li>
+          <li>
+            <svg class="use-case-art" viewBox="0 0 96 72" aria-hidden="true">
+              <rect x="28" y="10" width="42" height="54" rx="5" fill="#fffaf6" stroke="#9a6a45" stroke-width="3"/>
+              <path d="M58 10v14h12" fill="#f6dec9" stroke="#9a6a45" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M37 33h24M37 43h18M37 53h22" stroke="#c26b3d" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="useCase1">書類</span>
+          </li>
+          <li>
+            <svg class="use-case-art" viewBox="0 0 96 72" aria-hidden="true">
+              <rect x="19" y="15" width="58" height="42" rx="5" fill="#fffaf6" stroke="#9a6a45" stroke-width="3"/>
+              <rect x="26" y="22" width="20" height="28" rx="3" fill="#d9824b"/>
+              <path d="M53 24h15M53 34h12M53 44h16" stroke="#9a6a45" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="36" cy="36" r="6" fill="#f5c88f"/>
+            </svg>
+            <span data-i18n="useCase2">パンフレット</span>
+          </li>
+          <li>
+            <svg class="use-case-art" viewBox="0 0 96 72" aria-hidden="true">
+              <rect x="19" y="18" width="58" height="36" rx="5" fill="#fffaf6" stroke="#9a6a45" stroke-width="3"/>
+              <rect x="58" y="25" width="10" height="12" rx="1.5" fill="#f6dec9" stroke="#c26b3d" stroke-width="2"/>
+              <path d="M28 28h19M28 38h24M28 47h16" stroke="#9a6a45" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="useCase3">はがき</span>
+          </li>
+          <li>
+            <svg class="use-case-art" viewBox="0 0 96 72" aria-hidden="true">
+              <rect x="18" y="22" width="60" height="32" rx="6" fill="#fffaf6" stroke="#9a6a45" stroke-width="3"/>
+              <circle cx="32" cy="38" r="7" fill="#f5c88f"/>
+              <path d="M47 31h20M47 40h16M28 51h40" stroke="#c26b3d" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="useCase4">名刺</span>
+          </li>
+          <li>
+            <svg class="use-case-art" viewBox="0 0 96 72" aria-hidden="true">
+              <path d="M27 12h38l6 9v40H27z" fill="#fffaf6" stroke="#9a6a45" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M65 12v10h7" fill="#f6dec9" stroke="#9a6a45" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M36 31h22M36 41h18M36 51h24" stroke="#c26b3d" stroke-width="3" stroke-linecap="round"/>
+              <path d="M25 16l-6 5v40h42" fill="none" stroke="#e7b98b" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="useCase5">メモ</span>
+          </li>
+          <li>
+            <svg class="use-case-art" viewBox="0 0 96 72" aria-hidden="true">
+              <path d="M31 11h34v50l-6-4-6 4-6-4-6 4-5-4-5 4z" fill="#fffaf6" stroke="#9a6a45" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M39 25h18M39 35h14M39 45h20" stroke="#c26b3d" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="57" cy="24" r="3" fill="#f5c88f"/>
+            </svg>
+            <span data-i18n="useCase6">レシート</span>
+          </li>
         </ul>
       </section>
 
       <section class="section two-column" id="privacy" aria-labelledby="privacy-title">
         <div class="section-heading">
           <p class="eyebrow" data-i18n="privacyEyebrow">Privacy Policy</p>
-          <h2 id="privacy-title" data-i18n="privacyTitle">プライバシーポリシー</h2>
+          <h2 id="privacy-title" class="privacy-title">
+            <span data-i18n="privacyTitleLine1">プライバシー</span><span data-i18n="privacyTitleLine2">ポリシー</span>
+          </h2>
         </div>
         <div class="policy-panel">
           <h3 data-i18n="policySummaryTitle">基本方針</h3>

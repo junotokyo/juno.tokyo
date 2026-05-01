@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="320" viewBox="0 0 240 320" role="img" aria-labelledby="title desc">
+  <title id="title">Saved document thumbnail</title>
+  <desc id="desc">A saved cafe menu style document thumbnail.</desc>
+  <rect width="240" height="320" rx="18" fill="#fff8ee"/>
+  <rect x="20" y="24" width="200" height="272" rx="10" fill="#f4e2c8"/>
+  <text x="40" y="70" fill="#4a3227" font-family="Georgia, 'Times New Roman', serif" font-size="34">MENU</text>
+  <text x="40" y="100" fill="#7f593e" font-family="Inter, Arial, sans-serif" font-size="12" letter-spacing="2">JUNO TOKYO</text>
+  <rect x="40" y="126" width="76" height="76" rx="38" fill="#b9734a"/>
+  <circle cx="78" cy="164" r="24" fill="#f6d9ad"/>
+  <path d="M62 162c10-14 22-14 34 0" fill="none" stroke="#fff8ee" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#6f6259" font-family="Inter, Arial, sans-serif" font-size="13">
+    <text x="128" y="138">Coffee</text>
+    <text x="128" y="164">Sweets</text>
+    <text x="128" y="190">Lunch</text>
+  </g>
+  <g stroke="#c9b396" stroke-width="5" stroke-linecap="round">
+    <path d="M40 232h160"/>
+    <path d="M40 254h128"/>
+    <path d="M40 276h146"/>
+  </g>
+</svg>

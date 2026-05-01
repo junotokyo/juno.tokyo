@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1080" viewBox="0 0 720 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Cafe opening flyer</title>
+  <desc id="desc">A warm cafe opening flyer with juno.tokyo contact text.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff8ee"/>
+      <stop offset="0.58" stop-color="#f3dfc3"/>
+      <stop offset="1" stop-color="#ead1ad"/>
+    </linearGradient>
+    <linearGradient id="photo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c59b70"/>
+      <stop offset="0.55" stop-color="#72513c"/>
+      <stop offset="1" stop-color="#2f2d24"/>
+    </linearGradient>
+    <linearGradient id="map" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe3d0"/>
+      <stop offset="1" stop-color="#d9c4a8"/>
+    </linearGradient>
+    <filter id="paperNoise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.055"/>
+      </feComponentTransfer>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="720" height="1080" rx="22" fill="url(#paper)"/>
+  <rect x="0" y="0" width="720" height="1080" rx="22" fill="#fff6e9" opacity="0.34" filter="url(#paperNoise)"/>
+
+  <text x="72" y="78" fill="#7f593e" font-family="Georgia, 'Times New Roman', serif" font-size="22" letter-spacing="5">JUNO TOKYO PRESENTS</text>
+  <path d="M82 125c26-41 56-51 91-31-39 17-64 43-81 79" fill="none" stroke="#9c6a45" stroke-width="9" stroke-linecap="round"/>
+  <path d="M111 112c10-42 38-66 82-72-27 24-44 55-51 95" fill="none" stroke="#b88b62" stroke-width="7" stroke-linecap="round"/>
+
+  <text x="70" y="236" fill="#4a3227" font-family="Georgia, 'Times New Roman', serif" font-size="112" letter-spacing="1">CAFE</text>
+  <text x="70" y="343" fill="#4a3227" font-family="Georgia, 'Times New Roman', serif" font-size="116" letter-spacing="1">OPEN</text>
+  <text x="76" y="398" fill="#6f6259" font-family="'Hiragino Sans', 'Yu Gothic', sans-serif" font-size="24">心ほどける、ほっとする時間を。</text>
+  <text x="76" y="444" fill="#7b6b60" font-family="Inter, Arial, sans-serif" font-size="18">Fresh coffee, soft sweets, and a quiet seat.</text>
+  <text x="76" y="474" fill="#7b6b60" font-family="Inter, Arial, sans-serif" font-size="18">More details at juno.tokyo</text>
+
+  <circle cx="586" cy="192" r="70" fill="#fff8ee" stroke="#a97a58" stroke-width="3"/>
+  <text x="586" y="171" fill="#76543d" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">OPENING</text>
+  <text x="586" y="204" fill="#4a3227" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="42">5.25</text>
+  <text x="586" y="232" fill="#76543d" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">SAT</text>
+
+  <rect x="390" y="260" width="260" height="355" rx="130" fill="url(#photo)"/>
+  <circle cx="516" cy="430" r="82" fill="#c08a58"/>
+  <circle cx="516" cy="430" r="64" fill="#f6d9ad"/>
+  <circle cx="516" cy="430" r="47" fill="#895a36"/>
+  <path d="M482 426c22-32 47-31 72-1-22-6-47-5-72 1Z" fill="#fff3db" opacity="0.92"/>
+  <path d="M496 405c15-16 31-16 47 0" fill="none" stroke="#fff3db" stroke-width="8" stroke-linecap="round"/>
+  <path d="M440 296c42 28 81 60 119 96" fill="none" stroke="#2f2d24" stroke-width="6" opacity="0.42"/>
+  <circle cx="470" cy="326" r="11" fill="#2f2d24" opacity="0.32"/>
+  <circle cx="514" cy="363" r="10" fill="#2f2d24" opacity="0.32"/>
+  <circle cx="558" cy="400" r="9" fill="#2f2d24" opacity="0.32"/>
+
+  <rect x="64" y="535" width="278" height="265" fill="#af653f"/>
+  <g fill="#fff6e9" font-family="Inter, Arial, sans-serif">
+    <circle cx="106" cy="588" r="18" fill="none" stroke="#fff6e9" stroke-width="3"/>
+    <text x="144" y="582" font-size="20" font-weight="800">SPECIALTY COFFEE</text>
+    <text x="144" y="612" font-size="16">深い香りと軽い余韻。</text>
+    <circle cx="106" cy="660" r="18" fill="none" stroke="#fff6e9" stroke-width="3"/>
+    <text x="144" y="654" font-size="20" font-weight="800">HOMEMADE SWEETS</text>
+    <text x="144" y="684" font-size="16">季節の焼き菓子。</text>
+    <circle cx="106" cy="732" r="18" fill="none" stroke="#fff6e9" stroke-width="3"/>
+    <text x="144" y="726" font-size="20" font-weight="800">COZY SPACE</text>
+    <text x="144" y="756" font-size="16">ゆっくり過ごせる小さな席。</text>
+  </g>
+
+  <text x="70" y="848" fill="#7f593e" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800" letter-spacing="2">INFORMATION</text>
+  <g fill="#5e5149" font-family="Inter, Arial, sans-serif" font-size="18">
+    <text x="96" y="886">10:00 - 19:00 / closed Tuesday</text>
+    <text x="96" y="920">JUNO Tokyo, Shibuya</text>
+    <text x="96" y="954">www.juno.tokyo</text>
+    <text x="96" y="988">@juno.tokyo</text>
+  </g>
+  <g fill="#7f593e">
+    <circle cx="74" cy="880" r="8"/>
+    <circle cx="74" cy="914" r="8"/>
+    <circle cx="74" cy="948" r="8"/>
+    <circle cx="74" cy="982" r="8"/>
+  </g>
+
+  <rect x="392" y="700" width="240" height="206" rx="18" fill="url(#map)"/>
+  <path d="M414 752h198M414 810h198M470 720v166M540 720v166" stroke="#fff8ee" stroke-width="8" opacity="0.8"/>
+  <path d="M514 788c-23 0-41 17-41 38 0 31 41 68 41 68s41-37 41-68c0-21-18-38-41-38Z" fill="#7f593e"/>
+  <circle cx="514" cy="825" r="14" fill="#fff8ee"/>
+  <text x="514" y="884" fill="#7f593e" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">JUNO</text>
+
+  <path d="M606 815c-38 40-51 96-38 166 54-36 88-78 102-127" fill="#4c5a43"/>
+  <path d="M586 928c19-34 42-62 70-82" fill="none" stroke="#e8dcc9" stroke-width="4" stroke-linecap="round"/>
+  <path d="M606 893c-20-8-34-21-42-40M622 875c9-17 11-34 7-53M640 858c-17-4-31-13-43-28" fill="none" stroke="#e8dcc9" stroke-width="3" stroke-linecap="round"/>
+</svg>
