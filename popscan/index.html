@@ -28,6 +28,7 @@
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="#features" data-i18n="navFeatures">機能</a>
+        <a href="#pricing" data-i18n="navPricing">料金</a>
         <a href="#privacy" data-i18n="navPrivacy">プライバシー</a>
         <a href="#support" data-i18n="navSupport">サポート</a>
       </nav>
@@ -182,6 +183,31 @@
         </ul>
       </section>
 
+      <section class="section pricing-section" id="pricing" aria-labelledby="pricing-title">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="pricingEyebrow">Plans</p>
+          <h2 id="pricing-title" data-i18n="pricingTitle">必要な分だけ、シンプルに。</h2>
+        </div>
+        <div class="pricing-grid">
+          <article class="plan-card">
+            <h3 class="plan-name" data-i18n="freePlanLabel">無料プラン</h3>
+            <p class="plan-subhead" data-i18n="freePlanTitle">日々のカジュアルな利用に</p>
+            <p class="plan-price" data-i18n="freePlanPrice">¥0</p>
+            <p data-i18n="freePlanBody">
+              日常の中でカジュアルに使うのに十分な利用枠があります。徐々に利用枠が回復します。
+            </p>
+          </article>
+          <article class="plan-card featured-plan">
+            <h3 class="plan-name" data-i18n="unlimitedPlanLabel">無制限プラン</h3>
+            <p class="plan-subhead" data-i18n="unlimitedPlanTitle">スキャン利用枠を無制限に</p>
+            <p class="plan-price" data-i18n="unlimitedPlanPrice">¥650</p>
+            <p data-i18n="unlimitedPlanBody">
+              スキャンする書類が多い方は、買い切りの無制限プランをご利用ください。開発を支えていただくことにもつながります。
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section two-column" id="privacy" aria-labelledby="privacy-title">
         <div class="section-heading">
           <p class="eyebrow" data-i18n="privacyEyebrow">Privacy Policy</p>
@@ -190,12 +216,22 @@
           </h2>
         </div>
         <div class="policy-panel">
-          <h3 data-i18n="policySummaryTitle">基本方針</h3>
+          <h3 data-i18n="policySummaryTitle">写真・画像データについて</h3>
           <p data-i18n="policySummaryBody">
-            PopScanは、個人情報、スキャン画像、写真ライブラリの内容、利用状況、解析データを収集しません。スキャンと画像補正は端末上で行われます。
+            PopScanで撮影・保存する写真、画像処理、解析結果は、端末内で処理されます。これらの画像データや解析結果をサーバーへ送信することはありません。
           </p>
-          <h3 data-i18n="policyDataTitle">収集する情報</h3>
-          <p data-i18n="policyDataBody">本アプリはユーザーを識別する情報を収集せず、第三者へ送信しません。広告、トラッキング、独自の分析ツールも使用しません。</p>
+          <h3 data-i18n="policyTimeTitle">日時確認のための通信</h3>
+          <p data-i18n="policyTimeBody">
+            利用枠の判定のため、オンライン時に日時確認サーバーへ通信する場合があります。この通信には、アプリ名、バージョン、ビルド番号など、確認に必要な最小限の情報のみを含みます。オフラインの場合でも、アプリは利用できます。
+          </p>
+          <h3 data-i18n="policyDataTitle">利用状況・診断情報</h3>
+          <p data-i18n="policyDataBody">
+            アプリの品質改善のため、アプリの利用状況、エラー発生状況などの匿名の利用統計や診断情報を収集する場合があります。これらには、写真、画像の内容、ユーザー情報、広告識別子などのデータは含まれません。
+          </p>
+          <h3 data-i18n="policyTrackingTitle">トラッキングについて</h3>
+          <p data-i18n="policyTrackingBody">
+            PopScanは、第三者のトラッキングSDKを使用せず、ユーザーを他社のアプリやWebサイトをまたいで追跡することはありません。
+          </p>
           <h3 data-i18n="policyPermissionTitle">カメラと写真へのアクセス</h3>
           <p data-i18n="policyPermissionBody">
             カメラは書類を撮影するために使用します。写真ライブラリへのアクセスは、画像の読み込みと保存のために使用します。許可された範囲以外の目的には使用しません。
@@ -204,7 +240,7 @@
           <p>
             <span data-i18n="policyContactBody">プライバシーに関するお問い合わせは、下記サポート窓口までご連絡ください。</span>
           </p>
-          <p class="updated" data-i18n="lastUpdated">最終更新日: 2026年4月29日</p>
+          <p class="updated" data-i18n="lastUpdated">最終更新日: 2026年5月3日</p>
         </div>
       </section>
 

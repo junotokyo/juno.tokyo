@@ -1,6 +1,7 @@
 const copy = {
   ja: {
     navFeatures: "機能",
+    navPricing: "料金",
     navPrivacy: "プライバシー",
     navSupport: "サポート",
     eyebrow: "PopScan by JUNO Tokyo",
@@ -17,6 +18,18 @@ const copy = {
     introTitle: "余分な機能を省いて、日常のスキャンを軽く。",
     introBody:
       "いつでもすばやく使えるよう、「今ここにある紙をきれいに残す」ことを優先しました。カメラを開いて、撮って、確認して、保存。必要な操作だけに集中できます。",
+    pricingEyebrow: "Plans",
+    pricingTitle: "必要な分だけ、シンプルに。",
+    freePlanLabel: "無料プラン",
+    freePlanTitle: "日々のカジュアルな利用に",
+    freePlanPrice: "¥0",
+    freePlanBody:
+      "日常の中でカジュアルに使うのに十分な利用枠があります。徐々に利用枠が回復します。",
+    unlimitedPlanLabel: "無制限プラン",
+    unlimitedPlanTitle: "スキャン利用枠を無制限に",
+    unlimitedPlanPrice: "¥650",
+    unlimitedPlanBody:
+      "スキャンする書類が多い方は、買い切りの無制限プランをご利用ください。開発を支えていただくことにもつながります。",
     featuresEyebrow: "Features",
     featuresTitle: "PopScanでできること",
     feature1Title: "ドキュメントを自動認識",
@@ -49,13 +62,19 @@ const copy = {
     privacyEyebrow: "Privacy Policy",
     privacyTitleLine1: "プライバシー",
     privacyTitleLine2: "ポリシー",
-    lastUpdated: "最終更新日: 2026年4月29日",
-    policySummaryTitle: "基本方針",
+    lastUpdated: "最終更新日: 2026年5月3日",
+    policySummaryTitle: "写真・画像データについて",
     policySummaryBody:
-      "PopScanは、個人情報、スキャン画像、写真ライブラリの内容、利用状況、解析データを収集しません。スキャンと画像補正は端末上で行われます。",
-    policyDataTitle: "収集する情報",
+      "PopScanで撮影・保存する写真、画像処理、解析結果は、端末内で処理されます。これらの画像データや解析結果をサーバーへ送信することはありません。",
+    policyTimeTitle: "日時確認のための通信",
+    policyTimeBody:
+      "利用枠の判定のため、オンライン時に日時確認サーバーへ通信する場合があります。この通信には、アプリ名、バージョン、ビルド番号など、確認に必要な最小限の情報のみを含みます。オフラインの場合でも、アプリは利用できます。",
+    policyDataTitle: "利用状況・診断情報",
     policyDataBody:
-      "本アプリはユーザーを識別する情報を収集せず、第三者へ送信しません。広告、トラッキング、独自の分析ツールも使用しません。",
+      "アプリの品質改善のため、アプリの利用状況、エラー発生状況などの匿名の利用統計や診断情報を収集する場合があります。これらには、写真、画像の内容、ユーザー情報、広告識別子などのデータは含まれません。",
+    policyTrackingTitle: "トラッキングについて",
+    policyTrackingBody:
+      "PopScanは、第三者のトラッキングSDKを使用せず、ユーザーを他社のアプリやWebサイトをまたいで追跡することはありません。",
     policyPermissionTitle: "カメラと写真へのアクセス",
     policyPermissionBody:
       "カメラは書類を撮影するために使用します。写真ライブラリへのアクセスは、画像の読み込みと保存のために使用します。許可された範囲以外の目的には使用しません。",
@@ -73,6 +92,7 @@ const copy = {
   },
   en: {
     navFeatures: "Features",
+    navPricing: "Plans",
     navPrivacy: "Privacy",
     navSupport: "Support",
     eyebrow: "PopScan by JUNO Tokyo",
@@ -89,6 +109,18 @@ const copy = {
     introTitle: "Less clutter, lighter everyday scanning.",
     introBody:
       "PopScan focuses on one job: keeping the paper in front of you as a clear image. Open the camera, capture, review, and save. No extra document management or complicated destination settings.",
+    pricingEyebrow: "Plans",
+    pricingTitle: "Simple plans for how much you scan.",
+    freePlanLabel: "Free Plan",
+    freePlanTitle: "For casual everyday use",
+    freePlanPrice: "$0",
+    freePlanBody:
+      "The free plan includes enough scan credits for casual everyday use. Your scan credits gradually recover over time.",
+    unlimitedPlanLabel: "Unlimited Plan",
+    unlimitedPlanTitle: "Unlimited scan credits",
+    unlimitedPlanPrice: "$3.99",
+    unlimitedPlanBody:
+      "If you scan many documents, please consider the one-time purchase Unlimited Plan. It also helps support ongoing development.",
     featuresEyebrow: "Features",
     featuresTitle: "What PopScan does",
     feature1Title: "Detects documents automatically",
@@ -121,13 +153,19 @@ const copy = {
     privacyEyebrow: "Privacy Policy",
     privacyTitleLine1: "Privacy",
     privacyTitleLine2: "Policy",
-    lastUpdated: "Last updated: April 29, 2026",
-    policySummaryTitle: "Overview",
+    lastUpdated: "Last updated: May 3, 2026",
+    policySummaryTitle: "Photos and Image Data",
     policySummaryBody:
-      "PopScan does not collect personal information, scanned images, Photos library contents, usage data, or analytics data. Scanning and image enhancement are performed on your device.",
-    policyDataTitle: "Information collected",
+      "Photos captured or saved in PopScan, image processing, and analysis results are processed on device. These photos, image contents, and analysis results are not sent to servers.",
+    policyTimeTitle: "Time Check Communication",
+    policyTimeBody:
+      "When network access is available, PopScan may contact a time-check server to evaluate local usage allowances. This request includes only the minimum information needed for the check, such as the app name, version, and build number. The app is usable offline if this request cannot be completed.",
+    policyDataTitle: "Usage and Diagnostic Information",
     policyDataBody:
-      "The app does not collect information that identifies you and does not send such information to third parties. It does not use advertising, tracking, or custom analytics tools.",
+      "To improve app quality, PopScan may collect anonymous usage statistics and diagnostic information, such as app usage and error status. This information does not include photos, image contents, user information, advertising identifiers, or similar data.",
+    policyTrackingTitle: "Tracking",
+    policyTrackingBody:
+      "PopScan does not use third-party tracking SDKs and does not track users across other companies' apps or websites.",
     policyPermissionTitle: "Camera and Photos access",
     policyPermissionBody:
       "Camera access is used to capture documents. Photos access is used to import images and save scans. These permissions are not used for any other purpose.",
