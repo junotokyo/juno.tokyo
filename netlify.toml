@@ -6,3 +6,8 @@
   from = "/time"
   to = "/.netlify/functions/time"
   status = 200
+
+[[redirects]]
+  from = "/set-promo"
+  to = "/.netlify/functions/set-promo"
+  status = 200

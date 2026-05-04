@@ -1,3 +1,5 @@
+const { getStore } = require("@netlify/blobs");
+
 exports.handler = async (event) => {
   const now = new Date();
 
@@ -6,9 +8,14 @@ exports.handler = async (event) => {
     unix: Math.floor(now.getTime() / 1000),
   };
 
-  // promo フラグはアプリからのリクエスト（固有ヘッダーあり）のときのみ返す
   if (event.headers["x-popscan-purpose"] === "quota_check") {
-    body.p = process.env.POPSCAN_PROMO === "true";
+    try {
+      const store = getStore({ name: "popscan-config", consistency: "strong" });
+      const promoValue = await store.get("promo");
+      body.p = promoValue === "true";
+    } catch {
+      body.p = false;
+    }
   }
 
   return {
