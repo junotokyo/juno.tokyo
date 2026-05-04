@@ -1,5 +1,16 @@
-exports.handler = async () => {
+exports.handler = async (event) => {
   const now = new Date();
+
+  const body = {
+    iso8601: now.toISOString(),
+    unix: Math.floor(now.getTime() / 1000),
+  };
+
+  // promo フラグはアプリからのリクエスト（固有ヘッダーあり）のときのみ返す
+  if (event.headers["x-popscan-purpose"] === "quota_check") {
+    body.p = process.env.POPSCAN_PROMO === "true";
+  }
+
   return {
     statusCode: 200,
     headers: {
@@ -7,9 +18,6 @@ exports.handler = async () => {
       "Cache-Control": "no-store",
       "Access-Control-Allow-Origin": "*",
     },
-    body: JSON.stringify({
-      iso8601: now.toISOString(),
-      unix: Math.floor(now.getTime() / 1000),
-    }),
+    body: JSON.stringify(body),
   };
 };
