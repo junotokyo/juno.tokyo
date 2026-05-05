@@ -685,10 +685,15 @@ h3 {
   display: grid;
   grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
   gap: clamp(28px, 6vw, 76px);
-  align-items: center;
+  align-items: start;
   background: var(--surface);
   border-block: 1px solid var(--line);
   color: var(--ink);
+}
+
+.details-band > div,
+.two-column > .section-heading {
+  min-width: 0;
 }
 
 .details-band .eyebrow {
@@ -715,11 +720,15 @@ html[lang="en"] .use-cases-title {
   column-gap: 0.25em;
 }
 
+html[lang="en"] .use-cases-title span {
+  white-space: normal;
+}
+
 .pill-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  margin: 0;
+  margin: calc(0.82rem * 1.65 + 12px) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -765,6 +774,7 @@ html[lang="en"] .use-cases-title {
 }
 
 .policy-panel {
+  margin-top: calc(0.82rem * 1.65 + 12px);
   padding: 32px;
   background: #fffaf6;
   border: 1px solid var(--line);
@@ -845,6 +855,10 @@ html[lang="en"] .use-cases-title {
 }
 
 @media (max-width: 920px) {
+  :root {
+    --stack-content-gap: 24px;
+  }
+
   .site-header {
     grid-template-columns: 1fr auto;
   }
@@ -859,10 +873,19 @@ html[lang="en"] .use-cases-title {
   .two-column,
   .support-section {
     grid-template-columns: 1fr;
+    gap: var(--stack-content-gap);
   }
 
   .hero {
     min-height: auto;
+  }
+
+  .hero-copy {
+    max-width: none;
+  }
+
+  .hero-lead {
+    max-width: none;
   }
 
   .hero-visual {
@@ -871,14 +894,25 @@ html[lang="en"] .use-cases-title {
 
   .pill-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 0;
   }
 
   .feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: var(--stack-content-gap);
   }
 
   .pricing-grid {
     grid-template-columns: 1fr;
+    margin-top: var(--stack-content-gap);
+  }
+
+  .intro-text {
+    margin-top: 0;
+  }
+
+  .policy-panel {
+    margin-top: 0;
   }
 }
 
@@ -1036,10 +1070,6 @@ html[lang="en"] .use-cases-title {
 
   .feature-card {
     min-height: auto;
-  }
-
-  .details-band {
-    gap: 24px;
   }
 
   .pill-list {
