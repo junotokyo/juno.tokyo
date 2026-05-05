@@ -15,7 +15,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: 'Body must be "true" or "false"' };
   }
 
-  const store = getStore("popscan-config");
+  const store = getStore({ name: "popscan-config", siteID: "45361e2a-4fc3-4f9a-a862-3c34f7d0c791", token: process.env.NETLIFY_PAT });
   await store.set("promo", value);
 
   return {
