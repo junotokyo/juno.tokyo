@@ -11,3 +11,13 @@
   from = "/set-promo"
   to = "/.netlify/functions/set-promo"
   status = 200
+
+[[redirects]]
+  from = "/redeem-promo"
+  to = "/.netlify/functions/redeem-promo"
+  status = 200
+
+[[redirects]]
+  from = "/manage-promos"
+  to = "/.netlify/functions/manage-promos"
+  status = 200
