@@ -10,7 +10,7 @@ exports.handler = async (event) => {
 
   if (event.headers["x-popscan-purpose"] === "quota_check") {
     try {
-      const store = getStore({ name: "popscan-config", siteID: "45361e2a-4fc3-4f9a-a862-3c34f7d0c791", token: process.env.NETLIFY_PAT, consistency: "strong" });
+      const store = getStore({ name: "popscan-config", siteID: "45361e2a-4fc3-4f9a-a862-3c34f7d0c791", token: process.env.NETLIFY_PAT, consistency: "eventual" });
       const promoValue = await store.get("promo");
       body.p = promoValue === "true";
     } catch {
