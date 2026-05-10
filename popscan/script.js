@@ -112,15 +112,15 @@ const copy = {
     pricingEyebrow: "Plans",
     pricingTitle: "Simple plans for how much you scan.",
     freePlanLabel: "Free Plan",
-    freePlanTitle: "For casual everyday use",
+    freePlanTitle: "For casual daily use",
     freePlanPrice: "$0",
     freePlanBody:
-      "The free plan includes enough scan credits for casual everyday use. Your scan credits gradually recover over time.",
+      "The free plan includes enough scan credits for casual daily use. Credits refill daily.",
     unlimitedPlanLabel: "Unlimited Plan",
     unlimitedPlanTitle: "Unlimited scan credits",
     unlimitedPlanPrice: "$3.99",
     unlimitedPlanBody:
-      "If you scan many documents, please consider the one-time purchase Unlimited Plan. It also helps support ongoing development.",
+      "The Unlimited Plan gives you unlimited scan credits for frequent scanning. Buy once, use forever.",
     featuresEyebrow: "Features",
     featuresTitle: "What PopScan does",
     feature1Title: "Detects documents automatically",
