@@ -1,16 +1,7 @@
-const TOKEN_KEY = 'popscan_admin_token';
+// 認証は middleware.js の Basic 認証のみ。ブラウザが Authorization ヘッダを
+// 同一 realm 内のリクエストに自動 replay するので、ここでは何もしない。
 
 const $ = (id) => document.getElementById(id);
-
-function getToken() {
-  return sessionStorage.getItem(TOKEN_KEY) || '';
-}
-function setToken(t) {
-  sessionStorage.setItem(TOKEN_KEY, t);
-}
-function clearToken() {
-  sessionStorage.removeItem(TOKEN_KEY);
-}
 
 function showStatus(el, message, kind) {
   el.textContent = message;
@@ -23,7 +14,7 @@ function clearStatus(el) {
 }
 
 async function api(path, { method = 'GET', body, contentType } = {}) {
-  const headers = { 'x-admin-token': getToken() };
+  const headers = {};
   const opts = { method, headers };
   if (body !== undefined) {
     if (typeof body === 'string') {
@@ -44,36 +35,6 @@ async function fetchPromoFlag() {
   const res = await fetch('/popscan/time', { headers: { 'x-popscan-purpose': 'quota_check' } });
   const data = await res.json();
   return Boolean(data.p);
-}
-
-async function login() {
-  const token = $('token').value.trim();
-  if (!token) {
-    showStatus($('loginStatus'), 'token を入力してください', 'error');
-    return;
-  }
-  setToken(token);
-  const res = await api('/popscan/manage-promos');
-  if (res.status === 401) {
-    clearToken();
-    showStatus($('loginStatus'), '認証失敗', 'error');
-    return;
-  }
-  if (!res.ok) {
-    showStatus($('loginStatus'), `エラー (${res.status})`, 'error');
-    return;
-  }
-  $('login').hidden = true;
-  $('app').hidden = false;
-  await refreshAll();
-}
-
-function logout() {
-  clearToken();
-  $('login').hidden = false;
-  $('app').hidden = true;
-  $('token').value = '';
-  clearStatus($('loginStatus'));
 }
 
 async function refreshPromoState() {
@@ -214,24 +175,10 @@ async function refreshAll() {
 }
 
 function init() {
-  $('loginBtn').addEventListener('click', login);
-  $('logoutBtn').addEventListener('click', logout);
   $('promoToggle').addEventListener('click', togglePromo);
   $('addBtn').addEventListener('click', addCode);
   $('clearBtn').addEventListener('click', clearForm);
-  $('token').addEventListener('keydown', (e) => { if (e.key === 'Enter') login(); });
-
-  if (getToken()) {
-    api('/popscan/manage-promos').then((res) => {
-      if (res.ok) {
-        $('login').hidden = true;
-        $('app').hidden = false;
-        refreshAll();
-      } else {
-        clearToken();
-      }
-    });
-  }
+  refreshAll();
 }
 
 init();

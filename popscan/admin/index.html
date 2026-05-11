@@ -29,29 +29,13 @@
     .form-mode { font-size: 0.85rem; color: #06c; margin: 0.25rem 0 0.5rem; }
     .form-actions { display: flex; justify-content: space-between; align-items: center; max-width: 320px; margin-top: 0.5rem; }
     .promo-desc { font-size: 0.9rem; color: #555; margin: 0.25rem 0 0.5rem; }
-    #app[hidden], #login[hidden] { display: none; }
     .muted { color: #888; font-size: 0.85rem; }
   </style>
 </head>
 <body>
   <h1><img src="/popscan/assets/popscan-icon-512.png" alt=""> PopScan Admin</h1>
 
-  <section id="login">
-    <h2>ログイン</h2>
-    <label for="token">Admin Token</label>
-    <input type="password" id="token" autocomplete="current-password">
-    <div style="margin-top: 0.5rem;">
-      <button id="loginBtn">ログイン</button>
-    </div>
-    <div id="loginStatus" class="status" hidden></div>
-  </section>
-
-  <section id="app" hidden>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <span class="muted">ログイン中</span>
-      <button id="logoutBtn">ログアウト</button>
-    </div>
-
+  <section id="app">
     <h2>Promo Flag</h2>
     <p>現在の状態: <span id="promoState" class="promo-state">―</span></p>
     <p id="promoDesc" class="promo-desc"></p>

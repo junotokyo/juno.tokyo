@@ -16,11 +16,6 @@ function parseBody(req) {
   }
 }
 
-function authCheck(req) {
-  const token = req.headers['x-admin-token'];
-  return token && token === process.env.POPSCAN_ADMIN_TOKEN;
-}
-
 async function listAllPromoCodeKeys() {
   const keys = [];
   let cursor = '0';
@@ -35,10 +30,7 @@ async function listAllPromoCodeKeys() {
 export default async function handler(req, res) {
   setHeaders(res, JSON_HEADERS);
 
-  if (!authCheck(req)) {
-    res.status(401).send(JSON.stringify({ error: 'Unauthorized' }));
-    return;
-  }
+  // 認証は middleware.js の Basic 認証で完結。
 
   if (req.method === 'GET') {
     try {

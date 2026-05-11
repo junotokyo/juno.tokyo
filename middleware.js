@@ -1,9 +1,17 @@
-// Vercel Edge Middleware: /popscan/admin/* に Basic 認証をかける
-// 認証成功 → そのまま popscan/admin/index.html を配信
+// Vercel Edge Middleware: PopScan 管理系（admin 画面 + 管理 API）に Basic 認証をかける
+// 認証成功 → そのまま該当ルートを配信
 // 認証失敗 → 401 + WWW-Authenticate (ブラウザ標準のログインダイアログを表示)
+//
+// admin 画面と管理 API は同一 origin・同一 realm のため、ブラウザは admin 画面ログイン後に
+// /popscan/set-promo, /popscan/manage-promos へも Authorization ヘッダを自動 replay する。
 
 export const config = {
-  matcher: ['/popscan/admin', '/popscan/admin/(.*)'],
+  matcher: [
+    '/popscan/admin',
+    '/popscan/admin/(.*)',
+    '/popscan/set-promo',
+    '/popscan/manage-promos',
+  ],
 };
 
 export default function middleware(request) {

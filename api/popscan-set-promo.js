@@ -6,12 +6,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const token = req.headers['x-admin-token'];
-  if (!token || token !== process.env.POPSCAN_ADMIN_TOKEN) {
-    res.status(401).send('Unauthorized');
-    return;
-  }
-
+  // 認証は middleware.js の Basic 認証で完結。
   // Accept body as raw string ("true"/"false"), JSON ({value}/string), or
   // form-urlencoded ({"true": ""} from `--data 'true'` without explicit content-type).
   let value;

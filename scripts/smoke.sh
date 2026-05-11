@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Vercel デプロイ後の smoke test
 # 使い方:
-#   POPSCAN_ADMIN_TOKEN=xxx ./scripts/smoke.sh https://juno.tokyo
-#   POPSCAN_ADMIN_TOKEN=xxx ./scripts/smoke.sh https://juno-tokyo-xxx.vercel.app
+#   POPSCAN_BASIC_PASS=xxx ./scripts/smoke.sh https://juno.tokyo
+#   POPSCAN_BASIC_PASS=xxx ./scripts/smoke.sh https://juno-tokyo-xxx.vercel.app
+#
+# POPSCAN_BASIC_PASS は Vercel 環境変数 ADMIN_BASIC_PASS と同じ値。
 
 set -eu
 
@@ -12,11 +14,12 @@ if [[ $# -lt 1 ]]; then
 fi
 
 BASE="${1%/}"
-TOKEN="${POPSCAN_ADMIN_TOKEN:-}"
-if [[ -z "$TOKEN" ]]; then
-  echo "POPSCAN_ADMIN_TOKEN が未設定" >&2
+BASIC_PASS="${POPSCAN_BASIC_PASS:-}"
+if [[ -z "$BASIC_PASS" ]]; then
+  echo "POPSCAN_BASIC_PASS が未設定" >&2
   exit 1
 fi
+BASIC_AUTH="admin:$BASIC_PASS"
 
 CODE="SMK$RANDOM"
 EXPIRES="2099-12-31"
@@ -50,6 +53,10 @@ echo "  $H" | grep -qi 'www-authenticate.*basic' && ok "Basic 認証要求あり
 step "/popscan/admin (trailing slash なし) Basic 401 期待"
 S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/popscan/admin")
 assert_status "$S" "401" "/popscan/admin 401"
+
+step "/popscan/admin/ Basic 認証あり → 200 期待"
+S=$(curl -s -o /dev/null -w '%{http_code}' -u "$BASIC_AUTH" "$BASE/popscan/admin/")
+assert_status "$S" "200" "/popscan/admin/ 認証成功"
 
 # =========================================================
 # 2. /popscan/time
@@ -103,7 +110,7 @@ assert_status "$S" "405" "GET 拒否"
 # =========================================================
 
 step "/popscan/set-promo true"
-RES=$(curl -sS -X POST -H "x-admin-token: $TOKEN" -H 'content-type: text/plain' --data 'true' "$BASE/popscan/set-promo")
+RES=$(curl -sS -X POST -u "$BASIC_AUTH" -H 'content-type: text/plain' --data 'true' "$BASE/popscan/set-promo")
 echo "  $RES"
 echo "$RES" | grep -q '"promo":true' && ok "promo:true" || ng "promo:true 期待"
 
@@ -113,7 +120,7 @@ echo "  $RES"
 echo "$RES" | grep -q '"p":true' && ok "p=true 確認" || ng "p=true 期待"
 
 step "/popscan/set-promo false (元に戻す)"
-RES=$(curl -sS -X POST -H "x-admin-token: $TOKEN" --data 'false' "$BASE/popscan/set-promo")
+RES=$(curl -sS -X POST -u "$BASIC_AUTH" --data 'false' "$BASE/popscan/set-promo")
 echo "  $RES"
 echo "$RES" | grep -q '"promo":false' && ok "promo:false" || ng "promo:false 期待"
 
@@ -126,13 +133,13 @@ assert_status "$S" "401" "認証拒否"
 # =========================================================
 
 step "/popscan/manage-promos POST 追加 ($CODE)"
-RES=$(curl -sS -X POST -H "x-admin-token: $TOKEN" -H 'content-type: application/json' \
+RES=$(curl -sS -X POST -u "$BASIC_AUTH" -H 'content-type: application/json' \
   -d "{\"code\":\"$CODE\",\"expires\":\"$EXPIRES\",\"count\":2}" "$BASE/popscan/manage-promos")
 echo "  $RES"
 echo "$RES" | grep -q "\"code\":\"$CODE\"" && ok "$CODE 登録" || ng "$CODE 登録失敗"
 
 step "/popscan/manage-promos GET で $CODE 取得"
-RES=$(curl -sS -H "x-admin-token: $TOKEN" "$BASE/popscan/manage-promos")
+RES=$(curl -sS -u "$BASIC_AUTH" "$BASE/popscan/manage-promos")
 echo "  ($(echo "$RES" | wc -c | tr -d ' ') bytes)"
 echo "$RES" | grep -q "\"code\":\"$CODE\"" && ok "$CODE 一覧に存在" || ng "$CODE 一覧に無し"
 
@@ -152,7 +159,7 @@ echo "  $RES"
 echo "$RES" | grep -q '"success":false' && ok "redeem 失敗 (期待通り)" || ng "redeem は失敗するはず"
 
 step "/popscan/manage-promos DELETE $CODE"
-RES=$(curl -sS -X DELETE -H "x-admin-token: $TOKEN" -H 'content-type: application/json' \
+RES=$(curl -sS -X DELETE -u "$BASIC_AUTH" -H 'content-type: application/json' \
   -d "{\"code\":\"$CODE\"}" "$BASE/popscan/manage-promos")
 echo "  $RES"
 echo "$RES" | grep -q "\"deleted\":\"$CODE\"" && ok "削除" || ng "削除失敗"
