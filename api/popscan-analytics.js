@@ -1,4 +1,5 @@
 import { kv } from './_lib/kv.js';
+import { jstDateKey, jstHourKey } from './_lib/date.js';
 
 const CORS_HEADERS = {
   'Content-Type': 'application/json',
@@ -63,14 +64,6 @@ function isShortString(value) {
   return typeof value === 'string' && value.length > 0 && value.length <= META_MAX_LEN;
 }
 
-function dateKey(now) {
-  return now.toISOString().slice(0, 10);
-}
-
-function hourKey(now) {
-  return now.toISOString().slice(0, 13);
-}
-
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
     setHeaders(res, CORS_HEADERS);
@@ -112,7 +105,7 @@ export default async function handler(req, res) {
 
   try {
     const now = new Date();
-    const date = dateKey(now);
+    const date = jstDateKey(now);
 
     await kv.incr(`stats:${date}:${event}`);
     if (errorCode) {
@@ -121,7 +114,7 @@ export default async function handler(req, res) {
 
     if (ERROR_EVENTS.has(event) && errorCode) {
       const entry = {
-        ts_hour: hourKey(now),
+        ts_hour: jstHourKey(now),
         event,
         code: errorCode,
         app_version: appVersion,

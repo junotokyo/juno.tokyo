@@ -1,4 +1,5 @@
 import { kv } from './_lib/kv.js';
+import { jstDateKey } from './_lib/date.js';
 
 const CORS_HEADERS = {
   'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    const today = new Date().toISOString().slice(0, 10);
+    const today = jstDateKey();
     if (typeof data.expires !== 'string' || data.expires < today) {
       res.status(200).send(JSON.stringify({ success: false }));
       return;

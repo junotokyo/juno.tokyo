@@ -89,8 +89,8 @@ async function refreshPromoState() {
   }
 }
 
-function todayUTC() {
-  return new Date().toISOString().slice(0, 10);
+function todayJST() {
+  return new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
 }
 
 async function togglePromo() {
@@ -119,7 +119,7 @@ async function refreshCodes() {
   tbody.textContent = '';
   const codes = Array.isArray(res.data) ? res.data : [];
   codes.sort((a, b) => String(a.code).localeCompare(String(b.code)));
-  const today = todayUTC();
+  const today = todayJST();
   for (const c of codes) {
     const isExpired = typeof c.expires === 'string' && c.expires < today;
     const tr = document.createElement('tr');
