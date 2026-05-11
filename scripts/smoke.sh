@@ -44,6 +44,43 @@ RES=$(curl -sS -H 'x-popscan-purpose: quota_check' "$BASE/time")
 echo "  $RES"
 echo "$RES" | grep -q '"p"' && ok "p フィールドあり" || ng "p フィールドなし"
 
+step "/popscan/time (通常) — JT-19 namespace 整理後の新パス"
+RES=$(curl -sS "$BASE/popscan/time")
+echo "  $RES"
+echo "$RES" | grep -q '"iso8601"' && ok "popscan/time iso8601 あり" || ng "popscan/time iso8601 なし"
+
+step "/popscan/time (quota_check)"
+RES=$(curl -sS -H 'x-popscan-purpose: quota_check' "$BASE/popscan/time")
+echo "  $RES"
+echo "$RES" | grep -q '"p"' && ok "popscan/time p フィールドあり" || ng "popscan/time p フィールドなし"
+
+step "/popscan/analytics 正常系 (save_succeeded)"
+RES=$(curl -sS -X POST -H 'content-type: application/json' \
+  -d '{"event":"save_succeeded"}' "$BASE/popscan/analytics")
+echo "  $RES"
+echo "$RES" | grep -q '"ok":true' && ok "analytics 200 ok" || ng "analytics 200 失敗"
+
+step "/popscan/analytics error 系 (error_occurred + メタ)"
+RES=$(curl -sS -X POST -H 'content-type: application/json' \
+  -d '{"event":"error_occurred","error_code":"network.timeout","app_version":"1.0.0","build":"100","os_version":"18.4"}' \
+  "$BASE/popscan/analytics")
+echo "  $RES"
+echo "$RES" | grep -q '"ok":true' && ok "analytics error_occurred ok" || ng "analytics error_occurred 失敗"
+
+step "/popscan/analytics 不正 event (400 期待)"
+S=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
+  -d '{"event":"hack_attempt"}' "$BASE/popscan/analytics")
+assert_status "$S" "400" "不正 event reject"
+
+step "/popscan/analytics 不正 error_code (400 期待)"
+S=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
+  -d '{"event":"error_occurred","error_code":"x"}' "$BASE/popscan/analytics")
+assert_status "$S" "400" "不正 error_code reject"
+
+step "/popscan/analytics GET (405 期待)"
+S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/popscan/analytics")
+assert_status "$S" "405" "GET 拒否"
+
 step "/set-promo true"
 RES=$(curl -sS -X POST -H "x-admin-token: $TOKEN" -H 'content-type: text/plain' --data 'true' "$BASE/set-promo")
 echo "  $RES"
