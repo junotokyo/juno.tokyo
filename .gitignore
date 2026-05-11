@@ -1,2 +1,5 @@
 .DS_Store
 .envrc
+.vercel
+.env*.local
+node_modules/
