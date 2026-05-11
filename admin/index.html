@@ -8,7 +8,8 @@
   <style>
     :root { color-scheme: light dark; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
-    h1 { font-size: 1.5rem; margin-top: 0; }
+    h1 { font-size: 1.5rem; margin-top: 0; display: flex; align-items: center; gap: 0.6rem; }
+    h1 img { width: 40px; height: 40px; border-radius: 9px; }
     h2 { font-size: 1.1rem; margin-top: 2rem; border-top: 1px solid #888; padding-top: 1rem; }
     label { display: block; margin: 0.5rem 0 0.25rem; font-size: 0.9rem; }
     input[type="text"], input[type="password"], input[type="number"], input[type="date"] { padding: 0.4rem; font-size: 1rem; width: 100%; max-width: 320px; box-sizing: border-box; }
@@ -23,13 +24,17 @@
     .row-actions button { margin-left: 0.3rem; }
     .code-row { cursor: pointer; }
     .code-row:hover { background: rgba(128, 128, 128, 0.15); }
+    .code-row.expired td { color: #999; }
+    .code-row.expired .badge-expired { display: inline-block; margin-left: 0.4rem; padding: 0 0.4rem; border-radius: 3px; background: #c33; color: #fff; font-size: 0.75rem; }
     .form-mode { font-size: 0.85rem; color: #06c; margin: 0.25rem 0 0.5rem; }
+    .form-actions { display: flex; justify-content: space-between; align-items: center; max-width: 320px; margin-top: 0.5rem; }
+    .promo-desc { font-size: 0.9rem; color: #555; margin: 0.25rem 0 0.5rem; }
     #app[hidden], #login[hidden] { display: none; }
     .muted { color: #888; font-size: 0.85rem; }
   </style>
 </head>
 <body>
-  <h1>PopScan Admin</h1>
+  <h1><img src="/popscan/assets/popscan-icon-512.png" alt=""> PopScan Admin</h1>
 
   <section id="login">
     <h2>ログイン</h2>
@@ -49,6 +54,7 @@
 
     <h2>Promo Flag</h2>
     <p>現在の状態: <span id="promoState" class="promo-state">―</span></p>
+    <p id="promoDesc" class="promo-desc"></p>
     <button id="promoToggle">切替</button>
     <div id="promoStatus" class="status" hidden></div>
 
@@ -68,9 +74,9 @@
     <input type="date" id="newExpires">
     <label for="newCount">Count</label>
     <input type="number" id="newCount" min="0" step="1" value="1">
-    <div style="margin-top: 0.5rem;">
-      <button id="addBtn">登録</button>
+    <div class="form-actions">
       <button id="clearBtn" type="button">クリア</button>
+      <button id="addBtn">登録</button>
     </div>
     <div id="codeStatus" class="status" hidden></div>
   </section>

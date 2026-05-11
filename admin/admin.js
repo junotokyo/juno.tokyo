@@ -81,9 +81,16 @@ async function refreshPromoState() {
     const flag = await fetchPromoFlag();
     $('promoState').textContent = flag ? 'ON' : 'OFF';
     $('promoState').dataset.value = String(flag);
+    $('promoDesc').textContent = flag
+      ? '無料プランユーザーがアプリを起動すると、自動で無制限プランに昇格します'
+      : '通常モード（無料プランユーザーは無料プランのままです）';
   } catch (e) {
     showStatus($('promoStatus'), 'Promo flag 取得失敗: ' + e.message, 'error');
   }
+}
+
+function todayUTC() {
+  return new Date().toISOString().slice(0, 10);
 }
 
 async function togglePromo() {
@@ -112,15 +119,23 @@ async function refreshCodes() {
   tbody.textContent = '';
   const codes = Array.isArray(res.data) ? res.data : [];
   codes.sort((a, b) => String(a.code).localeCompare(String(b.code)));
+  const today = todayUTC();
   for (const c of codes) {
+    const isExpired = typeof c.expires === 'string' && c.expires < today;
     const tr = document.createElement('tr');
-    tr.className = 'code-row';
+    tr.className = 'code-row' + (isExpired ? ' expired' : '');
     tr.title = 'クリックで下のフォームへ読み込み';
     tr.addEventListener('click', () => loadIntoForm(c));
     const tdCode = document.createElement('td');
     tdCode.textContent = c.code;
     const tdExpires = document.createElement('td');
     tdExpires.textContent = c.expires || '';
+    if (isExpired) {
+      const badge = document.createElement('span');
+      badge.className = 'badge-expired';
+      badge.textContent = '期限切れ';
+      tdExpires.append(badge);
+    }
     const tdCount = document.createElement('td');
     tdCount.textContent = String(c.count ?? '');
     const tdActions = document.createElement('td');
