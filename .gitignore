@@ -2,3 +2,4 @@
 .envrc
 .vercel
 .env*.local
+node_modules/
