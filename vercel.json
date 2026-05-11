@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/time", "destination": "/api/time" },
+    { "source": "/set-promo", "destination": "/api/set-promo" },
+    { "source": "/redeem-promo", "destination": "/api/redeem-promo" },
+    { "source": "/manage-promos", "destination": "/api/manage-promos" }
+  ],
+  "headers": [
+    {
+      "source": "/admin/:path*",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ]
+}

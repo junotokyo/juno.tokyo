@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>PopScan Admin</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    h1 { font-size: 1.5rem; margin-top: 0; }
+    h2 { font-size: 1.1rem; margin-top: 2rem; border-top: 1px solid #888; padding-top: 1rem; }
+    label { display: block; margin: 0.5rem 0 0.25rem; font-size: 0.9rem; }
+    input[type="text"], input[type="password"], input[type="number"], input[type="date"] { padding: 0.4rem; font-size: 1rem; width: 100%; max-width: 320px; box-sizing: border-box; }
+    button { padding: 0.5rem 0.9rem; font-size: 0.95rem; cursor: pointer; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    table { border-collapse: collapse; margin-top: 0.5rem; width: 100%; }
+    th, td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid #ccc; font-size: 0.95rem; }
+    .status { margin: 0.5rem 0; padding: 0.5rem; border-radius: 4px; font-size: 0.9rem; }
+    .status.error { background: #fee; color: #900; }
+    .status.ok { background: #efe; color: #060; }
+    .promo-state { font-weight: bold; font-size: 1.2rem; }
+    .row-actions button { margin-left: 0.3rem; }
+    #app[hidden], #login[hidden] { display: none; }
+    .muted { color: #888; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>PopScan Admin</h1>
+
+  <section id="login">
+    <h2>ログイン</h2>
+    <label for="token">Admin Token</label>
+    <input type="password" id="token" autocomplete="current-password">
+    <div style="margin-top: 0.5rem;">
+      <button id="loginBtn">ログイン</button>
+    </div>
+    <div id="loginStatus" class="status" hidden></div>
+  </section>
+
+  <section id="app" hidden>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <span class="muted">ログイン中</span>
+      <button id="logoutBtn">ログアウト</button>
+    </div>
+
+    <h2>Promo Flag</h2>
+    <p>現在の状態: <span id="promoState" class="promo-state">―</span></p>
+    <button id="promoToggle">切替</button>
+    <div id="promoStatus" class="status" hidden></div>
+
+    <h2>Promo Codes</h2>
+    <table id="codeTable">
+      <thead><tr><th>Code</th><th>Expires</th><th>Count</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p class="muted" id="codeEmpty" hidden>登録済みコードはありません</p>
+
+    <h2>追加・更新</h2>
+    <label for="newCode">Code (1-8 英数字)</label>
+    <input type="text" id="newCode" maxlength="8" autocapitalize="characters">
+    <label for="newExpires">Expires</label>
+    <input type="date" id="newExpires">
+    <label for="newCount">Count</label>
+    <input type="number" id="newCount" min="0" step="1" value="1">
+    <div style="margin-top: 0.5rem;">
+      <button id="addBtn">登録</button>
+    </div>
+    <div id="codeStatus" class="status" hidden></div>
+  </section>
+
+  <script src="./admin.js" type="module"></script>
+</body>
+</html>
