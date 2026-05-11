@@ -1,6 +1,4 @@
 .envrc
 .DS_Store
-netlify/
-netlify.toml
 scripts/
 AGENTS.md

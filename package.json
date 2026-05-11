@@ -2,8 +2,5 @@
   "type": "module",
   "dependencies": {
     "@upstash/redis": "^1.34.0"
-  },
-  "devDependencies": {
-    "@netlify/blobs": "^8.1.0"
   }
 }
