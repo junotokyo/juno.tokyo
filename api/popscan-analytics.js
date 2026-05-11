@@ -12,6 +12,7 @@ const ALLOWED_EVENTS = new Set([
   'save_failed',
   'paywall_shown',
   'purchase_succeeded',
+  'promo_redeemed',
   'error_occurred',
 ]);
 
