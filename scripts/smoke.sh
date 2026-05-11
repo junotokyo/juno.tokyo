@@ -107,13 +107,16 @@ step "/popscan/ (200 期待)"
 S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/popscan/")
 assert_status "$S" "200" "/popscan/ 200"
 
-step "/admin/ (200 期待)"
+step "/admin/ (Basic Auth により 401 期待)"
 S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/admin/")
-assert_status "$S" "200" "/admin/ 200"
+assert_status "$S" "401" "/admin/ 401"
 
-step "/admin/ X-Robots-Tag noindex 確認"
+step "/admin/ X-Robots-Tag noindex 確認 (401 レスポンスにも付く)"
 H=$(curl -s -I "$BASE/admin/" | tr -d '\r')
 echo "  $H" | grep -qi 'x-robots-tag.*noindex' && ok "noindex あり" || ng "noindex なし"
+
+step "/admin/ WWW-Authenticate Basic ヘッダ確認"
+echo "  $H" | grep -qi 'www-authenticate.*basic' && ok "Basic 認証要求あり" || ng "WWW-Authenticate なし"
 
 echo ""
 echo "═══════════════════════════════════════"
