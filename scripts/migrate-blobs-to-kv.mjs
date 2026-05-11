@@ -18,7 +18,12 @@
 //   - 再実行可能 (idempotent)
 
 import { getStore } from '@netlify/blobs';
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
+
+const kv = new Redis({
+  url: process.env.KV_REST_API_URL,
+  token: process.env.KV_REST_API_TOKEN,
+});
 
 const STORE = {
   name: 'popscan-config',

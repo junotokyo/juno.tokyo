@@ -1,6 +1,9 @@
 {
   "type": "module",
   "dependencies": {
-    "@vercel/kv": "^3.0.0"
+    "@upstash/redis": "^1.34.0"
+  },
+  "devDependencies": {
+    "@netlify/blobs": "^8.1.0"
   }
 }
