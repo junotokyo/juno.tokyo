@@ -45,7 +45,7 @@ echo "  $RES"
 echo "$RES" | grep -q '"p"' && ok "p フィールドあり" || ng "p フィールドなし"
 
 step "/set-promo true"
-RES=$(curl -sS -X POST -H "x-admin-token: $TOKEN" --data 'true' "$BASE/set-promo")
+RES=$(curl -sS -X POST -H "x-admin-token: $TOKEN" -H 'content-type: text/plain' --data 'true' "$BASE/set-promo")
 echo "  $RES"
 echo "$RES" | grep -q '"promo":true' && ok "promo:true" || ng "promo:true 期待"
 

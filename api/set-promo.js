@@ -12,8 +12,21 @@ export default async function handler(req, res) {
     return;
   }
 
-  const raw = typeof req.body === 'string' ? req.body : (req.body == null ? '' : String(req.body));
-  const value = raw.trim();
+  // Accept body as raw string ("true"/"false"), JSON ({value}/string), or
+  // form-urlencoded ({"true": ""} from `--data 'true'` without explicit content-type).
+  let value;
+  const b = req.body;
+  if (typeof b === 'string') {
+    value = b.trim();
+  } else if (b && typeof b === 'object') {
+    if (typeof b.value === 'string') value = b.value.trim();
+    else if (Object.prototype.hasOwnProperty.call(b, 'true')) value = 'true';
+    else if (Object.prototype.hasOwnProperty.call(b, 'false')) value = 'false';
+    else value = '';
+  } else {
+    value = '';
+  }
+
   if (value !== 'true' && value !== 'false') {
     res.status(400).send('Body must be "true" or "false"');
     return;
