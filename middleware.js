@@ -9,6 +9,8 @@ export const config = {
   matcher: [
     '/popscan/admin',
     '/popscan/admin/(.*)',
+    '/popscan/admin-stats',
+    '/popscan/admin-error-log',
     '/popscan/set-promo',
     '/popscan/manage-promos',
   ],

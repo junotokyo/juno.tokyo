@@ -7,7 +7,7 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
 };
 
-const ALLOWED_EVENTS = new Set([
+export const ALLOWED_EVENTS = new Set([
   'launch',
   'save_succeeded',
   'save_failed',
@@ -17,9 +17,9 @@ const ALLOWED_EVENTS = new Set([
   'error_occurred',
 ]);
 
-const ERROR_EVENTS = new Set(['save_failed', 'error_occurred']);
+export const ERROR_EVENTS = new Set(['save_failed', 'error_occurred']);
 
-const ALLOWED_ERROR_CODES = new Set([
+export const ALLOWED_ERROR_CODES = new Set([
   'network.timeout',
   'network.offline',
   'network.server_error',

@@ -58,6 +58,38 @@ step "/popscan/admin/ Basic 認証あり → 200 期待"
 S=$(curl -s -o /dev/null -w '%{http_code}' -u "$BASIC_AUTH" "$BASE/popscan/admin/")
 assert_status "$S" "200" "/popscan/admin/ 認証成功"
 
+step "/popscan/admin/stats/ Basic 401 期待"
+S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/popscan/admin/stats/")
+assert_status "$S" "401" "/popscan/admin/stats/ 401"
+
+step "/popscan/admin/stats/ Basic 認証あり → 200 期待"
+S=$(curl -s -o /dev/null -w '%{http_code}' -u "$BASIC_AUTH" "$BASE/popscan/admin/stats/")
+assert_status "$S" "200" "/popscan/admin/stats/ 認証成功"
+
+step "/popscan/admin-stats 認証なし (401 期待)"
+S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/popscan/admin-stats")
+assert_status "$S" "401" "/popscan/admin-stats 401"
+
+step "/popscan/admin-stats?days=7 認証あり → 200 + JSON 妥当"
+RES=$(curl -sS -u "$BASIC_AUTH" "$BASE/popscan/admin-stats?days=7")
+echo "  ($(echo "$RES" | wc -c | tr -d ' ') bytes)"
+echo "$RES" | grep -q '"days"' && ok "days フィールドあり" || ng "days フィールド無し"
+echo "$RES" | grep -q '"launch"' && ok "events.launch あり" || ng "events.launch 無し"
+echo "$RES" | grep -q '"errorsByCode"' && ok "errorsByCode あり" || ng "errorsByCode 無し"
+
+step "/popscan/admin-stats?days=999 → clamp 30 (200 期待)"
+S=$(curl -s -o /dev/null -w '%{http_code}' -u "$BASIC_AUTH" "$BASE/popscan/admin-stats?days=999")
+assert_status "$S" "200" "/popscan/admin-stats clamp"
+
+step "/popscan/admin-error-log 認証なし (401 期待)"
+S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/popscan/admin-error-log")
+assert_status "$S" "401" "/popscan/admin-error-log 401"
+
+step "/popscan/admin-error-log?days=3 認証あり → 200 + JSON 妥当"
+RES=$(curl -sS -u "$BASIC_AUTH" "$BASE/popscan/admin-error-log?days=3")
+echo "  ($(echo "$RES" | wc -c | tr -d ' ') bytes)"
+echo "$RES" | grep -q '"entries"' && ok "entries フィールドあり" || ng "entries フィールド無し"
+
 # =========================================================
 # 2. /popscan/time
 # =========================================================

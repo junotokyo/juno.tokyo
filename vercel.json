@@ -5,7 +5,9 @@
     { "source": "/popscan/analytics", "destination": "/api/popscan-analytics" },
     { "source": "/popscan/set-promo", "destination": "/api/popscan-set-promo" },
     { "source": "/popscan/redeem-promo", "destination": "/api/popscan-redeem-promo" },
-    { "source": "/popscan/manage-promos", "destination": "/api/popscan-manage-promos" }
+    { "source": "/popscan/manage-promos", "destination": "/api/popscan-manage-promos" },
+    { "source": "/popscan/admin-stats", "destination": "/api/popscan-admin-stats" },
+    { "source": "/popscan/admin-error-log", "destination": "/api/popscan-admin-error-log" }
   ],
   "headers": [
     {

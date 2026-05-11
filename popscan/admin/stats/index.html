@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>PopScan Admin · Stats</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem; line-height: 1.5; }
+    h1 { font-size: 1.4rem; margin-top: 0; display: flex; align-items: center; gap: 0.6rem; }
+    h1 img { width: 36px; height: 36px; border-radius: 9px; }
+    h2 { font-size: 1.05rem; margin-top: 2rem; border-top: 1px solid #888; padding-top: 0.8rem; }
+    .nav { font-size: 0.9rem; margin-bottom: 1rem; }
+    .nav a { color: #06c; text-decoration: none; }
+    .nav a:hover { text-decoration: underline; }
+    .controls { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: 0.5rem 0; padding: 0.75rem; background: rgba(128,128,128,0.08); border-radius: 6px; }
+    .controls label { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.9rem; cursor: pointer; }
+    .controls input[type="radio"] { margin: 0; }
+    button { padding: 0.45rem 0.9rem; font-size: 0.9rem; cursor: pointer; border-radius: 4px; border: 1px solid #888; background: #fff; }
+    button:hover:not(:disabled) { background: #eee; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+    .kpi { padding: 0.7rem 0.9rem; border: 1px solid #ccc; border-radius: 6px; background: rgba(128,128,128,0.04); }
+    .kpi .label { font-size: 0.78rem; color: #666; text-transform: uppercase; letter-spacing: 0.04em; }
+    .kpi .value { font-size: 1.7rem; font-weight: 600; line-height: 1.1; margin-top: 0.2rem; }
+    .kpi.err .value { color: #c33; }
+    .chart-wrap { position: relative; height: 320px; margin-top: 0.5rem; }
+    table { border-collapse: collapse; margin-top: 0.5rem; width: 100%; font-size: 0.85rem; }
+    th, td { text-align: left; padding: 0.35rem 0.5rem; border-bottom: 1px solid #ccc; }
+    th { background: rgba(128,128,128,0.08); position: sticky; top: 0; }
+    .table-wrap { max-height: 480px; overflow-y: auto; border: 1px solid #ccc; border-radius: 4px; margin-top: 0.5rem; }
+    .filter-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .filter-row input[type="text"] { padding: 0.35rem 0.5rem; font-size: 0.9rem; border: 1px solid #aaa; border-radius: 4px; min-width: 160px; }
+    .muted { color: #888; font-size: 0.85rem; }
+    .status { margin: 0.5rem 0; padding: 0.5rem; border-radius: 4px; font-size: 0.9rem; }
+    .status.error { background: #fee; color: #900; }
+    .status.ok { background: #efe; color: #060; }
+    .meta { font-size: 0.8rem; color: #888; margin-top: 0.3rem; }
+  </style>
+</head>
+<body>
+  <h1><img src="/popscan/assets/popscan-icon-512.png" alt=""> PopScan Admin · Stats</h1>
+  <nav class="nav">📋 <a href="/popscan/admin/">Promo 管理に戻る</a></nav>
+
+  <section>
+    <h2>期間</h2>
+    <div class="controls">
+      <label><input type="radio" name="days" value="7"> 直近 7日</label>
+      <label><input type="radio" name="days" value="14" checked> 直近 14日</label>
+      <label><input type="radio" name="days" value="30"> 直近 30日</label>
+      <button id="refreshBtn">🔄 更新</button>
+      <span id="lastUpdated" class="muted"></span>
+    </div>
+    <div id="statsStatus" class="status" hidden></div>
+  </section>
+
+  <section>
+    <h2>イベント合計</h2>
+    <div id="kpiGrid" class="kpi-grid"></div>
+  </section>
+
+  <section>
+    <h2>イベント別 日次推移</h2>
+    <p class="muted">凡例をクリックで系列の表示／非表示を切り替え</p>
+    <div class="chart-wrap"><canvas id="chartEvents"></canvas></div>
+  </section>
+
+  <section>
+    <h2>エラー合計 日次推移</h2>
+    <p class="muted"><code>save_failed</code> + <code>error_occurred</code> の合算</p>
+    <div class="chart-wrap"><canvas id="chartErrorTotal"></canvas></div>
+  </section>
+
+  <section>
+    <h2>エラー種別ごとの日次推移</h2>
+    <p class="muted">期間内に発生した <code>error_code</code> のみ表示。凡例クリックで切替</p>
+    <div class="chart-wrap"><canvas id="chartErrorByCode"></canvas></div>
+  </section>
+
+  <section>
+    <h2>エラーログ詳細</h2>
+    <div class="controls">
+      <label><input type="radio" name="logDays" value="1"> 直近 1日</label>
+      <label><input type="radio" name="logDays" value="3" checked> 直近 3日</label>
+      <label><input type="radio" name="logDays" value="7"> 直近 7日</label>
+      <button id="refreshLogBtn">🔄 更新</button>
+      <span id="logCount" class="muted"></span>
+    </div>
+    <div class="filter-row">
+      <input type="text" id="filterEvent" placeholder="event でフィルタ (部分一致)">
+      <input type="text" id="filterCode" placeholder="error_code でフィルタ">
+      <input type="text" id="filterVersion" placeholder="app_version / os_version">
+    </div>
+    <div id="logStatus" class="status" hidden></div>
+    <div class="table-wrap">
+      <table id="logTable">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>時刻 (JST)</th>
+            <th>event</th>
+            <th>error_code</th>
+            <th>app</th>
+            <th>build</th>
+            <th>os</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="muted">※ 1日あたり最大 100 件・7日 TTL（<code>error_log:YYYY-MM-DD</code> Redis List）</p>
+  </section>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"
+    integrity="sha384-Sse/HDqcypGpyTDpvZOJNnG0TT3feGQUkF9H+mnRvic+LjR+K1NhTt8f51KIQ3v3"
+    crossorigin="anonymous"></script>
+  <script src="./stats.js" type="module"></script>
+</body>
+</html>
