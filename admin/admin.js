@@ -114,6 +114,9 @@ async function refreshCodes() {
   codes.sort((a, b) => String(a.code).localeCompare(String(b.code)));
   for (const c of codes) {
     const tr = document.createElement('tr');
+    tr.className = 'code-row';
+    tr.title = 'クリックで下のフォームへ読み込み';
+    tr.addEventListener('click', () => loadIntoForm(c));
     const tdCode = document.createElement('td');
     tdCode.textContent = c.code;
     const tdExpires = document.createElement('td');
@@ -124,13 +127,31 @@ async function refreshCodes() {
     tdActions.className = 'row-actions';
     const del = document.createElement('button');
     del.textContent = '削除';
-    del.addEventListener('click', () => deleteCode(c.code));
+    del.addEventListener('click', (e) => { e.stopPropagation(); deleteCode(c.code); });
     tdActions.append(del);
     tr.append(tdCode, tdExpires, tdCount, tdActions);
     tbody.append(tr);
   }
   $('codeEmpty').hidden = codes.length > 0;
   $('codeTable').hidden = codes.length === 0;
+}
+
+function loadIntoForm(c) {
+  $('newCode').value = c.code || '';
+  $('newExpires').value = c.expires || '';
+  $('newCount').value = String(c.count ?? '');
+  clearStatus($('codeStatus'));
+  $('formMode').textContent = `編集中: ${c.code}（同じコードで「登録」を押すと上書きされます）`;
+  $('formMode').hidden = false;
+  $('newExpires').focus();
+}
+
+function clearForm() {
+  $('newCode').value = '';
+  $('newExpires').value = '';
+  $('newCount').value = '1';
+  $('formMode').hidden = true;
+  clearStatus($('codeStatus'));
 }
 
 async function addCode() {
@@ -157,7 +178,7 @@ async function addCode() {
     showStatus($('codeStatus'), `登録失敗 (${res.status}) ${res.data?.error || ''}`, 'error');
     return;
   }
-  $('newCode').value = '';
+  clearForm();
   showStatus($('codeStatus'), `${code} を登録`, 'ok');
   await refreshCodes();
 }
@@ -182,6 +203,7 @@ function init() {
   $('logoutBtn').addEventListener('click', logout);
   $('promoToggle').addEventListener('click', togglePromo);
   $('addBtn').addEventListener('click', addCode);
+  $('clearBtn').addEventListener('click', clearForm);
   $('token').addEventListener('keydown', (e) => { if (e.key === 'Enter') login(); });
 
   if (getToken()) {

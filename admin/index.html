@@ -21,6 +21,9 @@
     .status.ok { background: #efe; color: #060; }
     .promo-state { font-weight: bold; font-size: 1.2rem; }
     .row-actions button { margin-left: 0.3rem; }
+    .code-row { cursor: pointer; }
+    .code-row:hover { background: rgba(128, 128, 128, 0.15); }
+    .form-mode { font-size: 0.85rem; color: #06c; margin: 0.25rem 0 0.5rem; }
     #app[hidden], #login[hidden] { display: none; }
     .muted { color: #888; font-size: 0.85rem; }
   </style>
@@ -57,6 +60,8 @@
     <p class="muted" id="codeEmpty" hidden>登録済みコードはありません</p>
 
     <h2>追加・更新</h2>
+    <p class="muted">既存コードの行をクリックすると下のフォームに読み込まれます。同じ Code で「登録」を押すと上書き更新になります。</p>
+    <div id="formMode" class="form-mode" hidden></div>
     <label for="newCode">Code (1-8 英数字)</label>
     <input type="text" id="newCode" maxlength="8" autocapitalize="characters">
     <label for="newExpires">Expires</label>
@@ -65,6 +70,7 @@
     <input type="number" id="newCount" min="0" step="1" value="1">
     <div style="margin-top: 0.5rem;">
       <button id="addBtn">登録</button>
+      <button id="clearBtn" type="button">クリア</button>
     </div>
     <div id="codeStatus" class="status" hidden></div>
   </section>
