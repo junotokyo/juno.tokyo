@@ -41,7 +41,7 @@ async function api(path, { method = 'GET', body, contentType } = {}) {
 }
 
 async function fetchPromoFlag() {
-  const res = await fetch('/time', { headers: { 'x-popscan-purpose': 'quota_check' } });
+  const res = await fetch('/popscan/time', { headers: { 'x-popscan-purpose': 'quota_check' } });
   const data = await res.json();
   return Boolean(data.p);
 }
@@ -53,7 +53,7 @@ async function login() {
     return;
   }
   setToken(token);
-  const res = await api('/manage-promos');
+  const res = await api('/popscan/manage-promos');
   if (res.status === 401) {
     clearToken();
     showStatus($('loginStatus'), '認証失敗', 'error');
@@ -99,7 +99,7 @@ async function togglePromo() {
   const value = next ? 'true' : 'false';
   $('promoToggle').disabled = true;
   clearStatus($('promoStatus'));
-  const res = await api('/set-promo', { method: 'POST', body: value, contentType: 'text/plain' });
+  const res = await api('/popscan/set-promo', { method: 'POST', body: value, contentType: 'text/plain' });
   $('promoToggle').disabled = false;
   if (!res.ok) {
     showStatus($('promoStatus'), `切替失敗 (${res.status})`, 'error');
@@ -110,7 +110,7 @@ async function togglePromo() {
 }
 
 async function refreshCodes() {
-  const res = await api('/manage-promos');
+  const res = await api('/popscan/manage-promos');
   if (!res.ok) {
     showStatus($('codeStatus'), `一覧取得失敗 (${res.status})`, 'error');
     return;
@@ -187,7 +187,7 @@ async function addCode() {
     return;
   }
   $('addBtn').disabled = true;
-  const res = await api('/manage-promos', { method: 'POST', body: { code, expires, count } });
+  const res = await api('/popscan/manage-promos', { method: 'POST', body: { code, expires, count } });
   $('addBtn').disabled = false;
   if (!res.ok) {
     showStatus($('codeStatus'), `登録失敗 (${res.status}) ${res.data?.error || ''}`, 'error');
@@ -200,7 +200,7 @@ async function addCode() {
 
 async function deleteCode(code) {
   if (!confirm(`${code} を削除しますか？`)) return;
-  const res = await api('/manage-promos', { method: 'DELETE', body: { code } });
+  const res = await api('/popscan/manage-promos', { method: 'DELETE', body: { code } });
   if (!res.ok) {
     showStatus($('codeStatus'), `削除失敗 (${res.status})`, 'error');
     return;
@@ -222,7 +222,7 @@ function init() {
   $('token').addEventListener('keydown', (e) => { if (e.key === 'Enter') login(); });
 
   if (getToken()) {
-    api('/manage-promos').then((res) => {
+    api('/popscan/manage-promos').then((res) => {
       if (res.ok) {
         $('login').hidden = true;
         $('app').hidden = false;

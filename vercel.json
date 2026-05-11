@@ -1,22 +1,21 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/time", "destination": "/api/time" },
     { "source": "/popscan/time", "destination": "/api/popscan-time" },
     { "source": "/popscan/analytics", "destination": "/api/popscan-analytics" },
-    { "source": "/set-promo", "destination": "/api/set-promo" },
-    { "source": "/redeem-promo", "destination": "/api/redeem-promo" },
-    { "source": "/manage-promos", "destination": "/api/manage-promos" }
+    { "source": "/popscan/set-promo", "destination": "/api/popscan-set-promo" },
+    { "source": "/popscan/redeem-promo", "destination": "/api/popscan-redeem-promo" },
+    { "source": "/popscan/manage-promos", "destination": "/api/popscan-manage-promos" }
   ],
   "headers": [
     {
-      "source": "/admin",
+      "source": "/popscan/admin",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
     },
     {
-      "source": "/admin/(.*)",
+      "source": "/popscan/admin/(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]

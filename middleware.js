@@ -1,9 +1,9 @@
-// Vercel Edge Middleware: /admin/* に Basic 認証をかける
-// 認証成功 → そのまま admin/index.html を配信
+// Vercel Edge Middleware: /popscan/admin/* に Basic 認証をかける
+// 認証成功 → そのまま popscan/admin/index.html を配信
 // 認証失敗 → 401 + WWW-Authenticate (ブラウザ標準のログインダイアログを表示)
 
 export const config = {
-  matcher: ['/admin', '/admin/(.*)'],
+  matcher: ['/popscan/admin', '/popscan/admin/(.*)'],
 };
 
 export default function middleware(request) {
