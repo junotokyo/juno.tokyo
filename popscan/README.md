@@ -11,7 +11,6 @@ Upload these files to the `popscan` directory on the web server:
 - `assets/popscan-icon-512.png`
 - `assets/app-store-badge-jp.svg`
 - `assets/cafe-open-flyer.png`
-- `assets/cafe-open-flyer-v2.svg`
 - `assets/saved-cafe-doc.svg`
 - `assets/popscan-screen-composite.png`
 - `assets/popscan-iphone17-orange.png`
@@ -31,7 +30,7 @@ Codex内ブラウザで index.html を開いて表示確認して
 Codex should open:
 
 ```text
-file:///Users/jokamoto/Library/CloudStorage/Dropbox/Codex/PopScan/index.html
+file:///Users/jokamoto/Library/CloudStorage/Dropbox/Projects/Web/juno.tokyo/popscan/index.html
 ```
 
 After design changes, ask Codex to reload the page and check the desktop/mobile layout with screenshots.
