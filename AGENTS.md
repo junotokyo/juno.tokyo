@@ -100,3 +100,17 @@ Be careful not to remove mail DNS records when changing hosting.
 - Preserve `/popscan/` as the public PopScan URL.
 - Avoid changing DNS or mail assumptions without confirming current records first.
 - Do not commit `.DS_Store`; it is ignored by `.gitignore`.
+
+## Analytics (Vercel Web Analytics)
+
+Vercel Web Analytics is enabled on the `juno-tokyo` Vercel project. Tracking is opt-in per HTML page via a script tag:
+
+```html
+<script defer src="/_vercel/insights/script.js"></script>
+```
+
+- Add this tag to the `<head>` of any **public** page you want to count.
+- Do **not** add it to admin / internal pages (e.g. `/popscan/admin/`, `/popscan/admin/stats/`) — they are `noindex` and tracking them would pollute LP metrics.
+- For static multi-page sites (current pattern), the script tag is sufficient — full-page navigations are recorded by Vercel's CDN-served script.
+- For a future SPA or framework app (React / Next / Vue with client-side routing) added under the same Vercel project, switch *that* app to the `@vercel/analytics` npm package + framework component (`<Analytics/>`) so client-side route changes are also counted. Mixing the two approaches in one Vercel project is supported; events land in the same dashboard.
+- Hobby tier free quota: 2,500 events / month. Watch the dashboard if traffic grows.
