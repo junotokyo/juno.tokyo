@@ -49,7 +49,7 @@ test('aggregateStats_basic — launch counts daily and total', () => {
     days,
     events: ['launch'],
     codes: [],
-    errorEvents: ['save_failed', 'error_occurred'],
+    errorEvents: ['error_occurred'],
     kvLookup,
   });
   assert.deepEqual(result.events.launch.daily, [30, 20, 10]);
@@ -89,23 +89,22 @@ test('aggregateStats_stringNumbers — Upstash returns "42" string', () => {
   assert.deepEqual(result.events.launch.daily, [42]);
 });
 
-test('aggregateStats_errorByCode — sums across error events and days', () => {
+test('aggregateStats_errorByCode — sums error_occurred:<code> across days', () => {
   const days = ['2026-05-12', '2026-05-11', '2026-05-10'];
   const kvLookup = new Map([
-    ['stats:2026-05-12:save_failed:photos.write_failed', 1],
-    ['stats:2026-05-11:save_failed:photos.write_failed', 2],
-    ['stats:2026-05-10:save_failed:photos.write_failed', 3],
-    ['stats:2026-05-12:error_occurred:photos.write_failed', 10],
+    ['stats:2026-05-12:error_occurred:photos.write_failed', 1],
+    ['stats:2026-05-11:error_occurred:photos.write_failed', 2],
+    ['stats:2026-05-10:error_occurred:photos.write_failed', 3],
   ]);
   const result = aggregateStats({
     days,
     events: [],
     codes: ['photos.write_failed', 'network.timeout'],
-    errorEvents: ['save_failed', 'error_occurred'],
+    errorEvents: ['error_occurred'],
     kvLookup,
   });
-  assert.equal(result.errorsByCode['photos.write_failed'].total, 16);
-  assert.deepEqual(result.errorsByCode['photos.write_failed'].daily, [11, 2, 3]);
+  assert.equal(result.errorsByCode['photos.write_failed'].total, 6);
+  assert.deepEqual(result.errorsByCode['photos.write_failed'].daily, [1, 2, 3]);
   // network.timeout has no data → omitted
   assert.equal(result.errorsByCode['network.timeout'], undefined);
 });
@@ -116,7 +115,7 @@ test('aggregateStats_zeroCodes_excluded — codes with total=0 omitted', () => {
     days,
     events: [],
     codes: ['unknown', 'network.timeout'],
-    errorEvents: ['save_failed', 'error_occurred'],
+    errorEvents: ['error_occurred'],
     kvLookup: new Map(),
   });
   assert.deepEqual(result.errorsByCode, {});
@@ -125,13 +124,13 @@ test('aggregateStats_zeroCodes_excluded — codes with total=0 omitted', () => {
 test('aggregateStats_unknownCodeInKv_ignored — kv keys not in code list are ignored', () => {
   const days = ['2026-05-12'];
   const kvLookup = new Map([
-    ['stats:2026-05-12:save_failed:rogue.code', 99],
+    ['stats:2026-05-12:error_occurred:rogue.code', 99],
   ]);
   const result = aggregateStats({
     days,
     events: [],
     codes: ['photos.write_failed'],
-    errorEvents: ['save_failed', 'error_occurred'],
+    errorEvents: ['error_occurred'],
     kvLookup,
   });
   // rogue.code is not iterated; lookup query never asks for it
@@ -169,7 +168,7 @@ test('mergeErrorLogs_order — newest day first, within-day LPUSH order preserve
       { ts_hour: '2026-05-12T10', event: 'error_occurred', code: 'b' },
     ],
     [
-      { ts_hour: '2026-05-11T20', event: 'save_failed', code: 'photos.write_failed' },
+      { ts_hour: '2026-05-11T20', event: 'error_occurred', code: 'photos.write_failed' },
     ],
   ];
   const merged = mergeErrorLogs({ days, perDayLists });

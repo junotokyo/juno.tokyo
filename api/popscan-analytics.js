@@ -10,14 +10,13 @@ const CORS_HEADERS = {
 export const ALLOWED_EVENTS = new Set([
   'launch',
   'save_succeeded',
-  'save_failed',
   'paywall_shown',
   'purchase_succeeded',
   'promo_redeemed',
   'error_occurred',
 ]);
 
-export const ERROR_EVENTS = new Set(['save_failed', 'error_occurred']);
+export const ERROR_EVENTS = new Set(['error_occurred']);
 
 export const ALLOWED_ERROR_CODES = new Set([
   'network.timeout',

@@ -15,7 +15,6 @@ const EVENT_COLORS = {
 const EVENT_LABELS_JA = {
   launch: 'アプリ起動',
   save_succeeded: '保存成功',
-  save_failed: '保存失敗',
   paywall_shown: '課金画面表示',
   purchase_succeeded: '購入成功',
   promo_redeemed: 'プロモ適用',
@@ -29,9 +28,9 @@ const KPI_ORDER_NORMAL = [
   'purchase_succeeded',
   'promo_redeemed',
 ];
-const KPI_ORDER_ERROR = ['error_occurred', 'save_failed'];
+const KPI_ORDER_ERROR = ['error_occurred'];
 
-const ERROR_KPI_KEYS = new Set(['save_failed', 'error_occurred']);
+const ERROR_KPI_KEYS = new Set(['error_occurred']);
 
 function eventLabel(evt) {
   return EVENT_LABELS_JA[evt] || evt;
@@ -134,16 +133,14 @@ function renderEventsChart(days, events) {
 }
 
 function renderErrorTotalChart(days, events) {
-  const savedFailed = events.save_failed?.daily ?? days.map(() => 0);
-  const errOcc = events.error_occurred?.daily ?? days.map(() => 0);
-  const totals = days.map((_, i) => savedFailed[i] + errOcc[i]);
+  const totals = events.error_occurred?.daily ?? days.map(() => 0);
   if (chartErrorTotal) chartErrorTotal.destroy();
   chartErrorTotal = new Chart($('chartErrorTotal').getContext('2d'), {
     type: 'line',
     data: {
       labels: days,
       datasets: [{
-        label: 'エラー合計',
+        label: 'エラー発生',
         data: totals,
         borderColor: '#dc2626',
         backgroundColor: 'rgba(220, 38, 38, 0.15)',
