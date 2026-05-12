@@ -62,16 +62,16 @@ const copy = {
     privacyEyebrow: "Privacy Policy",
     privacyTitleLine1: "プライバシー",
     privacyTitleLine2: "ポリシー",
-    lastUpdated: "最終更新日: 2026年5月3日",
+    lastUpdated: "最終更新日: 2026年5月12日",
     policySummaryTitle: "写真・画像データについて",
     policySummaryBody:
-      "PopScanで撮影・保存する写真、画像処理、解析結果は、端末内で処理されます。これらの画像データや解析結果をサーバーへ送信することはありません。",
+      "PopScanで撮影・保存する写真、画像処理、解析結果は、原則として端末内で処理されます。これらの画像データや解析結果を当社サーバーへ送信することはありません。",
     policyTimeTitle: "日時確認のための通信",
     policyTimeBody:
-      "利用枠の判定のため、オンライン時に日時確認サーバーへ通信する場合があります。この通信には、アプリ名、バージョン、ビルド番号など、確認に必要な最小限の情報のみを含みます。オフラインの場合でも、アプリは利用できます。",
+      "利用枠の判定を正確に行うため、オンライン時に juno.tokyo の日時確認用エンドポイントへ通信する場合があります。この通信には、アプリの種類、バージョン、ビルド番号など、動作確認に必要な最小限の情報が含まれる場合があります。オフラインの場合でも、アプリは引き続き利用できます。",
     policyDataTitle: "利用状況・診断情報",
     policyDataBody:
-      "アプリの品質改善のため、アプリの利用状況、エラー発生状況などの匿名の利用統計や診断情報を収集する場合があります。これらには、写真、画像の内容、ユーザー情報、広告識別子などのデータは含まれません。",
+      "アプリの品質改善のため、アプリ起動、機能利用、保存成功、エラー発生状況などの匿名の利用統計や診断情報を収集する場合があります。これらには、写真、画像の内容、解析結果、ユーザー登録情報、広告識別子は含まれません。",
     policyTrackingTitle: "トラッキングについて",
     policyTrackingBody:
       "PopScanは、第三者のトラッキングSDKを使用せず、ユーザーを他社のアプリやWebサイトをまたいで追跡することはありません。",
@@ -153,16 +153,16 @@ const copy = {
     privacyEyebrow: "Privacy Policy",
     privacyTitleLine1: "Privacy",
     privacyTitleLine2: "Policy",
-    lastUpdated: "Last updated: May 3, 2026",
+    lastUpdated: "Last updated: May 12, 2026",
     policySummaryTitle: "Photos and Image Data",
     policySummaryBody:
-      "Photos captured or saved in PopScan, image processing, and analysis results are processed on device. These photos, image contents, and analysis results are not sent to servers.",
+      "Photos captured or saved in PopScan, image processing, and analysis results are processed on device by default. These photos, image contents, and analysis results are not sent to our servers.",
     policyTimeTitle: "Time Check Communication",
     policyTimeBody:
-      "When network access is available, PopScan may contact a time-check server to evaluate local usage allowances. This request includes only the minimum information needed for the check, such as the app name, version, and build number. The app is usable offline if this request cannot be completed.",
+      "When network access is available, PopScan may contact a juno.tokyo time-check endpoint to accurately evaluate local usage allowances. This request may include the app type, version, build number, and other minimal information needed for operation. The app remains usable offline if this request cannot be completed.",
     policyDataTitle: "Usage and Diagnostic Information",
     policyDataBody:
-      "To improve app quality, PopScan may collect anonymous usage statistics and diagnostic information, such as app usage and error status. This information does not include photos, image contents, user information, advertising identifiers, or similar data.",
+      "To improve app quality, PopScan may collect anonymous usage statistics and diagnostic information, such as app launch, feature usage, save success, and error status. This information does not include photos, image contents, analysis results, user account information, or advertising identifiers.",
     policyTrackingTitle: "Tracking",
     policyTrackingBody:
       "PopScan does not use third-party tracking SDKs and does not track users across other companies' apps or websites.",
