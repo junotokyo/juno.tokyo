@@ -255,8 +255,12 @@ async function refreshLog() {
   }
 }
 
+async function refreshAll() {
+  await Promise.all([refreshStats(), refreshLog()]);
+}
+
 function init() {
-  $('refreshBtn').addEventListener('click', refreshStats);
+  $('refreshBtn').addEventListener('click', refreshAll);
   $('refreshLogBtn').addEventListener('click', refreshLog);
   document.querySelectorAll('input[name="days"]').forEach((el) =>
     el.addEventListener('change', refreshStats)
