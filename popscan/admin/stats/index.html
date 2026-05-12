@@ -18,14 +18,18 @@
     .controls { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: 0.5rem 0; padding: 0.75rem; background: rgba(128,128,128,0.08); border-radius: 6px; }
     .controls label { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.9rem; cursor: pointer; }
     .controls input[type="radio"] { margin: 0; }
-    button { padding: 0.45rem 0.9rem; font-size: 0.9rem; cursor: pointer; border-radius: 4px; border: 1px solid #888; background: #fff; }
-    button:hover:not(:disabled) { background: #eee; }
+    button { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.45rem 0.9rem; font-size: 0.9rem; cursor: pointer; border-radius: 6px; border: 1px solid #d6c7b8; background: #fff; color: #241812; transition: background 0.15s; }
+    button:hover:not(:disabled) { background: #f5ece1; }
     button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
-    .kpi { padding: 0.7rem 0.9rem; border: 1px solid #ccc; border-radius: 6px; background: rgba(128,128,128,0.04); }
-    .kpi .label { font-size: 0.78rem; color: #666; text-transform: uppercase; letter-spacing: 0.04em; }
+    button .icon { width: 14px; height: 14px; flex-shrink: 0; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+    .kpi-grid.err-row { grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: 0.6rem; }
+    .kpi-grid.err-row > .kpi { grid-column: span 1; }
+    .kpi { padding: 0.7rem 0.9rem; border: 1px solid #e6d8c8; border-radius: 6px; background: rgba(255,255,255,0.6); }
+    .kpi .label { font-size: 0.8rem; color: #6f6259; }
     .kpi .value { font-size: 1.7rem; font-weight: 600; line-height: 1.1; margin-top: 0.2rem; }
     .kpi.err .value { color: #c33; }
+    .kpi.err { border-color: #f4cccc; background: #fff5f5; }
     .chart-wrap { position: relative; height: 320px; margin-top: 0.5rem; }
     table { border-collapse: collapse; margin-top: 0.5rem; width: 100%; font-size: 0.85rem; }
     th, td { text-align: left; padding: 0.35rem 0.5rem; border-bottom: 1px solid #ccc; }
@@ -38,6 +42,7 @@
     .status.error { background: #fee; color: #900; }
     .status.ok { background: #efe; color: #060; }
     .meta { font-size: 0.8rem; color: #888; margin-top: 0.3rem; }
+    .bottom-spacer { height: 50vh; }
   </style>
 </head>
 <body>
@@ -50,7 +55,13 @@
       <label><input type="radio" name="days" value="7"> 直近 7日</label>
       <label><input type="radio" name="days" value="14" checked> 直近 14日</label>
       <label><input type="radio" name="days" value="30"> 直近 30日</label>
-      <button id="refreshBtn">🔄 更新</button>
+      <button id="refreshBtn" aria-label="更新">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+        更新
+      </button>
       <span id="lastUpdated" class="muted"></span>
     </div>
     <div id="statsStatus" class="status" hidden></div>
@@ -59,6 +70,7 @@
   <section>
     <h2>イベント合計</h2>
     <div id="kpiGrid" class="kpi-grid"></div>
+    <div id="kpiGridErr" class="kpi-grid err-row"></div>
   </section>
 
   <section>
@@ -85,7 +97,13 @@
       <label><input type="radio" name="logDays" value="1"> 直近 1日</label>
       <label><input type="radio" name="logDays" value="3" checked> 直近 3日</label>
       <label><input type="radio" name="logDays" value="7"> 直近 7日</label>
-      <button id="refreshLogBtn">🔄 更新</button>
+      <button id="refreshLogBtn" aria-label="更新">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+        更新
+      </button>
       <span id="logCount" class="muted"></span>
     </div>
     <div class="filter-row">
@@ -112,6 +130,8 @@
     </div>
     <p class="muted">※ 1日あたり最大 100 件・7日 TTL（<code>error_log:YYYY-MM-DD</code> Redis List）</p>
   </section>
+
+  <div class="bottom-spacer" aria-hidden="true"></div>
 
   <script
     src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"

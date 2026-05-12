@@ -12,17 +12,30 @@ const EVENT_COLORS = {
   error_occurred: '#dc2626',
 };
 
-const KPI_ORDER = [
+const EVENT_LABELS_JA = {
+  launch: 'アプリ起動',
+  save_succeeded: '保存成功',
+  save_failed: '保存失敗',
+  paywall_shown: '課金画面表示',
+  purchase_succeeded: '購入成功',
+  promo_redeemed: 'プロモ適用',
+  error_occurred: 'エラー発生',
+};
+
+const KPI_ORDER_NORMAL = [
   'launch',
   'save_succeeded',
-  'save_failed',
   'paywall_shown',
   'purchase_succeeded',
   'promo_redeemed',
-  'error_occurred',
 ];
+const KPI_ORDER_ERROR = ['error_occurred', 'save_failed'];
 
 const ERROR_KPI_KEYS = new Set(['save_failed', 'error_occurred']);
+
+function eventLabel(evt) {
+  return EVENT_LABELS_JA[evt] || evt;
+}
 
 // 色プールは error_code 種別の数だけ動的に必要
 const CODE_COLOR_POOL = [
@@ -71,27 +84,33 @@ function reversedForChart(data) {
   return { days, events, errorsByCode };
 }
 
-function renderKpis(events) {
-  const grid = $('kpiGrid');
-  grid.textContent = '';
-  for (const evt of KPI_ORDER) {
+function renderKpiInto(gridEl, events, order) {
+  gridEl.textContent = '';
+  for (const evt of order) {
     const total = events[evt]?.total ?? 0;
     const card = document.createElement('div');
     card.className = 'kpi' + (ERROR_KPI_KEYS.has(evt) ? ' err' : '');
+    card.title = evt;
     const label = document.createElement('div');
     label.className = 'label';
-    label.textContent = evt;
+    label.textContent = eventLabel(evt);
     const value = document.createElement('div');
     value.className = 'value';
     value.textContent = total.toLocaleString();
     card.append(label, value);
-    grid.append(card);
+    gridEl.append(card);
   }
 }
 
+function renderKpis(events) {
+  renderKpiInto($('kpiGrid'), events, KPI_ORDER_NORMAL);
+  renderKpiInto($('kpiGridErr'), events, KPI_ORDER_ERROR);
+}
+
 function renderEventsChart(days, events) {
-  const datasets = KPI_ORDER.map((evt) => ({
-    label: evt,
+  const order = [...KPI_ORDER_NORMAL, ...KPI_ORDER_ERROR];
+  const datasets = order.map((evt) => ({
+    label: eventLabel(evt),
     data: events[evt]?.daily ?? days.map(() => 0),
     borderColor: EVENT_COLORS[evt] || '#888',
     backgroundColor: EVENT_COLORS[evt] || '#888',
@@ -213,7 +232,7 @@ function renderLogTable() {
     const cells = [
       e.date || '',
       e.ts_hour ? e.ts_hour.replace('T', ' ') + ':00' : '',
-      e.event || '',
+      e.event ? eventLabel(e.event) : '',
       e.code || '',
       e.app_version || '',
       e.build || '',
