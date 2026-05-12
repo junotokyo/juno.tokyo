@@ -21,14 +21,14 @@ const EVENT_LABELS_JA = {
   error_occurred: 'エラー発生',
 };
 
-const KPI_ORDER_NORMAL = [
+const KPI_ORDER = [
   'launch',
   'save_succeeded',
   'paywall_shown',
   'purchase_succeeded',
   'promo_redeemed',
+  'error_occurred',
 ];
-const KPI_ORDER_ERROR = ['error_occurred'];
 
 const ERROR_KPI_KEYS = new Set(['error_occurred']);
 
@@ -83,9 +83,10 @@ function reversedForChart(data) {
   return { days, events, errorsByCode };
 }
 
-function renderKpiInto(gridEl, events, order) {
-  gridEl.textContent = '';
-  for (const evt of order) {
+function renderKpis(events) {
+  const grid = $('kpiGrid');
+  grid.textContent = '';
+  for (const evt of KPI_ORDER) {
     const total = events[evt]?.total ?? 0;
     const card = document.createElement('div');
     card.className = 'kpi' + (ERROR_KPI_KEYS.has(evt) ? ' err' : '');
@@ -97,18 +98,12 @@ function renderKpiInto(gridEl, events, order) {
     value.className = 'value';
     value.textContent = total.toLocaleString();
     card.append(label, value);
-    gridEl.append(card);
+    grid.append(card);
   }
 }
 
-function renderKpis(events) {
-  renderKpiInto($('kpiGrid'), events, KPI_ORDER_NORMAL);
-  renderKpiInto($('kpiGridErr'), events, KPI_ORDER_ERROR);
-}
-
 function renderEventsChart(days, events) {
-  const order = [...KPI_ORDER_NORMAL, ...KPI_ORDER_ERROR];
-  const datasets = order.map((evt) => ({
+  const datasets = KPI_ORDER.map((evt) => ({
     label: eventLabel(evt),
     data: events[evt]?.daily ?? days.map(() => 0),
     borderColor: EVENT_COLORS[evt] || '#888',

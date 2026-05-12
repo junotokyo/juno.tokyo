@@ -22,10 +22,8 @@
     button:hover:not(:disabled) { background: #f5ece1; }
     button:disabled { opacity: 0.5; cursor: not-allowed; }
     button .icon { width: 14px; height: 14px; flex-shrink: 0; }
-    .kpi-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
-    .kpi-grid.err-row { grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: 0.6rem; }
-    .kpi-grid.err-row > .kpi { grid-column: span 1; }
-    .kpi { padding: 0.7rem 0.9rem; border: 1px solid #e6d8c8; border-radius: 6px; background: rgba(255,255,255,0.6); }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); gap: 0.6rem; margin-top: 0.75rem; }
+    .kpi { padding: 0.7rem 0.8rem; border: 1px solid #e6d8c8; border-radius: 6px; background: rgba(255,255,255,0.6); }
     .kpi .label { font-size: 0.8rem; color: #6f6259; }
     .kpi .value { font-size: 1.7rem; font-weight: 600; line-height: 1.1; margin-top: 0.2rem; }
     .kpi.err .value { color: #c33; }
@@ -70,7 +68,6 @@
   <section>
     <h2>イベント合計</h2>
     <div id="kpiGrid" class="kpi-grid"></div>
-    <div id="kpiGridErr" class="kpi-grid err-row"></div>
   </section>
 
   <section>
@@ -81,7 +78,7 @@
 
   <section>
     <h2>エラー 日次推移</h2>
-    <p class="muted"><code>error_occurred</code> イベントの日次件数（保存失敗を含む全エラー）</p>
+    <p class="muted">「エラー発生」イベントの日次件数（保存失敗を含む全エラー）</p>
     <div class="chart-wrap"><canvas id="chartErrorTotal"></canvas></div>
   </section>
 
