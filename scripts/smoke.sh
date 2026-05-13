@@ -123,6 +123,14 @@ RES=$(curl -sS -X POST -H 'content-type: application/json' \
 echo "  $RES"
 echo "$RES" | grep -q '"ok":true' && ok "analytics error_occurred ok" || ng "analytics error_occurred 失敗"
 
+# JT-34: icloud.unavailable が allow-list に追加されたか
+step "/popscan/analytics icloud.unavailable error_code (JT-34)"
+RES=$(curl -sS -X POST -H 'content-type: application/json' \
+  -d '{"event":"error_occurred","error_code":"icloud.unavailable","app_version":"1.0.0","build":"100","os_version":"18.4"}' \
+  "$BASE/popscan/analytics")
+echo "  $RES"
+echo "$RES" | grep -q '"ok":true' && ok "analytics icloud.unavailable ok" || ng "analytics icloud.unavailable 失敗"
+
 step "/popscan/analytics 不正 event (400 期待)"
 S=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
   -d '{"event":"hack_attempt"}' "$BASE/popscan/analytics")

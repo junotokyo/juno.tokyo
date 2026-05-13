@@ -38,6 +38,7 @@ export const ALLOWED_ERROR_CODES = new Set([
   'promo.invalid_code',
   'promo.network_error',
   'quota.time_endpoint_failed',
+  'icloud.unavailable',
   'unknown',
 ]);
 
