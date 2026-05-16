@@ -220,7 +220,7 @@ h3 {
 
 .hero-lead,
 .intro-text,
-.support-section p {
+.support-section > .section-heading p {
   color: var(--muted);
   font-size: clamp(1.02rem, 1.8vw, 1.25rem);
 }
@@ -595,6 +595,101 @@ h3 {
   border-bottom: 1px solid var(--line);
 }
 
+.support-section {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(28px, 6vw, 76px);
+  align-items: start;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.support-section .section-heading {
+  position: sticky;
+  top: 94px;
+}
+
+.support-section .section-heading p:not(.eyebrow) {
+  max-width: 520px;
+}
+
+.support-groups {
+  display: grid;
+  gap: 24px;
+}
+
+.support-group {
+  min-width: 0;
+}
+
+.support-contact-group {
+  margin-top: -6px;
+}
+
+.support-group h3 {
+  margin: 0 0 12px;
+  color: var(--orange-dark);
+  font-size: 0.98rem;
+  font-weight: 900;
+}
+
+.qa-list {
+  display: grid;
+  gap: 8px;
+}
+
+.qa-list details {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(80, 45, 20, 0.05);
+}
+
+.qa-list summary {
+  position: relative;
+  display: block;
+  padding: 18px 52px 18px 20px;
+  color: var(--ink);
+  font-weight: 680;
+  line-height: 1.45;
+  cursor: pointer;
+  list-style: none;
+}
+
+.qa-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.qa-list summary::after {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--orange-dark);
+  border-bottom: 2px solid var(--orange-dark);
+  content: "";
+  transform: translateY(-60%) rotate(45deg);
+  transition: transform 0.16s ease;
+}
+
+.qa-list details[open] summary::after {
+  transform: translateY(-35%) rotate(225deg);
+}
+
+.qa-list p {
+  margin: 0;
+  padding: 0 20px 20px;
+  color: var(--muted);
+}
+
+.inline-mail-link {
+  display: inline-block;
+  margin-left: 0.35em;
+  color: var(--orange-dark);
+  font-weight: 800;
+}
+
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -794,62 +889,41 @@ html[lang="en"] .use-cases-title span {
   margin-bottom: 0;
 }
 
-.support-section {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-  gap: 30px;
-  align-items: center;
-  background: var(--bg);
-}
-
-.support-section p:not(.eyebrow) {
-  max-width: 700px;
-}
-
-.support-section .eyebrow {
-  color: var(--orange-dark);
-  font-size: 0.82rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.mail-card {
-  display: grid;
-  gap: 6px;
-  padding: 26px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: 0 18px 46px rgba(80, 45, 20, 0.1);
-}
-
-.mail-card span {
-  color: var(--muted);
-  font-size: 0.86rem;
-  font-weight: 850;
-}
-
-.mail-card strong {
-  color: var(--orange-dark);
-  font-size: 0.92rem;
-  font-weight: 400;
-}
-
 .site-footer {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 18px;
   padding: 30px clamp(20px, 6vw, 88px);
   background: var(--ink);
   color: #fff;
 }
 
+.site-footer > div:first-child {
+  display: grid;
+  gap: 2px;
+}
+
+.footer-brand-line {
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
 .site-footer span {
   color: #d9cec5;
 }
 
+.site-footer small {
+  color: #bdaea3;
+  font-size: 0.82rem;
+}
+
 .footer-links {
-  display: flex;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 18px;
   color: #d9cec5;
 }
@@ -874,6 +948,10 @@ html[lang="en"] .use-cases-title span {
   .support-section {
     grid-template-columns: 1fr;
     gap: var(--stack-content-gap);
+  }
+
+  .support-section .section-heading {
+    position: static;
   }
 
   .hero {
@@ -1080,7 +1158,23 @@ html[lang="en"] .use-cases-title span {
     padding: 24px;
   }
 
+  .qa-list summary {
+    padding: 16px 46px 16px 16px;
+  }
+
+  .qa-list summary::after {
+    right: 18px;
+  }
+
+  .qa-list p {
+    padding: 0 16px 18px;
+  }
+
   .site-footer {
     flex-direction: column;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
   }
 }

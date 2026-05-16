@@ -2,7 +2,7 @@ const copy = {
   ja: {
     navFeatures: "機能",
     navPricing: "料金",
-    navPrivacy: "プライバシー",
+    navPrivacy: "プライバシーポリシー",
     navSupport: "サポート",
     eyebrow: "PopScan by JUNO Tokyo",
     heroTitleLine1: "書類をすばやく",
@@ -80,20 +80,88 @@ const copy = {
       "カメラは書類を撮影するために使用します。写真ライブラリへのアクセスは、画像の読み込みと保存のために使用します。許可された範囲以外の目的には使用しません。",
     policyContactTitle: "お問い合わせ",
     policyContactBody:
-      "プライバシーに関するお問い合わせは、下記サポート窓口までご連絡ください。",
+      "プライバシーに関するお問い合わせは、サポートセクションに記載のメールアドレスまでご連絡ください。",
     supportEyebrow: "Support",
     supportTitle: "サポート",
     supportBody:
+      "PopScanの使い方、利用回数、購入、プロモーションについて、よくある質問をまとめました。",
+    supportUsageTitle: "使い方",
+    qaSavedLocationQ: "スキャンした画像はどこに保存されますか",
+    qaSavedLocationA:
+      "保存した画像は、iPhone標準の写真ライブラリに保存されます。保存後は写真アプリから共有、整理、印刷できます。",
+    qaImportPhotoQ: "既に撮影した写真も使えますか",
+    qaImportPhotoA:
+      "はい。写真ライブラリから画像を読み込み、PopScanでトリミングや補正を行えます。",
+    qaPdfQ: "複数ページのPDFは作れますか",
+    qaPdfA:
+      "現在のPopScanは、一枚ずつすばやくスキャンして写真ライブラリへ保存することを重視しています。複数ページのPDF作成や書類管理機能は、現時点では提供していません。",
+    qaFiltersQ: "フィルターは何を選べますか",
+    qaFiltersA:
+      "カラー、グレー、白黒、写真向けのフィルターを選べます。書類の種類や見やすさに合わせて調整できます。",
+    qaOfflineQ: "オフラインでも使えますか",
+    qaOfflineA:
+      "はい。PopScanはオフラインでもスキャンできます。ただし、購入状態やプロモーションによる無制限利用の確認など、一部の情報はオンライン時に反映されます。",
+    qaServerQ: "写真やスキャン内容はサーバーに送信されますか",
+    qaServerA:
+      "いいえ。PopScanで撮影・保存する写真や画像処理の内容は、原則として端末内で処理されます。画像データや解析結果をサーバーへ送信することはありません。",
+    qaSaveFailedQ: "保存に失敗した場合はどうすればよいですか",
+    qaSaveFailedA:
+      "写真へのアクセス許可と、端末の空き容量をご確認ください。権限がない場合や容量が不足している場合、保存できないことがあります。",
+    qaDetectionQ: "書類の輪郭がうまく検出されません",
+    qaDetectionA:
+      "書類全体が画面に入るようにし、背景と書類の色に差が出る場所で撮影してください。暗い場所ではフラッシュや明るい場所での撮影もお試しください。",
+    qaDeleteAppQ: "アプリを削除すると保存済みのスキャンも消えますか",
+    qaDeleteAppA:
+      "写真ライブラリに保存済みの画像は、通常アプリを削除しても写真アプリに残ります。ただし、保存前の作業中データは残らない場合があります。",
+    supportFreeTitle: "利用回数・無料プラン",
+    qaFreePlanQ: "無料プランではどのくらい使えますか",
+    qaFreePlanA:
+      "無料プランには、日常的なスキャンに使える利用回数が含まれています。たまに書類やレシートを残すような使い方であれば、無料でも気軽にお使いいただけます。",
+    qaCreditsRecoverQ: "利用回数は回復しますか",
+    qaCreditsRecoverA:
+      "利用回数は時間の経過に応じて少しずつ回復します。上限を超えて貯まることはありません。短時間にたくさんスキャンしたい場合は、無制限プランをご利用ください。",
+    supportPurchaseTitle: "購入・無制限プラン",
+    qaUnlimitedQ: "無制限プランでは何ができますか",
+    qaUnlimitedA:
+      "無制限プランでは、利用回数を気にせずスキャンできます。書類をまとめて残したい方や、日常的に多くスキャンする方に向いています。",
+    qaOneTimeQ: "無制限プランは買い切りですか",
+    qaOneTimeA:
+      "はい。PopScanの無制限プランは買い切りです。サブスクリプションではありません。",
+    qaRestoreQ: "購入済みの無制限プランを復元できますか",
+    qaRestoreA:
+      "はい。アプリ内の「購入を復元」から復元できます。購入時と同じApple IDを使用していることをご確認ください。",
+    qaCancelQ: "購入をキャンセルしたら、どうなりますか",
+    qaCancelA:
+      "Appleで返金やキャンセルが処理されたあと、アプリが購入状態を確認したタイミングで無制限プランが外れます。反映まで時間がかかる場合があります。",
+    supportPromoTitle: "プロモーション",
+    qaPromoQ: "プロモーションによる無制限利用とはなんですか",
+    qaPromoA:
+      "キャンペーンや個別のご案内により、無償で無制限プラン相当の利用枠を受け取れる場合があります。自動的に適用される場合と、案内されたコードをアプリ内で入力して受け取る場合があります。",
+    qaPromoReinstallQ: "アプリを入れ直したら「無制限」が外れていました",
+    qaPromoReinstallA:
+      "プロモーションによる無制限利用は、受け取り時のiCloudアカウントに保存されます。再インストール直後やオフライン時は確認が間に合わず、一時的に無料プランとして表示されることがあります。インターネットに接続した状態でしばらく待つと、自動的に復元されます。",
+    qaICloudSwitchQ: "iCloudアカウントを切り替えるとどうなりますか",
+    qaICloudSwitchA:
+      "プロモーションによる無制限利用は、iCloudアカウントに紐づきます。別のiCloudアカウントに切り替えると、確認できず無料プラン表示になることがあります。受け取り時のアカウントに戻すと、オンライン確認後に復元されます。",
+    qaPromoMissingQ:
+      "プロモーションによる無制限利用が戻らない場合はどうすればよいですか",
+    qaPromoMissingA:
+      "インターネット接続とiCloudへのサインイン状態をご確認ください。受け取り時と同じiCloudアカウントでサインインしても戻らない場合は、サポート窓口までご連絡ください。",
+    supportContactTitle: "お問い合わせ",
+    qaContactQ: "問い合わせ先はありますか",
+    qaContactA:
       "PopScanについてのご質問、不具合のご報告、プライバシーに関するお問い合わせは、メールでご連絡ください。",
-    mailLabel: "お問い合わせ先",
     footerBrand: "by JUNO Tokyo",
-    footerPrivacy: "Privacy Policy",
-    footerSupport: "Support",
+    footerCopyright: "© 2026 JUNO Tokyo",
+    footerFeatures: "機能",
+    footerPricing: "料金",
+    footerSupport: "サポート",
+    footerPrivacy: "プライバシーポリシー",
   },
   en: {
     navFeatures: "Features",
     navPricing: "Plans",
-    navPrivacy: "Privacy",
+    navPrivacy: "Privacy Policy",
     navSupport: "Support",
     eyebrow: "PopScan by JUNO Tokyo",
     heroTitleLine1: "Quickly scan",
@@ -171,15 +239,82 @@ const copy = {
       "Camera access is used to capture documents. Photos access is used to import images and save scans. These permissions are not used for any other purpose.",
     policyContactTitle: "Contact",
     policyContactBody:
-      "For privacy questions, please contact the support address below.",
+      "For privacy questions, please use the email address listed in the Support section.",
     supportEyebrow: "Support",
     supportTitle: "Support",
     supportBody:
+      "Find answers about using PopScan, scan credits, purchases, and promotions.",
+    supportUsageTitle: "Using PopScan",
+    qaSavedLocationQ: "Where are my scans saved?",
+    qaSavedLocationA:
+      "Saved scans are stored in the standard iPhone Photos library. After saving, you can share, organize, or print them from the Photos app.",
+    qaImportPhotoQ: "Can I use photos I already took?",
+    qaImportPhotoA:
+      "Yes. You can import an image from your Photos library, then crop and enhance it in PopScan.",
+    qaPdfQ: "Can PopScan create multi-page PDFs?",
+    qaPdfA:
+      "PopScan currently focuses on quickly scanning one page at a time and saving it to your Photos library. Multi-page PDF creation and document management are not available at this time.",
+    qaFiltersQ: "Which filters can I choose?",
+    qaFiltersA:
+      "You can choose color, gray, black and white, and photo-oriented filters. Pick the one that makes your document easiest to read.",
+    qaOfflineQ: "Can I use PopScan offline?",
+    qaOfflineA:
+      "Yes. PopScan can scan while offline. Some information, such as purchase status or unlimited access from a promotion, is updated when the app can connect to the internet.",
+    qaServerQ: "Are my photos or scans sent to servers?",
+    qaServerA:
+      "No. Photos captured or saved in PopScan and the related image processing are processed on device by default. Photo contents and analysis results are not sent to servers.",
+    qaSaveFailedQ: "What should I do if saving fails?",
+    qaSaveFailedA:
+      "Please check Photos access permission and available storage on your device. Saving may fail if permission is not granted or storage is full.",
+    qaDetectionQ: "What should I do if document edges are not detected well?",
+    qaDetectionA:
+      "Make sure the whole document is in view and place it on a background with enough contrast. In dark places, try using flash or moving to brighter light.",
+    qaDeleteAppQ: "Will deleting the app delete my saved scans?",
+    qaDeleteAppA:
+      "Images already saved to your Photos library normally remain in the Photos app after deleting PopScan. Unsaved in-progress work may not be kept.",
+    supportFreeTitle: "Scan credits and Free Plan",
+    qaFreePlanQ: "How much can I use the Free Plan?",
+    qaFreePlanA:
+      "The Free Plan includes scan credits for everyday use. If you occasionally save documents or receipts, you can use PopScan casually for free.",
+    qaCreditsRecoverQ: "Do scan credits recover?",
+    qaCreditsRecoverA:
+      "Scan credits gradually recover over time. They do not accumulate beyond the limit. If you want to scan many pages in a short time, use the Unlimited Plan.",
+    supportPurchaseTitle: "Purchases and Unlimited Plan",
+    qaUnlimitedQ: "What can I do with the Unlimited Plan?",
+    qaUnlimitedA:
+      "The Unlimited Plan lets you scan without worrying about scan credits. It is suited for people who save many documents at once or scan frequently.",
+    qaOneTimeQ: "Is the Unlimited Plan a one-time purchase?",
+    qaOneTimeA:
+      "Yes. PopScan's Unlimited Plan is a one-time purchase, not a subscription.",
+    qaRestoreQ: "Can I restore my purchased Unlimited Plan?",
+    qaRestoreA:
+      "Yes. Use Restore Purchase in the app. Please make sure you are using the same Apple ID used for the purchase.",
+    qaCancelQ: "What happens if I cancel my purchase?",
+    qaCancelA:
+      "After Apple processes the refund or cancellation, the Unlimited Plan is removed when the app checks the purchase status. It may take some time to update.",
+    supportPromoTitle: "Promotions",
+    qaPromoQ: "What is unlimited access from a promotion?",
+    qaPromoA:
+      "Campaigns or individual invitations may provide free access equivalent to the Unlimited Plan. It may be applied automatically, or you may receive a code to enter in the app.",
+    qaPromoReinstallQ: "I reinstalled the app and Unlimited disappeared",
+    qaPromoReinstallA:
+      "Unlimited access from a promotion is saved to the iCloud account used when you received it. Right after reinstalling or while offline, the app may temporarily show the Free Plan because it has not finished checking. Connect to the internet and wait a short while, and it should restore automatically.",
+    qaICloudSwitchQ: "What happens if I switch iCloud accounts?",
+    qaICloudSwitchA:
+      "Unlimited access from a promotion is tied to your iCloud account. If you switch to another iCloud account, the app may not be able to confirm it and may show the Free Plan. Return to the account used when you received it, then connect online to restore.",
+    qaPromoMissingQ: "What should I do if promotional unlimited access does not return?",
+    qaPromoMissingA:
+      "Please check your internet connection and iCloud sign-in status. If it still does not return while signed in to the same iCloud account used when you received it, contact support.",
+    supportContactTitle: "Contact",
+    qaContactQ: "Is there a contact address?",
+    qaContactA:
       "For questions about PopScan, bug reports, or privacy inquiries, please contact us by email.",
-    mailLabel: "Contact",
     footerBrand: "by JUNO Tokyo",
-    footerPrivacy: "Privacy Policy",
+    footerCopyright: "© 2026 JUNO Tokyo",
+    footerFeatures: "Features",
+    footerPricing: "Plans",
     footerSupport: "Support",
+    footerPrivacy: "Privacy Policy",
   },
 };
 
