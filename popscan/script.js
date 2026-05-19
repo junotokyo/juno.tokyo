@@ -8,7 +8,7 @@ const copy = {
     heroTitleLine1: "書類をすばやく",
     heroTitleLine2: "スキャン。",
     heroLead:
-      "PopScanは、iPhoneのカメラで書類や名刺、はがき、パンフレットをすばやくスキャンし、見やすく補正して写真ライブラリへ保存できるシンプルなカメラアプリです。",
+      "PopScanは、iPhoneのカメラで書類をすばやくスキャンし、自動で切り抜き見やすく補正して、写真ライブラリへ保存できるシンプルなスキャンカメラアプリです。",
     supportLink: "サポートを見る",
     privacyLink: "プライバシーポリシー",
     trustSimple: "シンプル設計",
@@ -17,7 +17,7 @@ const copy = {
     introEyebrow: "Everyday Scanner",
     introTitle: "余分な機能を省いて、日常のスキャンを軽く。",
     introBody:
-      "いつでもすばやく使えるよう、「今ここにある紙をきれいに残す」ことを優先しました。カメラを開いて、撮って、確認して、保存。必要な操作だけに集中できます。",
+      "いつでもすばやく使えるよう、「今ここにある書類をきれいに残す」ことを優先しました。カメラを開いて、撮って、確認して、保存。必要な操作だけに集中できます。",
     pricingEyebrow: "Plans",
     pricingTitle: "必要な分だけ、シンプルに。",
     freePlanLabel: "無料プラン",
@@ -34,22 +34,22 @@ const copy = {
     featuresTitle: "PopScanでできること",
     feature1Title: "ドキュメントを自動認識",
     feature1Body:
-      "カメラを向けると書類の輪郭を検出。シャッターを押すだけで、トリミングと見やすい補正を行います。",
+      "カメラを向けると書類の輪郭を検出。シャッターを押すだけで、書類に合わせたトリミングと自動補正を行います。",
     feature2Title: "カメラ画面で調整",
     feature2Body:
-      "フラッシュ、自動タイマー、カラー・グレー・白黒・写真フィルター、保存画質をカメラ画面で選べます。",
+      "フラッシュ、自動シャッター、フィルター、ズーム切り替えをカメラ画面で選べます。",
     feature3Title: "プレビューで仕上げ",
     feature3Body:
-      "撮影後に回転、トリミング、フィルター、明るさ調整、削除ができます。自動補正後に必要なところだけ手直しできます。",
+      "撮影後に回転、トリミング、フィルター、見やすさ調整、削除ができます。自動補正後に必要なところだけ手直しできます。",
     feature4Title: "写真ライブラリへ保存",
     feature4Body:
       "保存ボタンを押すと、標準の写真ライブラリに保存。あとから共有、印刷、整理しやすい形で残せます。",
     feature5Title: "既存の写真も補正",
     feature5Body:
-      "標準カメラなどで撮った写真もPopScanで読み込み、トリミングや見やすい補正を行えます。",
+      "標準カメラなどで撮った写真もPopScanで読み込み、トリミングや自動補正を行えます。",
     feature6Title: "シンプルに一枚ずつ",
     feature6Body:
-      "複雑な管理機能は入れず、書類、パンフレット、はがき、名刺をテンポよく残すための操作に絞っています。",
+      "複雑な編集機能は入れず、書類をテンポよく記録するための操作に絞っています。",
     useCasesEyebrow: "Use Cases",
     useCasesTitleLine1: "紙の情報を、",
     useCasesTitleLine2: "後で見返せる形に。",
@@ -62,16 +62,16 @@ const copy = {
     privacyEyebrow: "Privacy Policy",
     privacyTitleLine1: "プライバシー",
     privacyTitleLine2: "ポリシー",
-    lastUpdated: "最終更新日: 2026年5月12日",
+    lastUpdated: "最終更新日: 2026年5月19日",
     policySummaryTitle: "写真・画像データについて",
     policySummaryBody:
       "PopScanで撮影・保存する写真、画像処理、解析結果は、原則として端末内で処理されます。これらの画像データや解析結果をサーバーへ送信することはありません。",
-    policyTimeTitle: "日時確認のための通信",
+    policyTimeTitle: "利用枠判定のための通信",
     policyTimeBody:
-      "利用枠の判定を正確に行うため、オンライン時に日時確認サーバーへ通信する場合があります。この通信には、アプリの種類、バージョン、ビルド番号など、動作確認に必要な最小限の情報が含まれる場合があります。オフラインの場合でも、アプリは引き続き利用できます。",
+      "利用枠の判定を行うため、オンライン時に日時確認サーバーへ通信する場合があります。この通信には、アプリの種類、バージョン、ビルド番号など、動作確認に必要な最小限の情報が含まれる場合があります。オフラインの場合でも、アプリは引き続き利用できます。",
     policyDataTitle: "利用状況・診断情報",
     policyDataBody:
-      "アプリの品質改善のため、アプリ起動、機能利用、保存成功、エラー発生状況などの匿名の利用統計や診断情報を収集する場合があります。これらには、写真、画像の内容、解析結果、ユーザー登録情報、広告識別子など、個人を特定する情報は一切含まれません。",
+      "アプリの品質改善のため、アプリ起動、機能利用、保存成功、エラー発生状況などの匿名の利用統計や診断情報を収集する場合があります。これらには、写真、画像の内容、解析結果、ユーザー登録情報、広告識別子など、個人を特定する情報は一切含まれません。設定画面から、送信をオフにすることもできます。",
     policyTrackingTitle: "トラッキングについて",
     policyTrackingBody:
       "PopScanは、第三者のトラッキングSDKを使用せず、ユーザーを他社のアプリやWebサイトをまたいで追跡することはありません。",
@@ -88,7 +88,7 @@ const copy = {
     supportUsageTitle: "使い方",
     qaSavedLocationQ: "スキャンした画像はどこに保存されますか",
     qaSavedLocationA:
-      "保存した画像は、iPhone標準の写真ライブラリに保存されます。保存後は写真アプリから共有、整理、印刷できます。",
+      "保存した画像は、iPhone標準の写真ライブラリに保存され、PopScanアルバムに追加されます。保存後は写真アプリから共有、整理、印刷できます。",
     qaImportPhotoQ: "既に撮影した写真も使えますか",
     qaImportPhotoA:
       "はい。写真ライブラリから画像を読み込み、PopScanでトリミングや補正を行えます。",
@@ -134,17 +134,17 @@ const copy = {
     qaCancelA:
       "Appleで返金やキャンセルが処理されたあと、アプリが購入状態を確認したタイミングで無制限プランが外れます。反映まで時間がかかる場合があります。",
     supportPromoTitle: "プロモーション",
-    qaPromoQ: "プロモーションによる無制限利用とはなんですか",
+    qaPromoQ: "プロモーションとはなんですか",
     qaPromoA:
       "キャンペーンや個別のご案内により、無償で無制限プラン相当の利用枠を受け取れる場合があります。自動的に適用される場合と、案内されたコードをアプリ内で入力して受け取る場合があります。",
-    qaPromoReinstallQ: "アプリを入れ直したら「無制限」が外れていました",
+    qaPromoReinstallQ: "アプリを入れ直したら「無制限プラン」が外れていました",
     qaPromoReinstallA:
-      "プロモーションによる無制限利用は、受け取り時のiCloudアカウントに保存されます。再インストール直後やオフライン時は確認が間に合わず、一時的に無料プランとして表示されることがあります。インターネットに接続した状態でしばらく待つと、自動的に復元されます。",
+      "プロモーションによる無制限プランの取得は、受け取り時のiCloudアカウントに保存されます。再インストール直後やオフライン時は確認が間に合わず、一時的に無料プランとして表示されることがあります。インターネットに接続した状態でしばらく待つと、自動的に復元されます。",
     qaICloudSwitchQ: "iCloudアカウントを切り替えるとどうなりますか",
     qaICloudSwitchA:
-      "プロモーションによる無制限利用は、iCloudアカウントに紐づきます。別のiCloudアカウントに切り替えると、確認できず無料プラン表示になることがあります。受け取り時のアカウントに戻すと、オンライン確認後に復元されます。",
+      "プロモーションによる無制限プランの取得は、iCloudアカウントに紐づきます。別のiCloudアカウントに切り替えると、確認できず無料プラン表示になることがあります。受け取り時のアカウントに戻すと、オンライン確認後に復元されます。",
     qaPromoMissingQ:
-      "プロモーションによる無制限利用が戻らない場合はどうすればよいですか",
+      "プロモーションによる無制限プランが戻らない場合はどうすればよいですか",
     qaPromoMissingA:
       "インターネット接続とiCloudへのサインイン状態をご確認ください。受け取り時と同じiCloudアカウントでサインインしても戻らない場合は、サポート窓口までご連絡ください。",
     supportContactTitle: "お問い合わせ",
@@ -167,7 +167,7 @@ const copy = {
     heroTitleLine1: "Quickly scan",
     heroTitleLine2: "your papers.",
     heroLead:
-      "PopScan is a simple iPhone camera app that quickly scans documents, business cards, postcards, and handouts, enhances them for readability, and saves them to your Photos library.",
+      "PopScan is a simple iPhone scanning camera app that quickly scans documents, automatically crops and enhances them for readability, and saves them to your Photos library.",
     supportLink: "View support",
     privacyLink: "Privacy policy",
     trustSimple: "Simple by design",
@@ -176,39 +176,39 @@ const copy = {
     introEyebrow: "Everyday Scanner",
     introTitle: "Less clutter, lighter everyday scanning.",
     introBody:
-      "PopScan focuses on one job: keeping the paper in front of you as a clear image. Open the camera, capture, review, and save. No extra document management or complicated destination settings.",
+      "PopScan focuses on one job: keeping the document in front of you as a clear image. Open the camera, capture, review, and save. You can stay focused on only the steps you need.",
     pricingEyebrow: "Plans",
-    pricingTitle: "Simple plans for how much you scan.",
+    pricingTitle: "Only what you need, kept simple.",
     freePlanLabel: "Free Plan",
     freePlanTitle: "For casual daily use",
     freePlanPrice: "$0",
     freePlanBody:
-      "The free plan includes enough scan credits for casual daily use. Credits refill daily.",
+      "The free plan includes enough scan credits for casual everyday use. Credits gradually recover over time.",
     unlimitedPlanLabel: "Unlimited Plan",
     unlimitedPlanTitle: "Unlimited scan credits",
     unlimitedPlanPrice: "$3.99",
     unlimitedPlanBody:
-      "The Unlimited Plan gives you unlimited scan credits for frequent scanning. Buy once, use forever.",
+      "If you scan many documents, use the one-time purchase Unlimited Plan. It also helps support ongoing development.",
     featuresEyebrow: "Features",
     featuresTitle: "What PopScan does",
     feature1Title: "Detects documents automatically",
     feature1Body:
-      "Point the camera at a document and PopScan detects its edges. Tap the shutter to crop and enhance it for readability.",
+      "Point the camera at a document and PopScan detects its edges. Tap the shutter to crop the image to the document and apply automatic enhancement.",
     feature2Title: "Adjust before capture",
     feature2Body:
-      "Choose flash, auto timer, color, gray, black and white, photo filters, and save quality from the camera screen.",
+      "Choose flash, auto shutter, filters, and zoom switching from the camera screen.",
     feature3Title: "Fine-tune in preview",
     feature3Body:
-      "After capture, you can rotate, crop, change filters, adjust brightness, or delete the scan before saving.",
+      "After capture, you can rotate, crop, change filters, adjust readability, or delete the scan before saving. Fine-tune only what needs attention after automatic enhancement.",
     feature4Title: "Save to Photos",
     feature4Body:
       "Tap save and the finished scan is stored in the standard Photos library, ready to share, print, or organize.",
     feature5Title: "Enhance existing photos",
     feature5Body:
-      "Import photos taken with the standard Camera app or other apps, then crop and enhance them in PopScan.",
+      "Import photos taken with the standard Camera app or other apps, then crop and automatically enhance them in PopScan.",
     feature6Title: "One page, simply",
     feature6Body:
-      "PopScan leaves out complex multi-page workflows and focuses on quickly capturing documents, handouts, postcards, and cards.",
+      "PopScan leaves out complex editing features and focuses on recording documents one page at a time.",
     useCasesEyebrow: "Use Cases",
     useCasesTitleLine1: "Turn everyday paper",
     useCasesTitleLine2: "into something easy to revisit.",
@@ -221,16 +221,16 @@ const copy = {
     privacyEyebrow: "Privacy Policy",
     privacyTitleLine1: "Privacy",
     privacyTitleLine2: "Policy",
-    lastUpdated: "Last updated: May 12, 2026",
+    lastUpdated: "Last updated: May 19, 2026",
     policySummaryTitle: "Photos and Image Data",
     policySummaryBody:
       "Photos captured or saved in PopScan, image processing, and analysis results are processed on device by default. These photos, image contents, and analysis results are not sent to servers.",
-    policyTimeTitle: "Time Check Communication",
+    policyTimeTitle: "Communication for Usage Allowance Checks",
     policyTimeBody:
-      "When network access is available, PopScan may contact a time-check server to accurately evaluate local usage allowances. This request may include the app type, version, build number, and other minimal information needed for operation. The app remains usable offline if this request cannot be completed.",
+      "When network access is available, PopScan may contact a time-check server to evaluate usage allowances. This request may include the app type, version, build number, and other minimal information needed for operation. The app remains usable offline if this request cannot be completed.",
     policyDataTitle: "Usage and Diagnostic Information",
     policyDataBody:
-      "To improve app quality, PopScan may collect anonymous usage statistics and diagnostic information, such as app launch, feature usage, save success, and error status. This information does not include photos, image contents, analysis results, user account information, advertising identifiers, or any other personally identifiable information.",
+      "To improve app quality, PopScan may collect anonymous usage statistics and diagnostic information, such as app launch, feature usage, save success, and error status. This information does not include photos, image contents, analysis results, user account information, advertising identifiers, or any other personally identifiable information. You can also turn off sending this information from Settings.",
     policyTrackingTitle: "Tracking",
     policyTrackingBody:
       "PopScan does not use third-party tracking SDKs and does not track users across other companies' apps or websites.",
@@ -247,7 +247,7 @@ const copy = {
     supportUsageTitle: "Using PopScan",
     qaSavedLocationQ: "Where are my scans saved?",
     qaSavedLocationA:
-      "Saved scans are stored in the standard iPhone Photos library. After saving, you can share, organize, or print them from the Photos app.",
+      "Saved scans are stored in the standard iPhone Photos library and added to the PopScan album. After saving, you can share, organize, or print them from the Photos app.",
     qaImportPhotoQ: "Can I use photos I already took?",
     qaImportPhotoA:
       "Yes. You can import an image from your Photos library, then crop and enhance it in PopScan.",
@@ -293,16 +293,16 @@ const copy = {
     qaCancelA:
       "After Apple processes the refund or cancellation, the Unlimited Plan is removed when the app checks the purchase status. It may take some time to update.",
     supportPromoTitle: "Promotions",
-    qaPromoQ: "What is unlimited access from a promotion?",
+    qaPromoQ: "What are promotions?",
     qaPromoA:
       "Campaigns or individual invitations may provide free access equivalent to the Unlimited Plan. It may be applied automatically, or you may receive a code to enter in the app.",
-    qaPromoReinstallQ: "I reinstalled the app and Unlimited disappeared",
+    qaPromoReinstallQ: "I reinstalled the app and the Unlimited Plan disappeared",
     qaPromoReinstallA:
-      "Unlimited access from a promotion is saved to the iCloud account used when you received it. Right after reinstalling or while offline, the app may temporarily show the Free Plan because it has not finished checking. Connect to the internet and wait a short while, and it should restore automatically.",
+      "The Unlimited Plan received through a promotion is saved to the iCloud account used when you received it. Right after reinstalling or while offline, the app may temporarily show the Free Plan because it has not finished checking. Connect to the internet and wait a short while, and it should restore automatically.",
     qaICloudSwitchQ: "What happens if I switch iCloud accounts?",
     qaICloudSwitchA:
-      "Unlimited access from a promotion is tied to your iCloud account. If you switch to another iCloud account, the app may not be able to confirm it and may show the Free Plan. Return to the account used when you received it, then connect online to restore.",
-    qaPromoMissingQ: "What should I do if promotional unlimited access does not return?",
+      "The Unlimited Plan received through a promotion is tied to your iCloud account. If you switch to another iCloud account, the app may not be able to confirm it and may show the Free Plan. Return to the account used when you received it, then connect online to restore.",
+    qaPromoMissingQ: "What should I do if the promotional Unlimited Plan does not return?",
     qaPromoMissingA:
       "Please check your internet connection and iCloud sign-in status. If it still does not return while signed in to the same iCloud account used when you received it, contact support.",
     supportContactTitle: "Contact",
