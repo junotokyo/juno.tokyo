@@ -141,6 +141,16 @@ S=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application
   -d '{"event":"error_occurred","error_code":"x"}' "$BASE/popscan/analytics")
 assert_status "$S" "400" "不正 error_code reject"
 
+step "/popscan/analytics error_code 欠落 (400 期待)"
+S=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
+  -d '{"event":"error_occurred"}' "$BASE/popscan/analytics")
+assert_status "$S" "400" "error_occurred error_code 必須"
+
+step "/popscan/analytics 成功系 + error_code 余剰 (400 期待)"
+S=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
+  -d '{"event":"save_succeeded","error_code":"unknown"}' "$BASE/popscan/analytics")
+assert_status "$S" "400" "非 error event error_code 禁止"
+
 step "/popscan/analytics GET (405 期待)"
 S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/popscan/analytics")
 assert_status "$S" "405" "GET 拒否"

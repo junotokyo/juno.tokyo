@@ -7,6 +7,61 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
 };
 
+const RATE_LIMIT_WINDOW_SECONDS = 60;
+const RATE_LIMIT_MAX_ATTEMPTS = 30;
+const RATE_LIMIT_GLOBAL_MAX_ATTEMPTS = 300;
+
+const RATE_LIMIT_SCRIPT = `
+local code_key = KEYS[1]
+local global_key = KEYS[2]
+local code_max = tonumber(ARGV[1])
+local global_max = tonumber(ARGV[2])
+local window_seconds = tonumber(ARGV[3])
+
+local code_attempts = redis.call("INCR", code_key)
+if code_attempts == 1 then
+  redis.call("EXPIRE", code_key, window_seconds)
+end
+
+local global_attempts = redis.call("INCR", global_key)
+if global_attempts == 1 then
+  redis.call("EXPIRE", global_key, window_seconds)
+end
+
+if code_attempts > code_max or global_attempts > global_max then
+  return 0
+end
+
+return 1
+`;
+
+const REDEEM_PROMO_SCRIPT = `
+local key = KEYS[1]
+local today = ARGV[1]
+local raw = redis.call("GET", key)
+
+if not raw then
+  return 0
+end
+
+local ok, data = pcall(cjson.decode, raw)
+if not ok or type(data) ~= "table" then
+  return 0
+end
+
+if type(data["expires"]) ~= "string" or data["expires"] < today then
+  return 0
+end
+
+if type(data["count"]) ~= "number" or data["count"] <= 0 then
+  return 0
+end
+
+data["count"] = data["count"] - 1
+redis.call("SET", key, cjson.encode(data))
+return 1
+`;
+
 function setHeaders(res, headers) {
   for (const [k, v] of Object.entries(headers)) res.setHeader(k, v);
 }
@@ -19,6 +74,24 @@ function parseBody(req) {
   } catch {
     return null;
   }
+}
+
+async function withinRateLimit(code) {
+  // Privacy invariant: throttle keys include only endpoint/code buckets, never IP/UA.
+  const result = await kv.eval(RATE_LIMIT_SCRIPT, [
+    `promo-redeem-rate:${code}`,
+    'promo-redeem-rate:global',
+  ], [
+    String(RATE_LIMIT_MAX_ATTEMPTS),
+    String(RATE_LIMIT_GLOBAL_MAX_ATTEMPTS),
+    String(RATE_LIMIT_WINDOW_SECONDS),
+  ]);
+  return Number(result) === 1;
+}
+
+async function redeemPromoCode(key, today) {
+  const result = await kv.eval(REDEEM_PROMO_SCRIPT, [key], [today]);
+  return Number(result) === 1;
 }
 
 export default async function handler(req, res) {
@@ -49,28 +122,14 @@ export default async function handler(req, res) {
 
   try {
     const key = `promo-code:${code}`;
-    const data = await kv.get(key);
-
-    if (!data || typeof data !== 'object') {
-      res.status(200).send(JSON.stringify({ success: false }));
+    if (!(await withinRateLimit(code))) {
+      res.setHeader('Retry-After', String(RATE_LIMIT_WINDOW_SECONDS));
+      res.status(429).send(JSON.stringify({ success: false, error: 'rate_limited' }));
       return;
     }
 
-    const today = jstDateKey();
-    if (typeof data.expires !== 'string' || data.expires < today) {
-      res.status(200).send(JSON.stringify({ success: false }));
-      return;
-    }
-
-    if (typeof data.count !== 'number' || data.count <= 0) {
-      res.status(200).send(JSON.stringify({ success: false }));
-      return;
-    }
-
-    data.count -= 1;
-    await kv.set(key, data);
-
-    res.status(200).send(JSON.stringify({ success: true }));
+    const success = await redeemPromoCode(key, jstDateKey());
+    res.status(200).send(JSON.stringify({ success }));
   } catch {
     res.status(503).send(JSON.stringify({ success: false }));
   }

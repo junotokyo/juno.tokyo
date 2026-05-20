@@ -99,6 +99,16 @@ export default async function handler(req, res) {
     errorCode = body.error_code;
   }
 
+  const isErrorEvent = ERROR_EVENTS.has(event);
+  if (isErrorEvent && errorCode == null) {
+    res.status(400).send(JSON.stringify({ ok: false, error: 'missing_error_code' }));
+    return;
+  }
+  if (!isErrorEvent && errorCode != null) {
+    res.status(400).send(JSON.stringify({ ok: false, error: 'unexpected_error_code' }));
+    return;
+  }
+
   const appVersion = isShortString(body.app_version) ? body.app_version : null;
   const build = isShortString(body.build) ? body.build : null;
   const osVersion = isShortString(body.os_version) ? body.os_version : null;
@@ -112,7 +122,7 @@ export default async function handler(req, res) {
       await kv.incr(`stats:${date}:${event}:${errorCode}`);
     }
 
-    if (ERROR_EVENTS.has(event) && errorCode) {
+    if (isErrorEvent) {
       const entry = {
         ts_hour: jstHourKey(now),
         event,
