@@ -9,6 +9,13 @@ const copy = {
     heroTitleLine2: "スキャン。",
     heroLead:
       "PopScanは、iPhoneのカメラで書類をすばやくスキャンし、自動で切り抜き見やすく補正して、写真ライブラリへ保存できるシンプルなスキャンカメラアプリです。",
+    // CAMPAIGN START (remove after 2026-06-19)
+    campaignTag: "期間限定",
+    heroCampaign: "リリース記念。無制限プランを全員に無料開放中（〜2026/6/19）",
+    planCampaignBadge: "期間限定で無料開放中",
+    planCampaignNote:
+      "リリース記念キャンペーンとして、2026/6/19 まで全員に無制限プランを無料開放しています。",
+    // CAMPAIGN END
     supportLink: "サポートを見る",
     privacyLink: "プライバシーポリシー",
     trustSimple: "シンプル設計",
@@ -27,7 +34,7 @@ const copy = {
       "日常の中でカジュアルに使うのに十分な利用枠があります。徐々に利用枠が回復します。",
     unlimitedPlanLabel: "無制限プラン",
     unlimitedPlanTitle: "スキャン利用枠を無制限に",
-    unlimitedPlanPrice: "¥650",
+    unlimitedPlanPrice: "¥600",
     unlimitedPlanBody:
       "スキャンする書類が多い方は、買い切りの無制限プランをご利用ください。開発を支えていただくことにもつながります。",
     featuresEyebrow: "Features",
@@ -168,6 +175,14 @@ const copy = {
     heroTitleLine2: "your papers.",
     heroLead:
       "PopScan is a simple iPhone scanning camera app that quickly scans documents, automatically crops and enhances them for readability, and saves them to your Photos library.",
+    // CAMPAIGN START (remove after 2026-06-19)
+    campaignTag: "Limited time",
+    heroCampaign:
+      "Launch celebration — Unlimited Plan free for everyone (through Jun 19, 2026).",
+    planCampaignBadge: "Free for everyone, limited time",
+    planCampaignNote:
+      "As a launch celebration, the Unlimited Plan is free for everyone through June 19, 2026.",
+    // CAMPAIGN END
     supportLink: "View support",
     privacyLink: "Privacy policy",
     trustSimple: "Simple by design",

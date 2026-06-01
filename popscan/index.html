@@ -62,6 +62,13 @@
           <p class="hero-lead" data-i18n="heroLead">
             PopScanは、iPhoneのカメラで書類をすばやくスキャンし、自動で切り抜き見やすく補正して、写真ライブラリへ保存できるシンプルなスキャンカメラアプリです。
           </p>
+          <div class="hero-cta">
+          <!-- CAMPAIGN START (remove after 2026-06-19) -->
+          <div class="hero-campaign" role="note">
+            <span class="hero-campaign-tag" data-i18n="campaignTag">期間限定</span>
+            <span data-i18n="heroCampaign">リリース記念。無制限プランを全員に無料開放中（〜2026/6/19）</span>
+          </div>
+          <!-- CAMPAIGN END -->
           <a
             class="app-store-badge"
             href="https://apps.apple.com/jp/app/id6761980782"
@@ -75,6 +82,7 @@
             <span data-i18n="trustSimple">シンプル設計</span>
             <span data-i18n="trustLocal">端末内で処理</span>
             <span data-i18n="trustPhotos">写真ライブラリに保存</span>
+          </div>
           </div>
         </div>
         <div class="hero-visual" aria-label="PopScan app preview">
@@ -207,12 +215,22 @@
             </p>
           </article>
           <article class="plan-card featured-plan">
-            <h3 class="plan-name" data-i18n="unlimitedPlanLabel">無制限プラン</h3>
+            <div class="plan-name-row">
+              <h3 class="plan-name" data-i18n="unlimitedPlanLabel">無制限プラン</h3>
+              <!-- CAMPAIGN START (remove after 2026-06-19) -->
+              <span class="plan-campaign-badge" data-i18n="planCampaignBadge">期間限定で無料開放中</span>
+              <!-- CAMPAIGN END -->
+            </div>
             <p class="plan-subhead" data-i18n="unlimitedPlanTitle">スキャン利用枠を無制限に</p>
-            <p class="plan-price" data-i18n="unlimitedPlanPrice">¥650</p>
+            <p class="plan-price" data-i18n="unlimitedPlanPrice">¥600</p>
             <p data-i18n="unlimitedPlanBody">
               スキャンする書類が多い方は、買い切りの無制限プランをご利用ください。開発を支えていただくことにもつながります。
             </p>
+            <!-- CAMPAIGN START (remove after 2026-06-19) -->
+            <p class="plan-campaign-note" data-i18n="planCampaignNote">
+              リリース記念キャンペーンとして、2026/6/19 まで全員に無制限プランを無料開放しています。
+            </p>
+            <!-- CAMPAIGN END -->
           </article>
         </div>
       </section>
@@ -380,12 +398,24 @@
     </main>
 
     <footer class="site-footer">
-      <div>
-        <span class="footer-brand-line">
-          <strong>PopScan</strong>
-          <span data-i18n="footerBrand">by JUNO Tokyo</span>
-        </span>
-        <small data-i18n="footerCopyright">© 2026 JUNO Tokyo</small>
+      <div class="footer-left">
+        <div class="footer-brand">
+          <span class="footer-brand-line">
+            <strong>PopScan</strong>
+            <span data-i18n="footerBrand">by JUNO Tokyo</span>
+          </span>
+          <small data-i18n="footerCopyright">© 2026 JUNO Tokyo</small>
+        </div>
+        <div class="footer-social" aria-label="SNS">
+          <a class="footer-social-link" href="https://note.com/juno_tokyo/m/m5905e371fc86" target="_blank" rel="noopener" aria-label="note（JUNO Tokyo）">
+            <img src="assets/note-icon.svg" alt="" width="20" height="20">
+            <span>note</span>
+          </a>
+          <a class="footer-social-link" href="https://x.com/junotokyo" target="_blank" rel="noopener" aria-label="X（JUNO Tokyo）">
+            <img src="assets/x-logo-white.svg" alt="" width="15" height="15">
+            <span>X</span>
+          </a>
+        </div>
       </div>
       <div class="footer-links">
         <a href="#features" data-i18n="footerFeatures">機能</a>
