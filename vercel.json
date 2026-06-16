@@ -1,7 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
-    { "source": "/popscan", "destination": "/popscan/", "permanent": true }
+    { "source": "/popscan", "destination": "/popscan/", "permanent": true },
+    { "source": "/filmator", "destination": "/filmator/", "permanent": true }
   ],
   "rewrites": [
     { "source": "/popscan/time", "destination": "/api/popscan-time" },
