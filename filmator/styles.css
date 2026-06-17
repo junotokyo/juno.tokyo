@@ -53,12 +53,9 @@ p{overflow-wrap:anywhere}
 .hero-lead{max-width:580px;margin:16px 0 0;color:var(--muted);font-size:clamp(1.08rem,1.5vw,1.24rem)}
 .hero-title-row + .hero-lead{margin-top:28px}
 .hero-cta{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 18px;margin-top:34px}
-.app-store-badge{display:inline-flex;align-items:center;gap:11px;padding:12px 22px;border-radius:12px;background:var(--orange);color:#1b1206;font-weight:850;box-shadow:0 16px 40px rgba(222,139,62,.26)}
-.app-store-badge:hover{background:var(--orange-300)}
-.asb-glyph{font-size:1.5rem;line-height:1}
-.asb-text small{display:block;font-size:.66rem;font-weight:800;opacity:.82}
-.asb-text b{font-size:1.06rem;line-height:1.1}
-.badge-note{margin:0;color:var(--muted);font-size:.86rem;font-weight:700}
+.app-store-badge{display:inline-flex;border-radius:9px}
+.app-store-badge img{height:52px;width:auto;display:block}
+.app-store-badge:hover{opacity:.86}
 .trust-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}
 .trust-row span{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:.86rem;font-weight:700}
 .trust-row span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal-300)}

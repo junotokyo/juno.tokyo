@@ -17,7 +17,6 @@ const copy = {
       "カメラが生成したJPEGには、撮った時の色と光、撮影者の意図がそのまま記録されています。Filmatorは、RAWからの現像ではなく、その一枚を使って作品として仕上げる、Mac用アプリです。",
     heroLead2:
       "RAW+JPEGの写真はLightroom Classicで整理して、そのカタログを利用してJPEGの基本補正・書き出しを行えます。",
-    badgeSmall: "Download on the",
     trust1: "Lightroom Classic対応",
     trust2: "カタログは読み取り専用",
     trust3: "オフライン動作",
