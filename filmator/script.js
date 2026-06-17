@@ -14,7 +14,7 @@ const copy = {
     heroTitle1: "撮った色を、",
     heroTitle2: "そのまま作品に。",
     heroLead1:
-      "カメラが記録したJPEGを、RAWから作り直すのではなく、その一枚に込められた表現を活かして作品として仕上げるMac用アプリです。",
+      "Filmatorは、カメラが記録したJPEGを、RAWから作り直すのではなく、その一枚に込められた表現を活かして作品として仕上げるMac用アプリです。",
     heroLead2:
       "Lightroom Classicのカタログを使って、整理済みの写真を選び、必要な基本補正を加えて書き出せます。",
     trust1: "Lightroom Classic対応",
@@ -91,10 +91,13 @@ const copy = {
     proBody:
       "一度の購入で、書き出し枚数の制限が外れます。サブスクリプションではありません。価格はリリース前にご案内します。",
 
-    // Support（ゴシック・旧 FAQ・9 問）
+    // Support（ゴシック・旧 FAQ・10 問）
     supportEyebrow: "Support",
     supportTitle: "サポート",
     supportLead: "Filmator の使い方、対応形式、料金などについて、よくある質問をまとめました。",
+    faqQ0: "Filmatorとはどういう意味ですか？",
+    faqA0:
+      "Filmator（フィルメーター）は、Film + -ator から作った名前です。フィルム風の加工ではなく、撮影した時の光やカメラの絵作りが記録されたJPEGに、デジタル時代のフィルムのような価値を見出す考え方を表しています。",
     faqQ1: "Lightroom Classicのカタログに書き込みますか？",
     faqA1:
       "いいえ。Filmatorはカタログを読み取り専用で開き、一切書き込みません。Lightroom Classic側から見ても、カタログの内容は変わりません。",
