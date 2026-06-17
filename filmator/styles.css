@@ -74,7 +74,7 @@ p{overflow-wrap:anywhere}
 
 /* ===== Concept（明朝・アイブローなし・風景写真を薄く敷く別デザイン） ===== */
 .concept{position:relative;overflow:hidden;background:#0E1417;
-  background-image:url(assets/concept-bg.jpg);background-size:cover;background-position:right center;
+  background-image:url(assets/concept-bg.jpg);background-size:cover;background-position:76% center;
   min-height:820px;display:flex;flex-direction:column}
 /* 狭幅では右端固定（サーファー・夕焼けを残す）＝position:right。黒フェードは約30%＝空の光を残しつつ、テキストは下の text-shadow で可読性を確保。 */
 .concept::before{content:"";position:absolute;inset:0;pointer-events:none;background:
