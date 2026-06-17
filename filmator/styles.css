@@ -45,7 +45,7 @@ p{overflow-wrap:anywhere}
 
 /* ===== Hero（明朝見出し） ===== */
 .hero{padding:clamp(46px,6vw,84px) clamp(20px,6vw,80px) clamp(56px,6vw,96px)}
-.hero-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,1.05fr);gap:clamp(36px,5vw,72px);align-items:center;margin-top:clamp(30px,4vw,46px)}
+.hero-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,1.05fr);gap:clamp(36px,5vw,72px);align-items:start;margin-top:clamp(30px,4vw,46px)}
 .hero-copy{max-width:600px}
 .hero-title-row{display:flex;align-items:center;gap:clamp(14px,2vw,22px)}
 .hero-icon{width:clamp(72px,7vw,96px);height:auto;flex:0 0 auto;filter:drop-shadow(0 14px 30px rgba(0,0,0,.4))}
