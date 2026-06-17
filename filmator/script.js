@@ -11,7 +11,7 @@ const copy = {
     navPrivacy: "プライバシー",
 
     // Hero（明朝）
-    heroTitle1: "撮った時の色を、",
+    heroTitle1: "撮った色を、",
     heroTitle2: "そのまま作品に。",
     heroLead1:
       "カメラが生成したJPEGには、撮った時の色と光、撮影者の意図がそのまま記録されています。Filmatorは、RAWからの現像ではなく、その一枚を使って作品として仕上げる、Mac用アプリです。",
