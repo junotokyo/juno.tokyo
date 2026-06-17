@@ -62,11 +62,7 @@ p{overflow-wrap:anywhere}
 .trust-row span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal-300)}
 .hero-visual{position:relative;display:grid;place-items:center}
 .frame{position:relative;width:100%;max-width:440px;aspect-ratio:4/5;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
-.frame-photo{position:absolute;inset:0;background:
-  radial-gradient(120% 80% at 18% 8%, rgba(56,182,189,.5), transparent 56%),
-  radial-gradient(130% 95% at 92% 96%, rgba(222,139,62,.58), transparent 58%),
-  radial-gradient(90% 70% at 60% 42%, rgba(178,94,115,.28), transparent 60%),
-  linear-gradient(160deg,#16262b,#23201d)}
+.frame-photo{position:absolute;inset:0;background:url(assets/hero-photo.jpg) center/cover}
 .frame-cap{position:absolute;left:14px;bottom:14px;padding:6px 12px;border-radius:8px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);color:#fff;font-size:.74rem;font-weight:700}
 
 /* ===== Concept（明朝・アイブローなし・風景写真を薄く敷く別デザイン） ===== */

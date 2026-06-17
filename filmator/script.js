@@ -20,7 +20,6 @@ const copy = {
     trust1: "Lightroom Classic対応",
     trust2: "カタログは読み取り専用",
     trust3: "オフライン動作",
-    heroCaption: "作例写真（準備中）",
 
     // Concept（明朝・アイブローなし）
     conceptTitle1: "その場の光が、",
