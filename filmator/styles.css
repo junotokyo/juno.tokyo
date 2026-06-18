@@ -64,7 +64,7 @@ p{overflow-wrap:anywhere}
 .macbook{position:relative;width:100%;max-width:700px;margin:0 auto;filter:drop-shadow(0 26px 54px rgba(0,0,0,.5))}
 .mb-bezel{display:block;width:100%;height:auto;position:relative;z-index:2;pointer-events:none}
 /* 画面カットアウト（macbook-bezel.png 実測％）に背後からスクショ/プレースホルダを敷く */
-.mb-screen{position:absolute;left:9.29%;top:9.48%;width:81.36%;height:81.04%;z-index:1;overflow:hidden;border-radius:6px;display:grid;place-items:center;background:
+.mb-screen{position:absolute;left:9.02%;top:2.76%;width:81.96%;height:87.35%;z-index:1;overflow:hidden;border-radius:6px;display:grid;place-items:center;background:
   radial-gradient(120% 100% at 20% 0%, rgba(56,182,189,.22), transparent 55%),
   radial-gradient(120% 100% at 100% 100%, rgba(222,139,62,.26), transparent 55%),
   linear-gradient(160deg,#1a2226,#221d1a)}
