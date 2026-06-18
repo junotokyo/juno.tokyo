@@ -53,12 +53,10 @@
   - `popscan:error_log:*` `filmator:error_log:*` も汚れるが 7 日 TTL で自然消滅。
   - プロモ期間が 2026-06-19 で終了のため今回は smoke 改善は見送り。改善するなら「smoke 開始時に現在値を
     保存して、最後に書き戻す」「`?dry=1` のようなテストフラグで INCR/LPUSH をスキップする」の 2 案。
-- **Filmator リポジトリ側 docs/08-オンライン通信・テレメトリ・課金設計.md の更新が必要**：
-  §0 / §5.2 は当初の設計「Filmator 専用 DB＋接頭語なし」のままなので、次の Filmator セッションで
-  「`junotokyo-shared-kv` 共用＋ `filmator:` 接頭語」に書き換える申し送り。本セッションは juno.tokyo
-  リポジトリ側のため Filmator リポジトリには触っていない。
-- **Linear JT-246 / JT-247 のステータス更新**は本セッション内では行わず申し送り。実機検証 OK ＝ Done 化可能。
-  次の Filmator セッション or ジュンさん手動で更新。
+- ✅ **Filmator リポジトリ側 docs/08 を本セッション末で更新済**（ジュンさん指摘＝同一論理タスクの完了処理は
+  同セッション内で完結すべき）：§3.6 / §5.2 / §7 / §8 を「`junotokyo-shared-kv` 共用＋`filmator:` 接頭語」設計に
+  書き換え。Filmator リポジトリで commit + push 完了（Filmator 側 Handoff.md 最新エントリも参照）。
+- ✅ **Linear JT-246 / JT-247 を本セッション末で Done 化済**（2026-06-18T06:10:20Z・`completedAt` 反映）。
 - **worktree `unruffled-germain-be712a`** はチェックボックス起動（UI「ワークツリー」生成）なので
   `ExitWorktree` 不可。Bash フォールバックで削除（本 handoff の最後で実施）。
 
