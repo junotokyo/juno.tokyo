@@ -20,7 +20,7 @@ async function listAllPromoCodeKeys() {
   const keys = [];
   let cursor = '0';
   do {
-    const result = await kv.scan(cursor, { match: 'promo-code:*', count: 1000 });
+    const result = await kv.scan(cursor, { match: 'popscan:promo-code:*', count: 1000 });
     cursor = String(result[0]);
     for (const k of result[1]) keys.push(k);
   } while (cursor !== '0');
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       const values = keys.length ? await kv.mget(...keys) : [];
       const codes = keys.map((key, i) => {
         const data = values[i] && typeof values[i] === 'object' ? values[i] : {};
-        return { code: key.replace('promo-code:', ''), ...data };
+        return { code: key.replace('popscan:promo-code:', ''), ...data };
       });
       res.status(200).send(JSON.stringify(codes));
     } catch (err) {
@@ -73,7 +73,7 @@ export default async function handler(req, res) {
     }
 
     try {
-      await kv.set(`promo-code:${code}`, { expires, count });
+      await kv.set(`popscan:promo-code:${code}`, { expires, count });
       res.status(200).send(JSON.stringify({ code, expires, count }));
     } catch (err) {
       res.status(500).send(JSON.stringify({ error: String(err) }));
@@ -95,7 +95,7 @@ export default async function handler(req, res) {
     }
 
     try {
-      await kv.del(`promo-code:${code}`);
+      await kv.del(`popscan:promo-code:${code}`);
       res.status(200).send(JSON.stringify({ deleted: code }));
     } catch (err) {
       res.status(500).send(JSON.stringify({ error: String(err) }));

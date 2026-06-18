@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  await kv.set('promo', value);
+  await kv.set('popscan:promo', value);
 
   res.setHeader('Content-Type', 'application/json');
   res.status(200).send(JSON.stringify({ promo: value === 'true' }));

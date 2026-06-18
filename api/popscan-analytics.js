@@ -117,9 +117,9 @@ export default async function handler(req, res) {
     const now = new Date();
     const date = jstDateKey(now);
 
-    await kv.incr(`stats:${date}:${event}`);
+    await kv.incr(`popscan:stats:${date}:${event}`);
     if (errorCode) {
-      await kv.incr(`stats:${date}:${event}:${errorCode}`);
+      await kv.incr(`popscan:stats:${date}:${event}:${errorCode}`);
     }
 
     if (isErrorEvent) {
@@ -131,7 +131,7 @@ export default async function handler(req, res) {
         build,
         os_version: osVersion,
       };
-      const logKey = `error_log:${date}`;
+      const logKey = `popscan:error_log:${date}`;
       await kv.lpush(logKey, JSON.stringify(entry));
       await kv.ltrim(logKey, 0, ERROR_LOG_MAX_PER_DAY - 1);
       await kv.expire(logKey, ERROR_LOG_TTL_SECONDS);

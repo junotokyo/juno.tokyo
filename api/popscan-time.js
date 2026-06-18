@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   if (req.headers['x-popscan-purpose'] === 'quota_check') {
     try {
-      const promoValue = await kv.get('promo');
+      const promoValue = await kv.get('popscan:promo');
       body.p = promoValue === 'true' || promoValue === true;
     } catch {
       body.p = false;

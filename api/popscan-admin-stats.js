@@ -39,14 +39,15 @@ export default async function handler(req, res) {
   const codes = [...ALLOWED_ERROR_CODES];
   const errorEvents = [...ERROR_EVENTS];
 
+  // PopScan キーは `popscan:` 接頭語付き（Filmator は `filmator:`）。
   const eventKeys = [];
   for (const evt of events) {
-    for (const d of days) eventKeys.push(`stats:${d}:${evt}`);
+    for (const d of days) eventKeys.push(`popscan:stats:${d}:${evt}`);
   }
   const errorKeys = [];
   for (const code of codes) {
     for (const evt of errorEvents) {
-      for (const d of days) errorKeys.push(`stats:${d}:${evt}:${code}`);
+      for (const d of days) errorKeys.push(`popscan:stats:${d}:${evt}:${code}`);
     }
   }
   const allKeys = [...eventKeys, ...errorKeys];
@@ -56,7 +57,11 @@ export default async function handler(req, res) {
     const kvLookup = new Map();
     for (let i = 0; i < allKeys.length; i++) kvLookup.set(allKeys[i], allValues[i]);
 
-    const result = aggregateStats({ days, events, codes, errorEvents, kvLookup });
+    // aggregateStats は `stats:` キー前提（PopScan/Filmator 共用純関数）なので、
+    // popscan: プレフィックスを strip してから渡す。
+    const stripped = new Map();
+    for (const [k, v] of kvLookup) stripped.set(k.replace(/^popscan:/, ''), v);
+    const result = aggregateStats({ days, events, codes, errorEvents, kvLookup: stripped });
     res.status(200).send(JSON.stringify(result));
   } catch (err) {
     res.status(500).send(JSON.stringify({ error: String(err) }));

@@ -61,14 +61,67 @@ commands 以上しか選択不能・Upstash 直接アカウントの「10 DB ま
     正常系/異常系・photos クランプ・PopScan 専用 event/code reject・promo redeem ライフサイクル・
     `/filmator/time` `/filmator/set-promo` が 404）。
 
-**✅ Vercel 側の追加作業：不要**
+**✅ Vercel env 追加作業：不要**
 
 A 案（既存 `popscan-config` DB 共用＋接頭語分離）への方針変更により、Vercel ダッシュボードでの新規 Upstash
-DB 作成・env 追加は不要。既存の `KV_REST_API_URL` / `KV_REST_API_TOKEN`（PopScan 用）を Filmator API も
-そのまま使う＝ジュンさんの設定作業ゼロ。
+DB 作成・env 追加は不要。既存の `KV_REST_API_URL` / `KV_REST_API_TOKEN`（PopScan 用）を PopScan/Filmator
+両方が使う＝命名衝突は `popscan:` / `filmator:` プレフィックスで論理分離。
 
-push 後、`POPSCAN_BASIC_PASS=xxx ./scripts/smoke.sh https://juno.tokyo` を実行して、追加した Filmator ケース
-（24 件）＋PopScan 既存 + Codex Q4 追加（7 件）＝計 39 ケース増分が全 green か確認する想定。
+**🔴 命名統一の総ざらい（本セッション内で追加実施）**
+
+ジュンさん判断で「PopScan キーにも `popscan:` 接頭語を遡及付与」を本セッション内で完遂。アプリ追加で歪んでいく
+状態を避けるための一括投資。
+
+- PopScan サーバ 7 本のキー命名を全て `popscan:` プレフィックス付きに変更：
+  - `promo` → `popscan:promo`（popscan-time.js / popscan-set-promo.js）
+  - `stats:{date}:*` → `popscan:stats:{date}:*`（popscan-analytics.js / popscan-admin-stats.js）
+  - `error_log:{date}` → `popscan:error_log:{date}`（popscan-analytics.js / popscan-admin-error-log.js）
+  - `promo-code:{CODE}` → `popscan:promo-code:{CODE}`（popscan-redeem-promo.js / popscan-manage-promos.js）
+  - `promo-redeem-rate:{code|global}` → `popscan:promo-redeem-rate:{code|global}`（popscan-redeem-promo.js）
+- `popscan-admin-stats.js` は MGET 結果を `aggregateStats`（PopScan/Filmator 共用純関数・`stats:` キー前提）に
+  渡す前に `popscan:` プレフィックスを strip するキーマッパを挟む（Filmator 側と同型）。
+- 移行スクリプト `scripts/migrate-junotokyo-prefix.mjs` を追加：既存 KV の接頭語なしキーを SCAN で列挙し
+  `RENAME` で `popscan:` 付きに移行。ドライラン既定・`--apply` で実行。`filmator:*` / `popscan:*`（既移行）は
+  防御的に除外。`promo-redeem-rate:*` は TTL 60s で自動消滅するため対象外（コード切替直後の一時的計測リセットは許容）。
+- PopScan アプリ側（iOS）は KV を直接叩かない（サーバ HTTP API のみ）＝**アプリのアップデート不要**。
+
+**🔴 push 後の必須手順（ジュンさん作業）**
+
+main へ push すると Vercel が新コード（`popscan:` 接頭語前提）を即 Production に反映する。push 直後に
+以下を実行して既存 KV データを新キーに移行する。**push と移行スクリプトの間隔が長いほど不整合期間が伸びる**ので、
+push 直後すぐに実行する。
+
+```bash
+# 1. Vercel Dashboard → juno-tokyo project → Storage → KV → .env.local Snippet から
+#    KV_REST_API_URL と KV_REST_API_TOKEN をコピーして export
+
+export KV_REST_API_URL='https://...upstash.io'
+export KV_REST_API_TOKEN='...'
+
+# 2. ドライラン（リネーム対象を一覧表示・実書き込みなし）
+node scripts/migrate-junotokyo-prefix.mjs
+
+# 3. 内容確認 OK なら本番実行
+node scripts/migrate-junotokyo-prefix.mjs --apply
+
+# 4. smoke test で全体確認
+POPSCAN_BASIC_PASS=xxx ./scripts/smoke.sh https://juno.tokyo
+```
+
+不整合期間の影響：
+- 期間中の PopScan アプリからの `launch` / `save_succeeded` 等の analytics → 新コードは `popscan:stats:*` に
+  書き込み・旧キー `stats:*` には書かれない＝旧コード時代の集計値は移行スクリプトで救済
+- 期間中の `/popscan/time` quota_check → 新コードは `popscan:promo` を読む・旧 `promo` は移行スクリプトで救済
+- 本日分の analytics 計上漏れがあっても許容（ジュンさん確認済）
+
+**任意：DB 名リネーム（Upstash 直接 UI）**
+
+機能的には不要だが、長期視点で「PopScan 専用 DB」感を払拭したいなら：
+
+1. Upstash Dashboard（Vercel Marketplace 経由でログイン）→ `popscan-config` DB の設定
+2. Database name を `junotokyo-config` に変更（URL/Token は不変＝ Vercel 側 env 更新不要）
+
+これは接続には影響しない単なるラベル変更。後日でも可。
 
 **Codex セクション B 実装後レビューと採否（codex-collab.md B）**
 
@@ -97,6 +150,8 @@ push 後、`POPSCAN_BASIC_PASS=xxx ./scripts/smoke.sh https://juno.tokyo` を実
   PopScan 既存挙動には触らない設計だが、push 前に Preview で smoke test を回すのが安全。
 - middleware realm を `"PopScan Admin"` → `"juno.tokyo Admin"` に変更。PopScan 管理ページの既存ブラウザ
   認証セッションは初回アクセスで再ログイン要求になる可能性（user/pass は同一なのでログインし直すだけ）。
+- PopScan キーへの `popscan:` 接頭語遡及付与は本セッション内で完遂（移行スクリプト付き）。
+  PopScan/Filmator 命名対称＝将来 nightowl 等の新アプリを追加するときも同じパターンで足せる。
 - analytics クライアント側（Filmator アプリの `FilmatorAnalytics.swift`）は M4 S4（JT-249）で実装予定。
   本 S 完了時点では本番呼び出し側は無いので、smoke test の analytics ケースは「サーバが POST を受け付ける」
   ことだけを検証。実トラフィックは JT-249 配備後。
