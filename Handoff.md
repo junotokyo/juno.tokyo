@@ -8,6 +8,89 @@
 
 ---
 
+### [2026-06-18] Filmator M4 S1 — オンライン基盤サーバ＋管理ページ（JT-246／JT-247・実装完了・実機確認待ち）
+
+設計：Filmator リポジトリ `docs/08-オンライン通信・テレメトリ・課金設計.md` §5。PopScan `/popscan/*`
+基盤を **同型コピー**して `/filmator/*` 配下に自己完結化。
+
+**完了したこと（worktree `unruffled-germain-be712a` でコミット待ち）**
+
+- **共有純関数の整理（`api/_lib/`）**
+  - `kv.js`：単一 DB 前提だったのを factory 化。既存 `kv`（PopScan＝`KV_REST_API_URL`/`KV_REST_API_TOKEN`）に加え
+    `filmatorKv`（`FILMATOR_KV_REST_API_URL`/`FILMATOR_KV_REST_API_TOKEN`）を追加。後方互換維持。
+  - `photos-bucket.js`（新規）：`clampPhotos`（1..100000）／`bucketForPhotos`（1 / 2-10 / 11-50 / 51-200 / 201+）／
+    `SIZE_BUCKETS` を export。
+  - `filmator-event-codes.js`（新規）：`ALLOWED_EVENTS` / `ALLOWED_ERROR_CODES` / `ERROR_EVENTS`。
+    分離理由＝analytics と admin-stats から共有しつつテストが `kv.js` を副作用ロードしないように切り出し。
+- **Vercel Functions 5 本（`api/filmator-*.js`）**：PopScan からの移植。
+  - `filmator-analytics.js`：event/error_code allow-list を Filmator 用に差し替え。`export_succeeded` で `photos`
+    をクランプ → `stats:{date}:export_succeeded:photos` INCRBY ＋ `stats:{date}:export_size:{bucket}` INCR を追加。
+    `unexpected_photos`（非 export イベントで photos 付き）を 400 reject。
+  - `filmator-redeem-promo.js`：PopScan からほぼそのまま。Redis EVAL（Lua）は `kv.eval` で atomic 検証＋ count decrement。
+  - `filmator-manage-promos.js`：PopScan からほぼそのまま。`promo-code:*` キーの CRUD＋ SCAN 一覧。
+  - `filmator-admin-stats.js`：`exportPhotos`（枚数合計）と `exportSizeBuckets`（bucket 別 daily/total）を集計に追加。
+  - `filmator-admin-error-log.js`：PopScan からほぼそのまま。`error_log:{date}` を LRANGE。
+- **`vercel.json`**：Filmator rewrites 5 本（`/filmator/analytics`・`/redeem-promo`・`/manage-promos`・`/admin-stats`・
+  `/admin-error-log`）と `/filmator/admin*` の `X-Robots-Tag: noindex` ヘッダ、`/filmator → /filmator/` リダイレクトを追加。
+  PopScan エントリは無変更。**`/filmator/time` と `/filmator/set-promo` は実装しない**（docs/08 §2）。
+- **`middleware.js`**：matcher に Filmator 用 5 件を追加（set-promo は除外）。realm を `"PopScan Admin"` →
+  **`"juno.tokyo Admin"`** に共通化。これで `/popscan/admin/` ↔ `/filmator/admin/` を同一 user/pass で
+  ブラウザクレデンシャル自動 replay 可能。
+- **管理ページ（`filmator/admin/`・`filmator/admin/stats/`）**：PopScan admin を流用。
+  - Promo Flag セクション削除（`/filmator/set-promo` を作らないため）。
+  - 配色を Filmator 寄り（ティール基調 #0d9488・背景 #f7faf9）に調整。LP のカラー（M4 S2 JT-259）確定後に再調整可。
+  - stats ページに **「書き出し枚数 日次推移」「書き出しバッチサイズ分布（stacked bar）」**を追加。KPI に
+    `edit_committed`・`catalog_opened`・「書き出し枚数 合計」を追加。
+- **テスト**
+  - `scripts/test-filmator-analytics.mjs`（新規・12 件 green）：clampPhotos・bucketForPhotos・SIZE_BUCKETS・
+    ALLOWED_EVENTS/ERROR_CODES の集合契約。PopScan 専用 event/error_code が含まれていないことを negative test で担保。
+  - 既存 `test-admin-stats-aggregate.mjs`（12 件）・`test-jst-datekey.mjs` も regression なし。
+  - `scripts/smoke.sh` に Filmator 用ケース 25 件追加（Basic 認証・realm 共通化・X-Robots-Tag・analytics
+    正常系/異常系・photos クランプ・PopScan 専用 event/code reject・promo redeem ライフサイクル・
+    `/filmator/time` `/filmator/set-promo` が 404）。
+
+**🔴 ユーザーマター：Vercel ダッシュボードで Filmator 専用 Upstash DB の作成＋ env 注入**
+
+実装側は env 名 `FILMATOR_KV_REST_API_URL` / `FILMATOR_KV_REST_API_TOKEN` を前提に組み済み。次の手順で
+Vercel 側を整える（main へ push する前に済ませると Preview デプロイ直後に smoke test が通る）：
+
+1. Vercel Dashboard → `juno-tokyo` プロジェクト → **Storage** タブ
+2. **Create Database** → Marketplace → **Upstash for Redis** を選択
+3. Plan: **Free**（フリープラン枠は 10 DB まで無料／2 つ目も無料・docs/08 §0）
+4. Region: 東京（`ap-northeast-1`）推奨（PopScan と同じ）
+5. Name: **`filmator-config`**（PopScan の `popscan-config` と並ぶ命名）
+6. プロジェクト紐付け: `juno-tokyo`・**Production / Preview / Development の全環境**
+7. **Environment Variable Prefix（重要）**: `FILMATOR` を指定 → `FILMATOR_KV_REST_API_URL`・
+   `FILMATOR_KV_REST_API_TOKEN`・`FILMATOR_KV_REST_API_READ_ONLY_TOKEN` が注入される
+   - もし UI で prefix を聞かれない（古い統合 UI など）場合は、追加後に Settings → Environment Variables
+     で `KV_REST_API_URL` 等を手動で `FILMATOR_KV_REST_API_URL` 等にリネーム（既存 PopScan 用を上書きしない）
+8. Vercel Dashboard で `FILMATOR_KV_REST_API_URL` / `FILMATOR_KV_REST_API_TOKEN` が見えていることを確認
+
+完了後、main に push（or 一旦 Preview デプロイ）→ `POPSCAN_BASIC_PASS=xxx ./scripts/smoke.sh https://juno-tokyo-xxx.vercel.app`
+を実行して、追加した Filmator ケースが全 green か確認する想定。
+
+**残作業（次セッション）**
+
+- Codex セクション B 実装後レビュー（worktree commit 後・本セッション中に実施）
+- ユーザー動作確認 → main FF + push
+- Linear JT-246 / JT-247 を In Progress → Done（実機確認＝Preview の smoke test green を以て）
+- **M4 S2 LP（JT-259 → JT-260 → JT-261）** へ：LP デザイン（ティール＆オレンジ・ダーク基調・PopScan 差別化）。
+  LP カラー確定後、本 S で仮置きした admin の配色も合わせ込み可能（任意）。
+
+**申し送り**
+
+- 🔴 **`git push origin main` は Vercel が即 Production にデプロイ**。本 S は新規エンドポイント追加のみで
+  PopScan 既存挙動には触らない設計だが、push 前に Preview で smoke test を回すのが安全。
+- middleware realm を `"PopScan Admin"` → `"juno.tokyo Admin"` に変更。PopScan 管理ページの既存ブラウザ
+  認証セッションは初回アクセスで再ログイン要求になる可能性（user/pass は同一なのでログインし直すだけ）。
+- analytics クライアント側（Filmator アプリの `FilmatorAnalytics.swift`）は M4 S4（JT-249）で実装予定。
+  本 S 完了時点では本番呼び出し側は無いので、smoke test の analytics ケースは「サーバが POST を受け付ける」
+  ことだけを検証。実トラフィックは JT-249 配備後。
+- promo コード手動発行は `/filmator/admin/` から実施（JT-248 のクライアント実装前でも検証可）。
+- セッション開始時に `origin/main` が 1 commit 進んでいた（d649634 = 前回 Handoff 追記）。本 S 編集前に FF 取り込み済み。
+
+---
+
 ### [2026-06-18] Claude Code 環境整備（初期セットアップ）
 
 **完了したこと**

@@ -1,7 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
-    { "source": "/popscan", "destination": "/popscan/", "permanent": true }
+    { "source": "/popscan", "destination": "/popscan/", "permanent": true },
+    { "source": "/filmator", "destination": "/filmator/", "permanent": true }
   ],
   "rewrites": [
     { "source": "/popscan/time", "destination": "/api/popscan-time" },
@@ -10,7 +11,12 @@
     { "source": "/popscan/redeem-promo", "destination": "/api/popscan-redeem-promo" },
     { "source": "/popscan/manage-promos", "destination": "/api/popscan-manage-promos" },
     { "source": "/popscan/admin-stats", "destination": "/api/popscan-admin-stats" },
-    { "source": "/popscan/admin-error-log", "destination": "/api/popscan-admin-error-log" }
+    { "source": "/popscan/admin-error-log", "destination": "/api/popscan-admin-error-log" },
+    { "source": "/filmator/analytics", "destination": "/api/filmator-analytics" },
+    { "source": "/filmator/redeem-promo", "destination": "/api/filmator-redeem-promo" },
+    { "source": "/filmator/manage-promos", "destination": "/api/filmator-manage-promos" },
+    { "source": "/filmator/admin-stats", "destination": "/api/filmator-admin-stats" },
+    { "source": "/filmator/admin-error-log", "destination": "/api/filmator-admin-error-log" }
   ],
   "headers": [
     {
@@ -21,6 +27,18 @@
     },
     {
       "source": "/popscan/admin/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/filmator/admin",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/filmator/admin/(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
