@@ -21,8 +21,16 @@
   `scripts/hooks/git_safety_guard.py`（`git add -A` / `git commit -a` / worktree 稼働中の `-C` 無し変更系
   git ブロック）。`.claude/settings.json` に登録。
 - `scripts/handoff_finalize.py` を Filmator から流用配置（プロジェクト名を juno.tokyo 化）。
+- worktree 上で `0556daf chore: Claude Code 用の運用フレームワークを整備` をコミットし、
+  `df75290..0556daf` を `origin/main` に FF push（Vercel 自動デプロイ済み・doc/設定のみで本番ロジックに影響なし）。
 
 **申し送り**
+- 🔴 **初回セットアップ時の事故**: `Write` の絶対パスを worktree でなく実体 main 側パスで指定してしまい、
+  `filmator-lp` ブランチ作業中の作業ツリーにファイルが着地した。worktree path guard はフックなので
+  **次セッションから有効化**される＝今回は構造的に防げなかった。リカバリは「実体 main から worktree へ
+  ファイル移動 → `git checkout -- AGENTS.md` で実体側を restore」で完了。実体 main の `filmator-lp`
+  作業（Codex 側 WIP と思われる）は無傷。
+- 実体 main は `filmator-lp` ブランチに checkout 中で WIP あり（Codex 側で進行中の可能性）。誤って巻き込まないこと。
 - 🔴 **`git push origin main` で Vercel が即 Production にデプロイされる**。Filmator と違ってここがクリティカル。
   確信のない変更を main に push しない。Preview で確認できる変更はまず Preview デプロイを踏む。
 - `~/.codex/config.toml` に `juno-tokyo-review` / `juno-tokyo-edit` プロファイルを追記済み（既存 filmator-*
