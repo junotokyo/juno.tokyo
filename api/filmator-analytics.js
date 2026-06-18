@@ -1,4 +1,4 @@
-import { filmatorKv as kv } from './_lib/kv.js';
+import { kv } from './_lib/kv.js';
 import { jstDateKey, jstHourKey } from './_lib/date.js';
 import { clampPhotos, bucketForPhotos } from './_lib/photos-bucket.js';
 import {
@@ -101,13 +101,13 @@ export default async function handler(req, res) {
     const now = new Date();
     const date = jstDateKey(now);
 
-    await kv.incr(`stats:${date}:${event}`);
+    await kv.incr(`filmator:stats:${date}:${event}`);
     if (errorCode) {
-      await kv.incr(`stats:${date}:${event}:${errorCode}`);
+      await kv.incr(`filmator:stats:${date}:${event}:${errorCode}`);
     }
     if (photos != null) {
-      await kv.incrby(`stats:${date}:export_succeeded:photos`, photos);
-      await kv.incr(`stats:${date}:export_size:${bucketForPhotos(photos)}`);
+      await kv.incrby(`filmator:stats:${date}:export_succeeded:photos`, photos);
+      await kv.incr(`filmator:stats:${date}:export_size:${bucketForPhotos(photos)}`);
     }
 
     if (isErrorEvent) {
@@ -119,7 +119,7 @@ export default async function handler(req, res) {
         build,
         os_version: osVersion,
       };
-      const logKey = `error_log:${date}`;
+      const logKey = `filmator:error_log:${date}`;
       await kv.lpush(logKey, JSON.stringify(entry));
       await kv.ltrim(logKey, 0, ERROR_LOG_MAX_PER_DAY - 1);
       await kv.expire(logKey, ERROR_LOG_TTL_SECONDS);

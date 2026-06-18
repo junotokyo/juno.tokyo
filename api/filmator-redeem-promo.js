@@ -1,4 +1,4 @@
-import { filmatorKv as kv } from './_lib/kv.js';
+import { kv } from './_lib/kv.js';
 import { jstDateKey } from './_lib/date.js';
 
 const CORS_HEADERS = {
@@ -80,8 +80,8 @@ function parseBody(req) {
 async function withinRateLimit(code) {
   // Privacy invariant: throttle keys include only endpoint/code buckets, never IP/UA.
   const result = await kv.eval(RATE_LIMIT_SCRIPT, [
-    `promo-redeem-rate:${code}`,
-    'promo-redeem-rate:global',
+    `filmator:promo-redeem-rate:${code}`,
+    'filmator:promo-redeem-rate:global',
   ], [
     String(RATE_LIMIT_MAX_ATTEMPTS),
     String(RATE_LIMIT_GLOBAL_MAX_ATTEMPTS),
@@ -122,7 +122,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const key = `promo-code:${code}`;
+    const key = `filmator:promo-code:${code}`;
     if (!(await withinRateLimit(code))) {
       res.setHeader('Retry-After', String(RATE_LIMIT_WINDOW_SECONDS));
       res.status(429).send(JSON.stringify({ success: false, error: 'rate_limited' }));

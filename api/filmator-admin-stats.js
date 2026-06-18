@@ -1,4 +1,4 @@
-import { filmatorKv as kv } from './_lib/kv.js';
+import { kv } from './_lib/kv.js';
 import { aggregateStats, buildDayList } from './_lib/admin-aggregate.js';
 import { SIZE_BUCKETS } from './_lib/photos-bucket.js';
 import {
@@ -47,20 +47,21 @@ export default async function handler(req, res) {
   const codes = [...ALLOWED_ERROR_CODES];
   const errorEvents = [...ERROR_EVENTS];
 
+  // Filmator は popscan-config DB 共用＝`filmator:` プレフィックス。
   const eventKeys = [];
   for (const evt of events) {
-    for (const d of days) eventKeys.push(`stats:${d}:${evt}`);
+    for (const d of days) eventKeys.push(`filmator:stats:${d}:${evt}`);
   }
   const errorKeys = [];
   for (const code of codes) {
     for (const evt of errorEvents) {
-      for (const d of days) errorKeys.push(`stats:${d}:${evt}:${code}`);
+      for (const d of days) errorKeys.push(`filmator:stats:${d}:${evt}:${code}`);
     }
   }
-  const photosKeys = days.map((d) => `stats:${d}:export_succeeded:photos`);
+  const photosKeys = days.map((d) => `filmator:stats:${d}:export_succeeded:photos`);
   const bucketKeys = [];
   for (const bucket of SIZE_BUCKETS) {
-    for (const d of days) bucketKeys.push(`stats:${d}:export_size:${bucket}`);
+    for (const d of days) bucketKeys.push(`filmator:stats:${d}:export_size:${bucket}`);
   }
   const allKeys = [...eventKeys, ...errorKeys, ...photosKeys, ...bucketKeys];
 
@@ -69,16 +70,22 @@ export default async function handler(req, res) {
     const kvLookup = new Map();
     for (let i = 0; i < allKeys.length; i++) kvLookup.set(allKeys[i], allValues[i]);
 
-    const result = aggregateStats({ days, events, codes, errorEvents, kvLookup });
+    // aggregateStats は kvLookup のキーをそのまま (`filmator:stats:...`) 渡すので
+    // 内側で参照する `stats:${d}:${evt}` をキーマッパ経由で解決させる。
+    // → 既存 _lib/admin-aggregate.js は `stats:` プレフィックスを暗黙に組み立てるため、
+    //   ここでは kvLookup を `stats:...` キー基準で再構築してから渡す。
+    const stripped = new Map();
+    for (const [k, v] of kvLookup) stripped.set(k.replace(/^filmator:/, ''), v);
+    const result = aggregateStats({ days, events, codes, errorEvents, kvLookup: stripped });
 
     // export_succeeded の枚数合計と size bucket 分布を追加
-    const photosDaily = days.map((d) => toInt(kvLookup.get(`stats:${d}:export_succeeded:photos`)));
+    const photosDaily = days.map((d) => toInt(kvLookup.get(`filmator:stats:${d}:export_succeeded:photos`)));
     const photosTotal = photosDaily.reduce((a, b) => a + b, 0);
     result.exportPhotos = { total: photosTotal, daily: photosDaily };
 
     const exportSizeBuckets = {};
     for (const bucket of SIZE_BUCKETS) {
-      const daily = days.map((d) => toInt(kvLookup.get(`stats:${d}:export_size:${bucket}`)));
+      const daily = days.map((d) => toInt(kvLookup.get(`filmator:stats:${d}:export_size:${bucket}`)));
       const total = daily.reduce((a, b) => a + b, 0);
       exportSizeBuckets[bucket] = { total, daily };
     }

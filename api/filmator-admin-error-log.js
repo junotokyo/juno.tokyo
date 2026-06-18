@@ -1,4 +1,4 @@
-import { filmatorKv as kv } from './_lib/kv.js';
+import { kv } from './_lib/kv.js';
 import { buildDayList, mergeErrorLogs } from './_lib/admin-aggregate.js';
 
 const JSON_HEADERS = {
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
   const days = buildDayList(daysCount);
 
   try {
-    const rawLists = await Promise.all(days.map((d) => kv.lrange(`error_log:${d}`, 0, -1)));
+    const rawLists = await Promise.all(days.map((d) => kv.lrange(`filmator:error_log:${d}`, 0, -1)));
     const perDayLists = rawLists.map((list) => (list || []).map(parseEntry).filter(Boolean));
     const entries = mergeErrorLogs({ days, perDayLists });
     res.status(200).send(JSON.stringify({ entries }));
