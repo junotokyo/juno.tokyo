@@ -1,168 +1,106 @@
-# juno.tokyo Project Notes
+# AGENTS.md — Codex 共通エントリ（juno.tokyo）
 
-This repository manages the web presence for `juno.tokyo`.
+このリポジトリの共通運用ルール・プロジェクト情報（リポジトリ／デプロイ／DNS／Mail／Analytics 等の事実情報を含む）の
+マスターは **`PROJECT.md`** に集約されている。**作業開始前に必ず `PROJECT.md` を読むこと**
+（Codex は `@import` 構文を解釈しないため、自動では読み込まれない）。
 
-## Current Purpose
+本ファイルは、ユーザーが Codex Desktop へ直接依頼するセッションと、Claude Code が Codex CLI を呼び出す
+委任セッションの両方に適用する。最初に下記の動作モードを判定し、該当するルールに従うこと。
 
-- Primary deployed site: `https://juno.tokyo`
-- Current public landing page: `https://juno.tokyo/popscan/`
-- Root `index.html` is intentionally minimal and redirects visitors to `/popscan/`.
-- The public site is static HTML/CSS/JS. PopScan's backend is a small set of
-  **Vercel Serverless Functions** under `api/` (promo flag, analytics, promo-code
-  redeem, admin stats / error log) backed by **Upstash Redis (KV)**. Do not add
-  WordPress or a stateful long-running server; new backend needs go through
-  Vercel Functions + KV.
+---
 
-## Repository
+## このプロジェクトは何か
 
-- GitHub repository: `junotokyo/juno.tokyo`
-- Local path (canonical): `/Users/jokamoto/Library/CloudStorage/Dropbox/Projects/Web/juno.tokyo`
-- Local path (Codex view, symlink alias): `/Users/jokamoto/Library/CloudStorage/Dropbox/Codex/juno.tokyo`
-  — symlink to the canonical path above; editing either reflects the same files.
-- Default branch: `main`
-- Hosting: **Vercel** (migrated from Netlify on 2026-05-11)
-- Vercel project: `juno-tokyo` (`.vercel/project.json` holds the project/org IDs)
+`juno.tokyo` ドメインの Web サイト（PopScan / Filmator / Press の LP）と、`api/` 配下の **Vercel Serverless Functions**
+（PopScan の promo フラグ・analytics・promo-code redeem・admin stats / error log）＋ **Upstash Redis (KV)**。
+公開サイトは静的 HTML/CSS/JS で、push すると Vercel が自動デプロイする。
 
-## Directory Layout
+詳細は `PROJECT.md`（プロジェクト概要・ディレクトリ構成・デプロイ・DNS / Mail・Analytics）。
 
-```text
-.
-├── index.html
-├── robots.txt
-├── middleware.js          # Basic-auth gate for /popscan/admin/* and admin APIs
-├── vercel.json            # /popscan/* → /api/popscan-* rewrites, headers
-├── api/                   # Vercel Serverless Functions
-│   ├── popscan-time.js
-│   ├── popscan-analytics.js
-│   ├── popscan-set-promo.js
-│   ├── popscan-redeem-promo.js
-│   ├── popscan-manage-promos.js
-│   ├── popscan-admin-stats.js
-│   ├── popscan-admin-error-log.js
-│   └── _lib/              # kv.js / date.js / admin-aggregate.js
-├── scripts/               # build/asset helper scripts (e.g. App Store assets)
-└── popscan/
-    ├── index.html
-    ├── styles.css
-    ├── script.js
-    ├── assets/
-    └── admin/             # promo / stats admin UI (Basic-auth, noindex)
-```
+## 厳守事項
 
-## Deployment
+- **DNS / Mail レコードを破壊しない**（onamae.com の MX / SPF / DKIM / DMARC は Web ホスティング移行と独立）。
+- **`/popscan/` の公開 URL を維持する**。
+- 公開 LP は静的を維持し、バックエンドロジックは `api/` 配下の Vercel Functions に集約する。
+- admin / 内部ページに Vercel Web Analytics スクリプトを入れない（noindex の LP メトリック汚染防止）。
+- ユーザー（ジュン）への応答は日本語。
 
-Vercel imports the GitHub repository and deploys automatically on push to `main`.
+## 依頼種別の判定（タスク相談）
 
-- Framework preset: none (static + Vercel Functions in `api/`)
-- Build command: none
-- Output: repository root served statically; `api/*.js` run as Serverless Functions
-- Routing: `vercel.json` rewrites `/popscan/<name>` → `/api/popscan-<name>`
-- Update workflow:
+- ユーザーが **「タスク相談」** と書いた場合、それは「課題・要望を調査し、実装方針を検討し、必要ならタスク化する」
+  という意味であり、**実装許可ではない**。
+- タスク相談では、コード編集・テスト・コミット・push を行わない。実装が妥当に見えても、
+  ユーザーが「実装して」「修正して」「進めて」など明示するまで相談モードを維持する。
+- 相談か実装か判別できない場合は、ファイルを変更する前に「相談のみか、実装まで進めてよいか」を確認する。
 
-```bash
-cd /Users/jokamoto/Library/CloudStorage/Dropbox/Projects/Web/juno.tokyo
-git add .
-git commit -m "Update site"
-git push            # → Vercel auto-deploys main
-```
+## 動作モード
 
-### KV / environment variables (Vercel dashboard)
+### 1. Codex 直接作業モード
 
-- `KV_REST_API_URL` / `KV_REST_API_TOKEN` / `KV_REST_API_READ_ONLY_TOKEN`
-  — auto-injected by the Upstash for Redis Marketplace integration.
-- `ADMIN_BASIC_PASS` — Basic-auth password (user is fixed as `admin`) for
-  `/popscan/admin/*` and the admin APIs (`set-promo`, `manage-promos`,
-  `admin-stats`, `admin-error-log`), enforced by `middleware.js`.
+ユーザーが Codex Desktop で直接依頼しているセッションに適用する。
 
-The authoritative spec for the PopScan backend contract (endpoints, KV keys,
-error-code allow-list, smoke tests) lives in the PopScan repo:
-`SPEC.md` → "Vercel Functions + KV（promo制御）".
+- Codex が主担当として、調査・プラン作成・ファイル編集・テスト・ユーザーへの説明を一貫して行う。
+- 実装後は Claude にレビューを依頼せず、Codex 自身が独立した敵対的レビューを行う。
+- `git commit` / main への fast-forward / `git push` / `Handoff.md` は、ユーザー指示と `PROJECT.md`
+  の共通ルールに従って Codex が実行してよい。
+- 詳細な進め方は **`docs/process/codex-desktop-workflow.md`** を作業開始時に読むこと。
 
-## DNS And Domains
+### 2. Claude 委任 Codex CLI モード
 
-DNS is managed in onamae.com Navi using the `dnsv.jp` nameservers (unchanged
-through the Netlify→Vercel migration):
+Claude Code が `codex exec` / `codex review` で呼び出したセッション、またはプロンプトに Claude からの委任と
+明記されているセッションに適用する。
 
-- `01.dnsv.jp` / `02.dnsv.jp` / `03.dnsv.jp` / `04.dnsv.jp`
+- reviewer / verifier が基本。実装は Claude から明示依頼があった限定範囲だけ行う。
+- レビューは bug・regression・missing tests・security risk を優先し、file:line 単位で根拠を示す。
+- 採否と最終実装責任は Claude。`git commit` / `push` / `Handoff.md` 更新は Codex 側で行わない。
+- 不具合・改善要望では、実装した Claude の anchoring を避けるため、独立した立場で根本原因・選択肢・
+  トレードオフを提示する。UX を最優先し、開発難易度とメンテナンス性を比較材料として添える。
+- 詳細は **`docs/process/codex-collab.md`** に従う。
 
-Important web records (verified live 2026-05-19, now pointing at Vercel):
+モードを判別できない場合はファイルを変更せず、呼び出し元またはユーザーへ確認する。
 
-```text
-juno.tokyo       A      216.198.79.1
-www.juno.tokyo   CNAME  637499c2ab6665de.vercel-dns-017.com
-```
+## 作業ディレクトリ
 
-`www.juno.tokyo` redirects to the primary domain `juno.tokyo` (configured in
-Vercel). If you need to re-verify, use `dig +short juno.tokyo A` and
-`dig +short www.juno.tokyo CNAME` rather than trusting cached values here.
+- このリポジトリは git worktree を使う。Claude 管理・Codex 管理どちらの worktree でも、実体パスと
+  worktree パスを混ぜない。
+- 直接作業モードでは Codex Desktop の Worktree スレッドを優先する。委任モードでは呼び出し側が `--cd` で
+  指定した作業ディレクトリを維持する。
+- 未確認なら `pwd` と `git worktree list` を最初に実行。
+- canonical な実体パスは `~/Library/CloudStorage/Dropbox/Projects/Web/juno.tokyo`。
+  `~/Library/CloudStorage/Dropbox/Codex/juno.tokyo` は同一実体への symlink alias（どちらを編集しても同じ）。
 
-## Mail
+## やってよいこと / やってはいけないこと
 
-Mail for `code@juno.tokyo` is handled by onamae.com mail infrastructure and is
-independent of web hosting (unaffected by the Netlify→Vercel migration).
+- 変更は最小範囲。ユーザーや Claude の未コミット変更を上書き・revert しない。
+- 直接作業モードでは `PROJECT.md` の完了・コミット規則に従う。委任モードでは `git commit` / `git push` /
+  `Handoff.md` 更新を行わない。
+- 🔴 **`git add -A` / `git add .` / `git commit -a` を使わない**。編集したファイルを明示 add する。
+- 🔴 **worktree 稼働中の変更系 git は `git -C <絶対パス>` を使う**（cwd ドリフト事故防止）。
+- `AGENTS.override.md` は使わない。
 
-Important mail-related records:
+## 主要コマンド
 
-```text
-juno.tokyo                  MX   mail89.onamae.ne.jp priority 10
-juno.tokyo                  TXT  v=spf1 include:_spf.onamae.ne.jp ~all
-mail.juno.tokyo             A    160.251.71.112
-ml-cp.juno.tokyo            A    160.251.71.112
-_dmarc.juno.tokyo           TXT  v=DMARC1; p=reject
-default._domainkey.juno.tokyo TXT DKIM record from onamae.com mail
-```
+- 公開サイトはビルドステップなし（静的配信）。`api/` は Vercel Serverless Functions として動作。
+- 主要なテスト・運用コマンド:
 
-Be careful not to remove mail DNS records when changing hosting.
+  ```bash
+  bash scripts/smoke.sh                                  # PopScan バックエンド smoke test
+  node scripts/test-admin-stats-aggregate.mjs            # admin stats 集計ロジック単体テスト
+  node scripts/test-jst-datekey.mjs                      # JST 日付キー単体テスト
+  ```
 
-## Historical Context
+- 本番への影響を伴う動作確認は **Vercel Preview デプロイ**を使う（main push は自動で Production に反映される
+  ため、確信のない変更を main に push しない）。
+- `vercel.json` / `middleware.js` を変更したら、Preview で実際に admin 領域・rewrite・headers が壊れていないか
+  確認する。
 
-- The PopScan LP was first uploaded manually to onamae.com Rental Server under
-  `public_html/juno.tokyo/popscan`.
-- The onamae.com Rental Server control panel and file manager felt too old for
-  ongoing static-site deployment.
-- The site was migrated to GitHub + Netlify on 2026-05-01; the old `popscan`
-  folder was deleted from the onamae.com Rental Server afterward.
-- **Migrated from Netlify to Vercel on 2026-05-11** (to add Serverless Functions
-  + Upstash Redis KV for the PopScan promo/analytics/admin backend on the same
-  domain). DNS A/CNAME repointed to Vercel; mail DNS left on onamae.com.
-- A leftover top-level `netlify/` directory may still exist locally (only a
-  stray `.DS_Store`); it is an orphan from the Netlify era and is not used.
+## レビュー時の優先観点
 
-## Future Direction
+1. **テスト設計の不足** — 新ロジック対応テストの有無、エッジケース漏れ、モックで隠れる実挙動の明示
+2. **本番影響の見落とし** — push＝Vercel auto deploy という連鎖、admin Basic-auth の意図しない解除、
+   middleware の rewrite/header 副作用、KV の意図しないキー上書き
+3. **セキュリティ** — admin API・KV トークンの露出経路、Basic-auth の bypass、CORS / X-Robots-Tag の崩れ
+4. **DNS / Mail への副作用** — 該当しないはずだが、変更が onamae.com 側のレコードに干渉していないか
+5. **抜け・矛盾・前提の誤り**、検証手段が不十分な箇所
 
-- The site is now on Vercel; static pages + lightweight Vercel Functions.
-- If a dynamic photo CMS or web app is built later, use a subdomain such as
-  `photos.juno.tokyo` (a heavier Next.js app can live as its own Vercel project).
-- Keep the public LP static; route any new backend through Vercel Functions + KV.
-
-## Editing Guidelines
-
-- Keep the public site static unless the user explicitly changes direction;
-  backend logic belongs in `api/` Vercel Functions, not inline server runtimes.
-- Preserve `/popscan/` as the public PopScan URL.
-- Avoid changing DNS or mail assumptions without confirming current records
-  first (`dig`), especially mail records.
-- Do not commit `.DS_Store`; it is ignored by `.gitignore`.
-
-## Analytics (Vercel Web Analytics)
-
-Vercel Web Analytics is enabled on the `juno-tokyo` Vercel project. Tracking is
-opt-in per HTML page via a script tag:
-
-```html
-<script defer src="/_vercel/insights/script.js"></script>
-```
-
-- Add this tag to the `<head>` of any **public** page you want to count.
-- Do **not** add it to admin / internal pages (e.g. `/popscan/admin/`,
-  `/popscan/admin/stats/`) — they are `noindex` and tracking them would pollute
-  LP metrics.
-- For static multi-page sites (current pattern), the script tag is sufficient —
-  full-page navigations are recorded by Vercel's CDN-served script.
-- For a future SPA or framework app (React / Next / Vue with client-side
-  routing) added under the same Vercel project, switch *that* app to the
-  `@vercel/analytics` npm package + framework component (`<Analytics/>`) so
-  client-side route changes are also counted. Mixing the two approaches in one
-  Vercel project is supported; events land in the same dashboard.
-- Hobby tier free quota: 2,500 events / month. Watch the dashboard if traffic
-  grows.
+詳細は `PROJECT.md` のテストルール・モックルール・コミットルールを参照すること。
