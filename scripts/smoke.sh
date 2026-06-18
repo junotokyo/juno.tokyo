@@ -274,7 +274,7 @@ assert_status "$S" "401" "直叩き middleware 通過"
 # 7. Filmator: /filmator/admin/ Basic 認証
 # =========================================================
 
-FCODE="FSMK$RANDOM"
+FCODE="FSM$RANDOM"   # FSM(3) + $RANDOM(<=5) = 最大 8 文字（サーバ regex ^[A-Z0-9]{1,8}$ に収める）
 
 step "/filmator/admin/ Basic Auth により 401 期待"
 S=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/filmator/admin/")
