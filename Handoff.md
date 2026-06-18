@@ -8,6 +8,62 @@
 
 ---
 
+### [2026-06-18] Filmator M4 S1 完了（命名統一・実機検証）
+
+**完了したこと**
+
+- M4 S1（Linear JT-246 オンライン基盤サーバ・JT-247 管理ページ）を本番反映＋実機検証まで完了。
+  - 5 commits（`1f90171` feat → `f7dc394` Codex Q4 fix → `dc3b176` filmator: 接頭語 → `3e71669` popscan: 接頭語＋移行スクリプト → `bb81c28` smoke 修正）を `origin/main` へ FF push 済。
+  - 当初は「Filmator 専用 Upstash DB（接頭語なし）」設計だったが、Vercel Marketplace Free 枠 1 DB 制約と判明し、
+    途中で「既存 DB 共用＋ `filmator:` 接頭語分離」に方針変更。ジュンさん判断で PopScan 既存キーも `popscan:`
+    接頭語に遡及付与（`scripts/migrate-junotokyo-prefix.mjs` で既存 71 件を `RENAME`）。
+  - Upstash DB 名も `popscan-config` → **`junotokyo-shared-kv`** にリネーム（ラベル変更のみ・env 不変）。
+- 動作確認結果：
+  - smoke test 95/95 pass（PopScan 既存 + Filmator 新規 + Codex Q4 `/api/*` 直叩き保護 計 7）
+  - 純関数テスト 25/25 pass
+  - PopScan 実機アプリで scan/save → 本番サーバ → KV → admin stats グラフ反映の **フルパス E2E 確認**
+  - Filmator admin stats で smoke 由来データが期待通り表示（`photos` クランプ 999999→100000・bucket 分類
+    `11-50` / `201+` ・error_log）
+- Codex セクション B 実装後レビュー実施：Q4（`/api/*` middleware 迂回）採用＋ PopScan 既存リスクも同時修正。
+  Q1/Q3 は A 案移行で構造的に解消。Q2/Q6/Q7 は保留（下記申し送り）。
+
+**申し送り**
+
+- 🔴 **Upstash DB 名は `junotokyo-shared-kv`**。「JUNO Tokyo 内の複数アプリで共有する KV」を明示。
+  将来 Blob/Postgres を追加するときも `junotokyo-<scope>-{blob,postgres}` で命名を揃えやすい。
+  Vercel/Upstash UI のラベル変更だけ＝接続 URL/Token は不変、env 更新不要。
+- 🔴 **KV キー命名規約**：全キーに `<app>:` 接頭語必須（PopScan = `popscan:`、Filmator = `filmator:`）。
+  新アプリ追加時は同パターンで `<app>:` を付ける（接頭語なし＝直接 DB ルートに書き込みは禁止）。
+  `_lib/admin-aggregate.js` は `stats:` キー前提の純関数なので、admin-stats 側で MGET 結果のキーから
+  `<app>:` プレフィックスを strip してから渡す（`popscan-admin-stats.js` / `filmator-admin-stats.js` 同型）。
+- 🔴 **`/api/<app>-{set-promo,manage-promos,admin-stats,admin-error-log}` の middleware matcher 必須**：
+  Codex Q4 で発覚した認可バイパス。Vercel middleware は incoming request path で評価するので、rewrite 後の
+  公開パスだけでなく rewrite 前の `/api/*` も matcher に列挙しないと直叩きで素通りする。新アプリで認証必須
+  Function を追加するときは `/api/<app>-*` を matcher に列挙する。
+- middleware realm は `"juno.tokyo Admin"` で PopScan/Filmator 共通化済み＝同一 user/pass でブラウザの
+  Basic 認証 Authorization ヘッダを横断 replay 可能（`/popscan/admin/` ↔ `/filmator/admin/` で再ログイン不要）。
+- **Codex セクション B 保留事項**（次セッション以降の検討候補）：
+  - Q2 INCR/INCRBY/LPUSH の部分書き込み非 atomic（PopScan 同型・統計正確性を重視するなら pipeline/MULTI 化）
+  - Q6 `days=30` 時の MGET 約 1095 キーの Upstash 制限（運用しながら実測）
+  - Q7 `RATE_LIMIT_SCRIPT` のコメント「decrement」誤記・`parseInt('1abc')` 受け入れ等の軽微 cleanup
+- **smoke の副作用（既知の罠）**：
+  - `popscan:promo` を最後に `false` で書き戻すため、smoke 実行後に Promo Flag が OFF になる。
+    プロモ期間中は実行後に手動で ON に戻す必要あり（本セッションでも発生＝復旧済）。
+  - `popscan:stats:*` `filmator:stats:*` に smoke データが入って永続化する。
+  - `popscan:error_log:*` `filmator:error_log:*` も汚れるが 7 日 TTL で自然消滅。
+  - プロモ期間が 2026-06-19 で終了のため今回は smoke 改善は見送り。改善するなら「smoke 開始時に現在値を
+    保存して、最後に書き戻す」「`?dry=1` のようなテストフラグで INCR/LPUSH をスキップする」の 2 案。
+- **Filmator リポジトリ側 docs/08-オンライン通信・テレメトリ・課金設計.md の更新が必要**：
+  §0 / §5.2 は当初の設計「Filmator 専用 DB＋接頭語なし」のままなので、次の Filmator セッションで
+  「`junotokyo-shared-kv` 共用＋ `filmator:` 接頭語」に書き換える申し送り。本セッションは juno.tokyo
+  リポジトリ側のため Filmator リポジトリには触っていない。
+- **Linear JT-246 / JT-247 のステータス更新**は本セッション内では行わず申し送り。実機検証 OK ＝ Done 化可能。
+  次の Filmator セッション or ジュンさん手動で更新。
+- **worktree `unruffled-germain-be712a`** はチェックボックス起動（UI「ワークツリー」生成）なので
+  `ExitWorktree` 不可。Bash フォールバックで削除（本 handoff の最後で実施）。
+
+---
+
 ### [2026-06-18] Filmator M4 S1 — オンライン基盤サーバ＋管理ページ（JT-246／JT-247・実装完了・実機確認待ち）
 
 設計：Filmator リポジトリ `docs/08-オンライン通信・テレメトリ・課金設計.md` §5。PopScan `/popscan/*`
