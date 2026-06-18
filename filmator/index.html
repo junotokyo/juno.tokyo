@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Filmator by JUNO Tokyo</title>
+    <meta name="description" content="Filmator は、カメラが生成した JPEG の色をそのままに、Lightroom Classic で決めた構図と向きのまま書き出す Mac アプリです。">
+    <meta name="theme-color" content="#15171A">
+    <meta property="og:title" content="Filmator by JUNO Tokyo">
+    <meta property="og:description" content="撮った時の色を、そのまま作品に。カメラが生成した JPEG を、Lightroom Classic のワークフローのまま書き出す Mac アプリ。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://juno.tokyo/filmator/">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:site_name" content="JUNO Tokyo">
+    <!-- TODO(JT-261): 専用 OG 画像 1200x630 に差し替え（暫定でロックアップを使用） -->
+    <meta property="og:image" content="https://juno.tokyo/filmator/assets/filmator-lockup-dark.png">
+    <meta property="og:image:alt" content="Filmator — カメラが生成した JPEG を作品として書き出す Mac アプリ">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Filmator by JUNO Tokyo">
+    <meta name="twitter:description" content="撮った時の色を、そのまま作品に。カメラが生成した JPEG を、Lightroom Classic のワークフローのまま書き出す Mac アプリ。">
+    <meta name="twitter:image" content="https://juno.tokyo/filmator/assets/filmator-lockup-dark.png">
+
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon/favicon-512.png">
+
+    <!-- DEV ONLY: 開発・レビュー用に Google Fonts CDN を使用。
+         デプロイ前に assets/fonts/ への自前ホスト（text= サブセット woff2）へ差し替え、この link は撤去する（JT-260・プライバシー方針）。 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;700&family=Cormorant+Garamond:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="/_vercel/insights/script.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Filmator home">
+        <img src="assets/filmator-wordmark-tone.png" alt="Filmator" class="brand-wm">
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#concept" data-i18n="navConcept">コンセプト</a>
+        <a href="#workflow" data-i18n="navWorkflow">使い方</a>
+        <a href="#features" data-i18n="navFeatures">機能</a>
+        <a href="#pricing" data-i18n="navPricing">料金</a>
+        <a href="#support" data-i18n="navSupport">サポート</a>
+      </nav>
+      <!-- TODO(JT-260): 英語版コピー確定後に言語スイッチを復帰（現在は日本語のみ） -->
+      <!--
+      <div class="language-switch" aria-label="Language">
+        <button class="language-button active" type="button" data-lang="ja" aria-pressed="true">日本語</button>
+        <button class="language-button" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      -->
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-title-row">
+          <img class="hero-icon" src="assets/filmator-icon-1024.png" alt="Filmator" width="96" height="96">
+          <h1><span data-i18n="heroTitle1">撮った色を、</span><span data-i18n="heroTitle2">そのまま作品に。</span></h1>
+        </div>
+        <div class="hero-body">
+          <div class="hero-copy">
+          <p class="hero-lead" data-i18n="heroLead1">Filmatorは、カメラが記録したJPEGを、RAWから作り直すのではなく、その一枚に込められた表現を活かして作品として仕上げるMac用アプリです。</p>
+          <p class="hero-lead" data-i18n="heroLead2">Lightroom Classicのカタログを使って、整理済みの写真を選び、必要な基本補正を加えて書き出せます。</p>
+          <div class="hero-cta">
+            <!-- TODO(JT-260): href をリリース時に実 App Store URL へ。公式 Apple バッジ（Download on the Mac App Store）。 -->
+            <a class="app-store-badge" href="#" aria-label="Mac App Store からダウンロード">
+              <img src="assets/mac-app-store-badge.svg" alt="Mac App Store からダウンロード" height="52">
+            </a>
+          </div>
+          <div class="trust-row" aria-label="Highlights">
+            <span data-i18n="trust1">Lightroom Classic対応</span>
+            <span data-i18n="trust2">元データ保持</span>
+            <span data-i18n="trust3">Core Image処理</span>
+          </div>
+        </div>
+          <div class="hero-visual" aria-label="Filmator のアプリ画面">
+            <div class="macbook">
+              <div class="mb-screen">
+                <!-- TODO(JT-261): mb-screen 内にアプリのスクリーンショットを差し込む → <img src="assets/hero-app-shot.png" alt="Filmator の画面"> -->
+                <span class="mb-cap">アプリ画面のスクリーンショット（準備中）</span>
+              </div>
+              <img class="mb-bezel" src="assets/macbook-bezel.png" alt="">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONCEPT（明朝・アイブローなし・薄く写真を敷く別デザイン） -->
+      <section class="section concept" id="concept" aria-labelledby="concept-title">
+        <div class="concept-inner">
+          <h2 id="concept-title"><span data-i18n="conceptTitle1">カメラが描いた一枚に、</span><br><span data-i18n="conceptTitle2">価値を見出す。</span></h2>
+          <p class="concept-body" data-i18n="conceptBody1">RAWは、あとから仕上げ直すための素材。Filmatorが向き合うのは、撮影した時の光やカメラの絵作りが記録されたJPEGです。カメラが描いた一枚に、デジタル時代のフィルムのような価値を見出し、撮影時の表現を保ったまま作品として書き出す。名前に込めた“Film”は、フィルム風の加工ではなく、その考え方を表しています。</p>
+        </div>
+      </section>
+
+      <!-- WORKFLOW（ゴシック） -->
+      <section class="section workflow" id="workflow" aria-labelledby="workflow-title">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="workflowEyebrow">Workflow</p>
+          <h2 id="workflow-title"><span data-i18n="workflowTitle1">Lightroom Classicで選び、</span><br><span data-i18n="workflowTitle2">Filmatorで書き出す。</span></h2>
+          <p class="section-lead" data-i18n="workflowLead">いつものようにLightroom Classicで写真を読み込み、整理し、必要なら構図と向きを整える。カタログを閉じて保存したら、Filmatorでそのカタログを開き、カメラが生成したJPEGを書き出せます。</p>
+        </div>
+        <!-- TODO(JT-261): Filmator アプリ全体像のスクリーンショットに差し替え（2560×1600 / 16:10 @2x） -->
+        <div class="app-shot" role="img" aria-label="Filmator のスクリーンショット（準備中）">
+          <span class="app-shot-cap" data-i18n="shotApp">アプリ画面のスクリーンショット（準備中 / 2560×1600）</span>
+        </div>
+        <ol class="workflow-steps">
+          <li class="workflow-step"><span class="num">1</span><div><h3 data-i18n="step1Title">Lightroom Classicで管理</h3><p data-i18n="step1Body">写真を読み込み、いつものカタログで管理します。RAW+JPEGのペアも、単体JPEGやHEIFも、Lightroom Classic側の流れはそのままです。</p></div></li>
+          <li class="workflow-step"><span class="num">2</span><div><h3 data-i18n="step2Title">写真を整理</h3><p data-i18n="step2Body">フラグ、レーティング、カラーラベルで、写真を整理します。</p></div></li>
+          <li class="workflow-step"><span class="num">3</span><div><h3 data-i18n="step3Title">構図と向きを決める</h3><p data-i18n="step3Body">必要に応じて、トリミング、傾き、向き、UprightをLightroom Classic側で設定します。</p></div></li>
+          <li class="workflow-step"><span class="num">4</span><div><h3 data-i18n="step4Title">カタログを閉じて保存</h3><p data-i18n="step4Body">変更内容をFilmatorで読み込めるように、Lightroom Classicでカタログを閉じて保存します。</p></div></li>
+          <li class="workflow-step"><span class="num">5</span><div><h3 data-i18n="step5Title">Filmatorで開く</h3><p data-i18n="step5Body">Filmatorでカタログを開くと、整理した内容が反映されます。そこから写真を選び、必要な補正を加えて書き出します。</p></div></li>
+        </ol>
+        <div class="safety-note">
+          <h3 data-i18n="safetyTitle">Lightroom Classic側には影響しません。</h3>
+          <p data-i18n="safetyBody">Filmatorは、Lightroom Classicのカタログを読み取り専用で開きます。RAWファイルは使用せず、対応するJPEG／HEIFだけを参照します。元の写真ファイルにもカタログにも変更を加えないため、いつものLightroom Classicの管理をそのまま保てます。</p>
+        </div>
+      </section>
+
+      <!-- FEATURES（ゴシック・8カード・番号なし） -->
+      <section class="section features" id="features" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="featuresEyebrow">Features</p>
+          <h2 id="features-title" data-i18n="featuresTitle">Filmatorでできること</h2>
+        </div>
+        <!-- TODO(JT-261): 編集・書き出し画面のスクリーンショットに差し替え（2560×1600 / 16:10 @2x） -->
+        <div class="app-shot" role="img" aria-label="Filmator のスクリーンショット（準備中）">
+          <span class="app-shot-cap" data-i18n="shotFeature">編集・書き出し画面のスクリーンショット（準備中 / 2560×1600）</span>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card"><h3 data-i18n="feat1Title">カタログを読み取り専用で参照</h3><p data-i18n="feat1Body">Lightroom Classicのカタログ（.lrcat）を読み取り専用で開きます。あなたのカタログには一切書き込まず、Lightroom Classic側から見ても何も変わりません。</p></article>
+          <article class="feature-card"><h3 data-i18n="feat2Title">整理した写真をそのまま探せる</h3><p data-i18n="feat2Body">Lightroom Classicで付けたフラグ、レーティング、カラーラベルを読み込み、Filmator上でもフィルタリングできます。いつもの選別から、そのまま書き出しへ進めます。</p></article>
+          <article class="feature-card"><h3 data-i18n="feat3Title">構図と向きを反映</h3><p data-i18n="feat3Body">Lightroom Classicで決めたトリミング、傾き補正、向き、Uprightを、JPEGの書き出しに反映します。カタログ上で整えた構図を活かせます。</p></article>
+          <article class="feature-card"><h3 data-i18n="feat4Title">カメラの色をそのまま</h3><p data-i18n="feat4Body">カメラが生成したJPEGそのものを参照。FUJIFILMのフィルムシミュレーションなど、カメラの色をそのまま活かせます。Lightroom Classicでの現像パラメータは転用しません。</p></article>
+          <article class="feature-card"><h3 data-i18n="feat5Title">必要なぶんだけ、基本補正</h3><p data-i18n="feat5Body">明るさ、コントラスト、ハイライト、シャドウ、ホワイトバランス、彩度などを調整できます。Appleの写真編集エンジンを使って高画質に処理し、Lightroom Classicに慣れた人にも使いやすい操作感に整えています。</p></article>
+          <article class="feature-card"><h3 data-i18n="feat6Title">JPEG／HEIFに対応</h3><p data-i18n="feat6Body">RAW+JPEGペアのJPEG、単体のJPEG／HEIFに対応し、表示・編集・書き出しができます。RAW現像やPNG／TIFFには対応していません。</p></article>
+          <article class="feature-card"><h3 data-i18n="feat7Title">軽快なプレビューと書き出し</h3><p data-i18n="feat7Body">選んで、確認して、書き出す。ライブプレビューは調整に合わせて軽快に追随し、複数の写真もまとめて書き出せます。</p></article>
+          <article class="feature-card"><h3 data-i18n="feat8Title">オフラインで完結</h3><p data-i18n="feat8Body">写真やカタログの内容を外部へ送信せず、すべての機能がオフラインで動作します。匿名の利用統計も、設定でオフにできます。</p></article>
+        </div>
+      </section>
+
+      <!-- PRICING（ゴシック） -->
+      <section class="section pricing" id="pricing" aria-labelledby="pricing-title">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="pricingEyebrow">Plans</p>
+          <h2 id="pricing-title" data-i18n="pricingTitle">料金</h2>
+        </div>
+        <div class="pricing-grid">
+          <article class="plan-card">
+            <h3 class="plan-name" data-i18n="freeLabel">無料</h3>
+            <p class="plan-body" data-i18n="freeBody">リリース時に、無料で試せる書き出し枚数を設定する予定です。日数制限はありません。</p>
+          </article>
+          <article class="plan-card featured-plan">
+            <h3 class="plan-name" data-i18n="proLabel">Pro（買い切り）</h3>
+            <p class="plan-body" data-i18n="proBody">一度の購入で、書き出し枚数の制限が外れます。サブスクリプションではありません。価格はリリース前にご案内します。</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SUPPORT（ゴシック・旧 FAQ） -->
+      <section class="section support" id="support" aria-labelledby="support-title">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="supportEyebrow">Support</p>
+          <h2 id="support-title" data-i18n="supportTitle">サポート</h2>
+          <p class="section-lead" data-i18n="supportLead">Filmator の使い方、対応形式、料金などについて、よくある質問をまとめました。</p>
+        </div>
+        <div class="qa-list">
+          <details><summary data-i18n="faqQ0">Filmatorとはどういう意味ですか？</summary><p data-i18n="faqA0">Filmator（フィルメーター）は、Film + -ator から作った名前です。フィルム風の加工ではなく、撮影した時の光やカメラの絵作りが記録されたJPEGに、デジタル時代のフィルムのような価値を見出す考え方を表しています。</p></details>
+          <details><summary data-i18n="faqQ1">Lightroom Classicのカタログに書き込みますか？</summary><p data-i18n="faqA1">いいえ。Filmatorはカタログを読み取り専用で開き、一切書き込みません。Lightroom Classic側から見ても、カタログの内容は変わりません。</p></details>
+          <details><summary data-i18n="faqQ2">RAWファイルは使いますか？</summary><p data-i18n="faqA2">いいえ。FilmatorはRAWファイルを使用せず、対応するJPEG／HEIFを参照します。RAW現像を行うアプリではありません。</p></details>
+          <details><summary data-i18n="faqQ3">元のJPEGやHEIFは変更されますか？</summary><p data-i18n="faqA3">いいえ。Filmatorは元の写真ファイルを直接変更しません。編集内容はFilmator上の設定として扱い、書き出し時に新しいファイルとして出力します。</p></details>
+          <details><summary data-i18n="faqQ4">Lightroom Classicの現像設定は反映されますか？</summary><p data-i18n="faqA4">反映するのは、トリミング、傾き、向き、Uprightなどの構図・向きに関わる情報です。明るさや色などの現像パラメータは転用しません。</p></details>
+          <details><summary data-i18n="faqQ5">Filmatorで構図や傾きを編集できますか？</summary><p data-i18n="faqA5">いいえ。構図や向きはLightroom Classic側で設定します。Filmatorは、カタログに保存されたそれらの情報を読み込み、書き出しに反映します。</p></details>
+          <details><summary data-i18n="faqQ6">どんな写真を書き出せますか？</summary><p data-i18n="faqA6">RAW+JPEGペアのJPEG、単体のJPEG、HEIFに対応しています。RAW現像やPNG／TIFFの書き出しには対応していません。</p></details>
+          <details><summary data-i18n="faqQ7">オフラインで使えますか？</summary><p data-i18n="faqA7">はい。すべての機能がオフラインで動作します。写真やカタログの内容を外部へ送信することはありません。</p></details>
+          <details><summary data-i18n="faqQ8">料金はどうなっていますか？</summary><p data-i18n="faqA8">無料で試せる書き出し枚数を設定する予定です。Proは買い切りで、サブスクリプションではありません。価格はリリース前にご案内します。</p></details>
+          <details><summary data-i18n="faqQ9">問い合わせ先はありますか？</summary><p><span data-i18n="faqA9">ご質問、不具合のご報告、プライバシーに関するお問い合わせは、メールでご連絡ください。</span> <a class="inline-mail-link" href="mailto:contact@juno.tokyo">contact@juno.tokyo</a></p></details>
+        </div>
+      </section>
+
+      <!-- PRIVACY（ゴシック・要約＋器） -->
+      <section class="section privacy" id="privacy" aria-labelledby="privacy-title">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="privacyEyebrow">Privacy</p>
+          <h2 id="privacy-title" data-i18n="privacyTitle">プライバシー</h2>
+          <p class="section-lead" data-i18n="privacyLead">Filmatorは、写真とカタログの内容を外部へ送信しません。</p>
+        </div>
+        <div class="policy-grid">
+          <article class="policy-card"><h3 data-i18n="privacyP1Title">写真・カタログ内容を送信しない</h3><p data-i18n="privacyP1Body">画像、ファイル名、パス、フォルダ名、レーティングなど、写真やカタログに含まれる内容を外部へ送信しません。</p></article>
+          <article class="policy-card"><h3 data-i18n="privacyP2Title">個人を識別しない</h3><p data-i18n="privacyP2Body">個人を特定する識別子や端末識別子を持たず、第三者トラッキングSDKも使用しません。</p></article>
+          <article class="policy-card"><h3 data-i18n="privacyP3Title">オフラインで動作</h3><p data-i18n="privacyP3Body">すべての機能がオフラインで動作します。匿名の利用統計は、設定でオフにできます。</p></article>
+        </div>
+        <p class="policy-note" data-i18n="privacyNote">プライバシーポリシーの全文は、公開時にこのページに掲載します。</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="assets/filmator-wordmark-white.png" alt="Filmator" class="footer-wm">
+          <small data-i18n="footerCopyright">© 2026 JUNO Tokyo</small>
+        </div>
+        <div class="footer-social" aria-label="SNS">
+          <a class="footer-social-link" href="https://note.com/juno_tokyo" target="_blank" rel="noopener">note</a>
+          <a class="footer-social-link" href="https://x.com/junotokyo" target="_blank" rel="noopener">X</a>
+        </div>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#concept" data-i18n="navConcept">コンセプト</a>
+        <a href="#workflow" data-i18n="navWorkflow">使い方</a>
+        <a href="#features" data-i18n="navFeatures">機能</a>
+        <a href="#pricing" data-i18n="navPricing">料金</a>
+        <a href="#support" data-i18n="navSupport">サポート</a>
+      </nav>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
