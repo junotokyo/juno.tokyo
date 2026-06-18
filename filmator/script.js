@@ -17,9 +17,9 @@ const copy = {
       "Filmatorは、カメラが記録したJPEGを、RAWから作り直すのではなく、その一枚に込められた表現を活かして作品として仕上げるMac用アプリです。",
     heroLead2:
       "Lightroom Classicのカタログを使って、整理済みの写真を選び、必要な基本補正を加えて書き出せます。",
-    trust1: "Lightroom Classic連携",
-    trust2: "元データは無変更",
-    trust3: "Appleの画像エンジンで高画質",
+    trust1: "Lightroom Classic対応",
+    trust2: "元データそのまま",
+    trust3: "Core Image採用",
 
     // Concept（明朝・アイブローなし）
     conceptTitle1: "カメラが描いた一枚に、",
