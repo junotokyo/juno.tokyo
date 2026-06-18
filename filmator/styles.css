@@ -57,7 +57,7 @@ p{overflow-wrap:anywhere}
 .app-store-badge{display:inline-flex;border-radius:9px}
 .app-store-badge img{height:52px;width:auto;display:block}
 .app-store-badge:hover{opacity:.86}
-.trust-row{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:30px}
+.trust-row{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:34px}
 .trust-row span{display:inline-flex;align-items:center;min-height:34px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:.86rem;font-weight:700;white-space:nowrap}
 .hero-visual{position:relative;display:grid;place-items:center}
 /* MacBook モックアップ（CSS・横長／画面アスペクトは実機 14" の 3024:1964≈3:2） */
