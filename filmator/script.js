@@ -18,8 +18,8 @@ const copy = {
     heroLead2:
       "Lightroom Classicのカタログを使って、整理済みの写真を選び、必要な基本補正を加えて書き出せます。",
     trust1: "Lightroom Classic対応",
-    trust2: "元データそのまま",
-    trust3: "Core Image採用",
+    trust2: "元データ保持",
+    trust3: "Core Image処理",
 
     // Concept（明朝・アイブローなし）
     conceptTitle1: "カメラが描いた一枚に、",
