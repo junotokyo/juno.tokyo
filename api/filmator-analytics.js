@@ -14,7 +14,6 @@ const CORS_HEADERS = {
 };
 
 const META_MAX_LEN = 32;
-const ERROR_LOG_TTL_SECONDS = 60 * 60 * 24 * 7;
 const ERROR_LOG_MAX_PER_DAY = 100;
 
 function setHeaders(res, headers) {
@@ -122,7 +121,6 @@ export default async function handler(req, res) {
       const logKey = `filmator:error_log:${date}`;
       await kv.lpush(logKey, JSON.stringify(entry));
       await kv.ltrim(logKey, 0, ERROR_LOG_MAX_PER_DAY - 1);
-      await kv.expire(logKey, ERROR_LOG_TTL_SECONDS);
     }
 
     res.status(200).send(JSON.stringify({ ok: true }));

@@ -17,7 +17,12 @@
     .nav a:hover { text-decoration: underline; }
     .controls { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: 0.5rem 0; padding: 0.75rem; background: rgba(128,128,128,0.08); border-radius: 6px; }
     .controls label { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.9rem; cursor: pointer; }
+    .controls label.disabled { opacity: 0.45; cursor: not-allowed; }
     .controls input[type="radio"] { margin: 0; }
+    .range-group { display: inline-flex; align-items: center; gap: 0.35rem; padding-left: 0.6rem; border-left: 1px solid #d6c7b8; font-size: 0.9rem; }
+    .range-group input[type="date"] { padding: 0.25rem 0.4rem; font-size: 0.85rem; border: 1px solid #aaa; border-radius: 4px; background: #fff; color: #241812; }
+    .range-group .sep { color: #888; }
+    .range-group button.clear-range { padding: 0.2rem 0.5rem; font-size: 0.8rem; }
     button { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.45rem 0.9rem; font-size: 0.9rem; cursor: pointer; border-radius: 6px; border: 1px solid #d6c7b8; background: #fff; color: #241812; transition: background 0.15s; }
     button:hover:not(:disabled) { background: #f5ece1; }
     button:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -53,6 +58,12 @@
       <label><input type="radio" name="days" value="7"> 直近 7日</label>
       <label><input type="radio" name="days" value="14" checked> 直近 14日</label>
       <label><input type="radio" name="days" value="30"> 直近 30日</label>
+      <span class="range-group">
+        <input type="date" id="rangeFrom" min="2026-05-22" aria-label="開始日">
+        <span class="sep">〜</span>
+        <input type="date" id="rangeTo" min="2026-05-22" aria-label="終了日">
+        <button type="button" id="clearRangeBtn" class="clear-range" aria-label="日付指定をクリア">クリア</button>
+      </span>
       <button id="refreshBtn" aria-label="更新">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="23 4 23 10 17 10"></polyline>
@@ -125,7 +136,7 @@
         <tbody></tbody>
       </table>
     </div>
-    <p class="muted">※ 1日あたり最大 100 件・7日 TTL（<code>error_log:YYYY-MM-DD</code> Redis List）</p>
+    <p class="muted">※ 1日あたり最大 100 件・無期限保持（<code>error_log:YYYY-MM-DD</code> Redis List）</p>
   </section>
 
   <div class="bottom-spacer" aria-hidden="true"></div>

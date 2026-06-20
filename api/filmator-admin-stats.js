@@ -1,5 +1,6 @@
 import { kv } from './_lib/kv.js';
-import { aggregateStats, buildDayList } from './_lib/admin-aggregate.js';
+import { aggregateStats, buildDayList, buildDayListFromRange } from './_lib/admin-aggregate.js';
+import { jstDateKey } from './_lib/date.js';
 import { SIZE_BUCKETS } from './_lib/photos-bucket.js';
 import {
   ALLOWED_EVENTS,
@@ -15,6 +16,10 @@ const JSON_HEADERS = {
 const DAYS_DEFAULT = 14;
 const DAYS_MIN = 1;
 const DAYS_MAX = 30;
+// Filmator はまだ ASC ライブ未確定（2026-06-20 時点）。stats 開始日として安全側に倒した値。
+// 正式リリース日が確定したら更新する。
+const RELEASE_DATE = '2025-01-01';
+const RANGE_MAX_DAYS = 366;
 
 function setHeaders(res, headers) {
   for (const [k, v] of Object.entries(headers)) res.setHeader(k, v);
@@ -24,6 +29,19 @@ function clampDays(raw) {
   const n = parseInt(String(raw ?? ''), 10);
   if (!Number.isFinite(n)) return DAYS_DEFAULT;
   return Math.min(DAYS_MAX, Math.max(DAYS_MIN, n));
+}
+
+function resolveDays(query) {
+  const from = typeof query?.from === 'string' ? query.from : null;
+  const to = typeof query?.to === 'string' ? query.to : null;
+  if (from && to) {
+    const today = jstDateKey(new Date());
+    const clampedFrom = from < RELEASE_DATE ? RELEASE_DATE : from;
+    const clampedTo = to > today ? today : to;
+    const range = buildDayListFromRange(clampedFrom, clampedTo, { maxDays: RANGE_MAX_DAYS });
+    if (range) return range;
+  }
+  return buildDayList(clampDays(query?.days));
 }
 
 function toInt(value) {
@@ -41,8 +59,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const daysCount = clampDays(req.query?.days);
-  const days = buildDayList(daysCount);
+  const days = resolveDays(req.query);
   const events = [...ALLOWED_EVENTS];
   const codes = [...ALLOWED_ERROR_CODES];
   const errorEvents = [...ERROR_EVENTS];

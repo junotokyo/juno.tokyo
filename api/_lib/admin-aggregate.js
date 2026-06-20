@@ -11,6 +11,28 @@ export function buildDayList(n, now = new Date()) {
   return days;
 }
 
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+// YYYY-MM-DD 形式の from / to を受け取り JST 日付配列を返す（両端 inclusive、新しい日付が先頭）。
+// 妥当性検査に失敗 / from > to / 期間 > maxDays のときは null を返す。
+export function buildDayListFromRange(from, to, { maxDays = 365 } = {}) {
+  if (typeof from !== 'string' || typeof to !== 'string') return null;
+  if (!DATE_RE.test(from) || !DATE_RE.test(to)) return null;
+  if (from > to) return null;
+
+  // JST 正午で固定（DST 影響なし・jstDateKey でその日付に確定する）。
+  const fromTs = Date.parse(`${from}T12:00:00+09:00`);
+  const toTs = Date.parse(`${to}T12:00:00+09:00`);
+  if (!Number.isFinite(fromTs) || !Number.isFinite(toTs)) return null;
+
+  const days = [];
+  for (let ts = toTs; ts >= fromTs; ts -= 86400000) {
+    days.push(jstDateKey(new Date(ts)));
+    if (days.length > maxDays) return null;
+  }
+  return days;
+}
+
 function toInt(value) {
   if (value == null) return 0;
   if (typeof value === 'number') return Number.isFinite(value) ? value : 0;

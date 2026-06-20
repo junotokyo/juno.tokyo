@@ -1,5 +1,6 @@
 import { kv } from './_lib/kv.js';
-import { aggregateStats, buildDayList } from './_lib/admin-aggregate.js';
+import { aggregateStats, buildDayList, buildDayListFromRange } from './_lib/admin-aggregate.js';
+import { jstDateKey } from './_lib/date.js';
 import {
   ALLOWED_EVENTS,
   ALLOWED_ERROR_CODES,
@@ -14,6 +15,8 @@ const JSON_HEADERS = {
 const DAYS_DEFAULT = 14;
 const DAYS_MIN = 1;
 const DAYS_MAX = 30;
+const RELEASE_DATE = '2026-05-22';
+const RANGE_MAX_DAYS = 366;
 
 function setHeaders(res, headers) {
   for (const [k, v] of Object.entries(headers)) res.setHeader(k, v);
@@ -25,6 +28,19 @@ function clampDays(raw) {
   return Math.min(DAYS_MAX, Math.max(DAYS_MIN, n));
 }
 
+function resolveDays(query) {
+  const from = typeof query?.from === 'string' ? query.from : null;
+  const to = typeof query?.to === 'string' ? query.to : null;
+  if (from && to) {
+    const today = jstDateKey(new Date());
+    const clampedFrom = from < RELEASE_DATE ? RELEASE_DATE : from;
+    const clampedTo = to > today ? today : to;
+    const range = buildDayListFromRange(clampedFrom, clampedTo, { maxDays: RANGE_MAX_DAYS });
+    if (range) return range;
+  }
+  return buildDayList(clampDays(query?.days));
+}
+
 export default async function handler(req, res) {
   setHeaders(res, JSON_HEADERS);
 
@@ -33,8 +49,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const daysCount = clampDays(req.query?.days);
-  const days = buildDayList(daysCount);
+  const days = resolveDays(req.query);
   const events = [...ALLOWED_EVENTS];
   const codes = [...ALLOWED_ERROR_CODES];
   const errorEvents = [...ERROR_EVENTS];

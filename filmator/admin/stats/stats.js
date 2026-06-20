@@ -80,6 +80,34 @@ function selectedLogDays() {
   return parseInt(document.querySelector('input[name="logDays"]:checked').value, 10);
 }
 
+// Filmator はリリース日未確定（2026-06-20 時点）。stats 開始日として安全側の値。
+const RELEASE_DATE = '2025-01-01';
+
+function todayJstDate() {
+  return new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+}
+
+function selectedRange() {
+  const from = $('rangeFrom')?.value || '';
+  const to = $('rangeTo')?.value || '';
+  if (from && to && from <= to) return { from, to };
+  return null;
+}
+
+function updateDaysControls() {
+  const hasRange = !!selectedRange();
+  document.querySelectorAll('input[name="days"]').forEach((el) => {
+    el.disabled = hasRange;
+    el.parentElement?.classList.toggle('disabled', hasRange);
+  });
+}
+
+function buildStatsUrl() {
+  const range = selectedRange();
+  if (range) return `/filmator/admin-stats?from=${range.from}&to=${range.to}`;
+  return `/filmator/admin-stats?days=${selectedDays()}`;
+}
+
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`${url} → ${res.status}`);
@@ -272,8 +300,7 @@ async function refreshStats() {
   btn.disabled = true;
   clearStatus($('statsStatus'));
   try {
-    const days = selectedDays();
-    const data = await fetchJson(`/filmator/admin-stats?days=${days}`);
+    const data = await fetchJson(buildStatsUrl());
     const view = reversedForChart(data);
     renderKpis(data.events, data.exportPhotos);
     renderEventsChart(view.days, view.events);
@@ -357,6 +384,26 @@ function init() {
   for (const id of ['filterEvent', 'filterCode', 'filterVersion']) {
     $(id).addEventListener('input', renderLogTable);
   }
+
+  const today = todayJstDate();
+  for (const id of ['rangeFrom', 'rangeTo']) {
+    const el = $(id);
+    if (!el) continue;
+    el.min = RELEASE_DATE;
+    el.max = today;
+    el.addEventListener('change', () => {
+      updateDaysControls();
+      if (selectedRange()) refreshStats();
+    });
+  }
+  $('clearRangeBtn')?.addEventListener('click', () => {
+    $('rangeFrom').value = '';
+    $('rangeTo').value = '';
+    updateDaysControls();
+    refreshStats();
+  });
+  updateDaysControls();
+
   refreshStats();
   refreshLog();
 }
