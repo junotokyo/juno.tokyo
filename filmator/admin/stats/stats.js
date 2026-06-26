@@ -15,38 +15,42 @@ const EVENT_COLORS = {
 
 const EVENT_LABELS_JA = {
   launch: 'アプリ起動',
-  catalog_opened: 'カタログ open',
+  catalog_opened: 'カタログOpen',
   edit_committed: '編集枚数',
-  export_succeeded: '書き出し成功',
+  export_succeeded: '書き出し回数',
   paywall_shown: '課金画面表示',
   purchase_succeeded: '購入成功',
   promo_redeemed: 'プロモ適用',
   error_occurred: 'エラー発生',
 };
 
-// 各 KPI のホバーツールチップ説明文（簡潔・現実的な粒度）。
+// 各 KPI のホバーツールチップ説明文（簡潔・現実的な粒度）。「。」は省く（Jun 指示）。
 const EVENT_TOOLTIPS = {
-  launch: 'アプリを起動した回数。',
-  catalog_opened: 'カタログを開いた回数（別カタログへの切替も含む）。',
-  edit_committed: 'エディット画面で補正が確定した「カタログ×写真」の延べ件数。アプリ起動中、同じ写真の 2 回目以降はカウントしない。neutral 戻し（編集取消）もカウントしない。',
-  export_succeeded: '書き出しバッチが 1 枚以上成功して完了した回数。バッチ内の枚数に関わらず 1 バッチ＝1 回として計上。',
-  paywall_shown: '無料上限到達で Pro 案内シートが表示された回数。',
-  purchase_succeeded: 'StoreKit で買い切り購入が成功した回数。',
-  promo_redeemed: 'プロモコードが正常に適用された回数。',
-  error_occurred: 'エラーが発生した回数（種別ごとの内訳は下の「エラー種別ごとの日次推移」グラフ）。',
+  launch: 'アプリを起動した回数',
+  catalog_opened: 'カタログを開いた回数（別カタログへの切替も含む）',
+  edit_committed: 'エディット画面で補正が確定した「カタログ×写真」の延べ件数。アプリ起動中、同じ写真の 2 回目以降はカウントしない。neutral 戻し（編集取消）もカウントしない',
+  export_succeeded: '書き出しバッチが 1 枚以上成功して完了した回数。バッチ内の枚数に関わらず 1 バッチ＝1 回として計上',
+  paywall_shown: '無料上限到達で Pro 案内シートが表示された回数',
+  purchase_succeeded: 'StoreKit で買い切り購入が成功した回数',
+  promo_redeemed: 'プロモコードが正常に適用された回数',
+  error_occurred: 'エラーが発生した回数（種別ごとの内訳は下の「エラー種別ごとの日次推移」グラフ）',
 };
 
-const PHOTOS_KPI_TOOLTIP = '各書き出しバッチで実際に書き出されたファイルの総枚数（バッチごとの photos 合計）。「書き出し成功」が回数、こちらは枚数。';
+const PHOTOS_KPI_TOOLTIP = '各書き出しバッチで実際に書き出されたファイルの総枚数（バッチごとの photos 合計）。「書き出し回数」が回数、こちらは枚数';
 
+// KPI 配置（Jun 指示 2026-06-26・6 列 grid 固定）：
+// 1 行目（利用状況系・6 個）: launch / catalog_opened / edit_committed / export_succeeded /
+//                              [exportPhotos を export_succeeded の直後に挿入] / error_occurred
+// 2 行目（マネタイズ系・3 個）: paywall_shown / purchase_succeeded / promo_redeemed
 const KPI_ORDER = [
   'launch',
   'catalog_opened',
   'edit_committed',
   'export_succeeded',
+  'error_occurred',
   'paywall_shown',
   'purchase_succeeded',
   'promo_redeemed',
-  'error_occurred',
 ];
 
 const ERROR_KPI_KEYS = new Set(['error_occurred']);
@@ -170,20 +174,23 @@ function renderKpis(events, exportPhotos) {
     value.textContent = total.toLocaleString();
     card.append(label, value);
     grid.append(card);
-  }
 
-  // 書き出し枚数合計を独立 KPI として追加（export_succeeded は回数、こちらは枚数）
-  const photosCard = document.createElement('div');
-  photosCard.className = 'kpi accent';
-  photosCard.title = PHOTOS_KPI_TOOLTIP;
-  const photosLabel = document.createElement('div');
-  photosLabel.className = 'label';
-  photosLabel.textContent = '書き出し枚数 合計';
-  const photosValue = document.createElement('div');
-  photosValue.className = 'value';
-  photosValue.textContent = (exportPhotos?.total ?? 0).toLocaleString();
-  photosCard.append(photosLabel, photosValue);
-  grid.append(photosCard);
+    // Jun 指示 2026-06-26：export_succeeded（書き出し回数）の直後に
+    // 「書き出し枚数」KPI を独立 card として挿入する。回数 vs 枚数を並べて見せる。
+    if (evt === 'export_succeeded') {
+      const photosCard = document.createElement('div');
+      photosCard.className = 'kpi accent';
+      photosCard.title = PHOTOS_KPI_TOOLTIP;
+      const photosLabel = document.createElement('div');
+      photosLabel.className = 'label';
+      photosLabel.textContent = '書き出し枚数';
+      const photosValue = document.createElement('div');
+      photosValue.className = 'value';
+      photosValue.textContent = (exportPhotos?.total ?? 0).toLocaleString();
+      photosCard.append(photosLabel, photosValue);
+      grid.append(photosCard);
+    }
+  }
 }
 
 function renderEventsChart(days, events) {
