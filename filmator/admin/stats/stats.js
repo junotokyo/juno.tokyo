@@ -16,13 +16,27 @@ const EVENT_COLORS = {
 const EVENT_LABELS_JA = {
   launch: 'アプリ起動',
   catalog_opened: 'カタログ open',
-  edit_committed: '編集 settle',
+  edit_committed: '編集枚数',
   export_succeeded: '書き出し成功',
   paywall_shown: '課金画面表示',
   purchase_succeeded: '購入成功',
   promo_redeemed: 'プロモ適用',
   error_occurred: 'エラー発生',
 };
+
+// 各 KPI のホバーツールチップ説明文（簡潔・現実的な粒度）。
+const EVENT_TOOLTIPS = {
+  launch: 'アプリを起動した回数。',
+  catalog_opened: 'カタログを開いた回数（別カタログへの切替も含む）。',
+  edit_committed: 'エディット画面で補正が確定した「カタログ×写真」の延べ件数。アプリ起動中、同じ写真の 2 回目以降はカウントしない。neutral 戻し（編集取消）もカウントしない。',
+  export_succeeded: '書き出しバッチが 1 枚以上成功して完了した回数。バッチ内の枚数に関わらず 1 バッチ＝1 回として計上。',
+  paywall_shown: '無料上限到達で Pro 案内シートが表示された回数。',
+  purchase_succeeded: 'StoreKit で買い切り購入が成功した回数。',
+  promo_redeemed: 'プロモコードが正常に適用された回数。',
+  error_occurred: 'エラーが発生した回数（種別ごとの内訳は下の「エラー種別ごとの日次推移」グラフ）。',
+};
+
+const PHOTOS_KPI_TOOLTIP = '各書き出しバッチで実際に書き出されたファイルの総枚数（バッチごとの photos 合計）。「書き出し成功」が回数、こちらは枚数。';
 
 const KPI_ORDER = [
   'launch',
@@ -146,7 +160,8 @@ function renderKpis(events, exportPhotos) {
     if (ERROR_KPI_KEYS.has(evt)) cls += ' err';
     else if (ACCENT_KPI_KEYS.has(evt)) cls += ' accent';
     card.className = cls;
-    card.title = evt;
+    // ホバーで説明をブラウザのデフォルト tooltip 表示（簡潔な粒度の解説）。
+    card.title = EVENT_TOOLTIPS[evt] || evt;
     const label = document.createElement('div');
     label.className = 'label';
     label.textContent = eventLabel(evt);
@@ -160,7 +175,7 @@ function renderKpis(events, exportPhotos) {
   // 書き出し枚数合計を独立 KPI として追加（export_succeeded は回数、こちらは枚数）
   const photosCard = document.createElement('div');
   photosCard.className = 'kpi accent';
-  photosCard.title = 'export_succeeded:photos';
+  photosCard.title = PHOTOS_KPI_TOOLTIP;
   const photosLabel = document.createElement('div');
   photosLabel.className = 'label';
   photosLabel.textContent = '書き出し枚数 合計';
