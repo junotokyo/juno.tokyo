@@ -27,6 +27,7 @@ export const ALLOWED_ERROR_CODES = new Set([
   'bookmark.resolve_failed',
   'photos.read_failed',
   'storekit.product_not_found',
+  'storekit.product_load_failed',
   'storekit.purchase_failed',
   'storekit.purchase_cancelled',
   'storekit.verification_failed',
