@@ -16,7 +16,7 @@ const copy = {
     heroLead1:
       "Filmatorは、撮影者の意図とカメラの絵作りが込められたJPEGを活かして、作品として仕上げるMac用アプリです。",
     heroLead2:
-      "Lightroom Classicのカタログを使って、整理済みの写真を選び、必要な基本補正を加えて書き出せます。",
+      "Lightroom Classicのカタログを使って写真を選び、必要な基本補正を加えて書き出せます。",
     trust1: "Lightroom Classic対応",
     trust2: "元データ保持",
     trust3: "Core Image処理",
