@@ -123,20 +123,26 @@ const copy = {
     faqA8:
       "ご質問、不具合のご報告、プライバシーに関するお問い合わせは、メールでご連絡ください。",
 
-    // Privacy（ゴシック・要約＋器）
+    // Privacy（ゴシック・本文。真実の源 = Filmator/docs/09 §6・JT-250）
     privacyEyebrow: "Privacy",
-    privacyTitle: "プライバシー",
+    privacyTitle: "プライバシーポリシー",
     privacyLead: "Filmator は、写真とカタログの内容を外部へ送信しません。",
-    privacyP1Title: "写真・カタログ内容を送信しない",
-    privacyP1Body:
-      "画像、ファイル名、パス、フォルダ名、レーティングなど、写真やカタログに含まれる内容を外部へ送信しません。",
-    privacyP2Title: "個人を識別しない",
-    privacyP2Body:
-      "個人を特定する識別子や端末識別子を持たず、第三者トラッキング SDK も使用しません。",
-    privacyP3Title: "オフラインで動作",
-    privacyP3Body:
-      "すべての機能がオフラインで動作します。匿名の利用統計は、設定でオフにできます。",
-    privacyNote: "プライバシーポリシーの全文は、公開時にこのページに掲載します。",
+    policySummaryTitle: "写真とカタログのデータについて",
+    policySummaryBody:
+      "Filmator は、写真ファイル（RAW・JPEG・HEIF）と Lightroom Classic のカタログを、お使いのデバイス内で処理します。カタログは読み取り専用で参照し、書き込みは一切行いません。写真や画像の内容、編集結果、ファイル名、カタログの内容（フォルダ・コレクション・レーティング・撮影日時・カメラ機種など）をサーバーへ送信することはありません。",
+    policyTelemetryTitle: "利用状況・診断情報",
+    policyTelemetryBody:
+      "アプリの品質改善と機能ニーズ把握のため、アプリ起動、カタログを開く、編集の利用、書き出しの回数・枚数、エラー発生状況などの匿名の利用統計・診断情報を収集する場合があります。これらには、写真、画像・カタログの内容、ファイル名、ユーザー登録情報、広告識別子は含まれません。利用状況データの送信は、アプリの設定でオフにできます。オフラインでも Filmator は利用できます。",
+    policyPromoTitle: "プロモーションコード",
+    policyPromoBody:
+      "プロモーションコードを利用する場合のみ、入力されたコードを検証用エンドポイントへ送信します。コードは個人を特定するものではありません。",
+    policyTrackingTitle: "トラッキングについて",
+    policyTrackingBody:
+      "Filmator は、第三者のトラッキング SDK を使用せず、ユーザーを他社のアプリや Web サイトをまたいで追跡することはありません。",
+    policyContactTitle: "お問い合わせ",
+    policyContactBody:
+      "プライバシーに関するお問い合わせは、サポートセクションに記載のメールアドレスまでご連絡ください。",
+    lastUpdated: "最終更新日: 2026年6月28日",
 
     footerCopyright: "© 2026 JUNO Tokyo",
   },
