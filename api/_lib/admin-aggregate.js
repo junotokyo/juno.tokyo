@@ -78,3 +78,53 @@ export function mergeErrorLogs({ days, perDayLists }) {
   }
   return out;
 }
+
+// JT-279: severity 別の日次・合計集計。kvLookup は `stats:` プレフィックス基準
+// （filmator-admin-stats.js が `filmator:` を strip して渡す）。
+export function aggregateSeverity({ days, severities, kvLookup }) {
+  const out = {};
+  for (const sev of severities) {
+    const daily = days.map((d) => toInt(kvLookup.get(`stats:${d}:severity:${sev}`)));
+    const total = daily.reduce((a, b) => a + b, 0);
+    out[sev] = { total, daily };
+  }
+  return out;
+}
+
+// JT-279: 診断 SADD set の集計。
+// dbVersionLists / missingTablesLists / missingColumnsLists は per-day SMEMBERS の生 array。
+// Set 形式＝per-day は「観測日数」になる（Codex Q5・UI 側で「観測日数」と明示）。
+export function aggregateDiagSets({ days, dbVersionLists, missingTablesLists, missingColumnsLists }) {
+  // db_versions: per-day unique int 集合 → flatten + min/max + unique 件数。
+  const allVersions = new Set();
+  const dailyVersions = (dbVersionLists || []).map((list) => {
+    const arr = (list || []).map((s) => parseInt(String(s), 10)).filter(Number.isFinite);
+    for (const n of arr) allVersions.add(n);
+    return arr.sort((a, b) => a - b);
+  });
+  const sortedVersions = [...allVersions].sort((a, b) => a - b);
+
+  // tables/columns: 全期間で「観測日数」カウント → top 20。
+  const countTop = (perDayLists, limit = 20) => {
+    const counts = new Map();
+    for (const list of (perDayLists || [])) {
+      for (const name of (list || [])) {
+        counts.set(name, (counts.get(name) || 0) + 1);
+      }
+    }
+    return [...counts.entries()]
+      .sort((a, b) => (b[1] - a[1]) || (a[0] < b[0] ? -1 : 1))
+      .slice(0, limit);
+  };
+
+  return {
+    dbVersionsObserved: {
+      daily: dailyVersions,
+      allMin: sortedVersions[0] ?? null,
+      allMax: sortedVersions[sortedVersions.length - 1] ?? null,
+      uniqueCount: sortedVersions.length,
+    },
+    missingTablesTop: countTop(missingTablesLists),
+    missingColumnsTop: countTop(missingColumnsLists),
+  };
+}

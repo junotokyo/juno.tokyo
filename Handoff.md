@@ -8,6 +8,41 @@
 
 ---
 
+### [2026-06-27] Filmator JT-279 サーバ側＝ catalog.schema_unsupported 受信＋ severity 汎用化＋メール通知＋admin/stats 拡張
+
+**完了したこと**
+
+- **[JT-279](https://linear.app/junotokyo/issue/JT-279) サーバ側コード変更完了**（Filmator アプリ側 [JT-278](https://linear.app/junotokyo/issue/JT-278) の受信先・Done 認定は Jun の本番動作確認後）：
+  - `api/_lib/filmator-event-codes.js`: `ALLOWED_ERROR_CODES` に `catalog.schema_unsupported` 追加。新規 export＝`SEVERITY_HIGH` / `ALLOWED_SEVERITIES` / `ERROR_CODE_SEVERITY`（サーバ map authoritative）/ `EXTENSION_FIELD_RULES`。
+  - 新規 `api/_lib/filmator-validators.js`: `isCsvField`（path char + blacklist トークン拒否）/ `isIntInRange`。Adobe 由来 schema 名のみ通る content-free 防御。
+  - 新規 `api/_lib/filmator-notify.js`: Resend メール送信 + KV `SET NX EX 86400` で 1 日 1 通 dedupe。`no_mailer` 時は slot claim せず即 return（env 設定後の同日に送信できる・Codex A Q1）。mailer throw 時は console.error に「手動 DEL するキー名」print（Codex A Q2 部分採用）。
+  - `api/filmator-analytics.js`: 拡張フィールド validation（schema_unsupported 専用）+ severity counter + diag SADD（90 日 TTL）を pipeline で atomic（Codex A Q7）+ notify 発火。
+  - `api/_lib/admin-aggregate.js`: 新規 pure 関数 `aggregateSeverity` / `aggregateDiagSets`。
+  - `api/filmator-admin-stats.js`: severity / db_version / missing_tables / missing_columns 集計を response に追加。3 種 × days SMEMBERS を **pipeline で 1 round-trip**（Codex B P2＝366 日範囲で 1098 並列 REST 回避）。
+  - `filmator/admin/stats/index.html` + `stats.js`: 「高 severity エラー」（KPI 3 枚＋線グラフ・KPI の最新日は `daily[0]`＝Codex B P3）と「LrC スキーマ診断」（db_version 範囲＋missing top 20 observation-days）の 2 セクション追加。ログテーブルに severity / db_version / missing 列追加。
+- **テスト 64 件全 green**：
+  - `scripts/test-filmator-analytics.mjs` 27 件（既存 + severity / validator / blacklist / integrity）
+  - `scripts/test-filmator-analytics-handler.mjs` 13 件（新規・mock req/res で 400 validation paths）
+  - `scripts/test-filmator-notify.mjs` 7 件（新規・dedupe / no_mailer / fail-closed / privacy 退行）
+  - `scripts/test-admin-stats-aggregate.mjs` 17 件（既存 + aggregateSeverity / aggregateDiagSets）
+- **Codex 投入実績**：A プランレビュー 1 回（Q1-Q12・採用 9 + 部分採用 2 + 保留 1 + 却下 0）＋ B 実装後レビュー 1 回（P2/P3 即採用）。Codex モード 通常維持（残 82%）。
+
+**申し送り**
+
+- 🔴 **Vercel 環境変数を Jun が設定する必要あり**（Production + Preview）：
+  - `RESEND_API_KEY`（resend.com サインアップ → API Keys → Create。GitHub 連携で無料 100 通/日）
+  - `FILMATOR_NOTIFY_TO=jokamoto@mac.com`（Resend サインアップ時のメールと一致させると初期から OK）
+  - `FILMATOR_NOTIFY_FROM=onboarding@resend.dev`（DNS 検証なし初期運用・後日 `alerts@juno.tokyo` に切替可）
+  - **未設定でも server は no_mailer skip で動く**（KV / admin/stats は正常・メールのみ送られない）
+- 🔴 **本セッションで env 設定なしで push 済**＝Filmator アプリから `catalog.schema_unsupported` が届くと KV diag set + severity counter に積まれるが**メールは送られない**。Jun が env 設定したら、次に発生した high severity event で初めて 1 通届く（dedupe slot は no_mailer 時に claim していないため）。
+- 🔴 **Resend recipient 制約**：初期は **アカウント登録メール宛にしか送れない**（無料枠）。サインアップ時 `jokamoto@mac.com` で登録すれば即運用 OK。万一失敗時：(a) Resend dashboard で recipient verify or (b) `juno.tokyo` ドメイン検証で `alerts@juno.tokyo` に切替（SPF/DKIM レコード追加）。
+- 🔴 **Codex 保留（次セッション follow-up 候補）**：
+  - Q2 「mailer failure 時に `/admin/stats` で可視化」＝今は console.error の手動 DEL print のみ。failure が頻発するなら admin UI に表示する別 JT を起票。
+  - Q8 「`schemaUnsupportedRecent` 専用 short list」＝error_log 100 件枠を high severity が押し出す可能性。catalog.schema_unsupported は年数回想定で見送り。実運用で押し出しが見えたら別 JT。
+- 🔴 **Filmator 側 dual-send 撤去は別 JT**：JT-278 が baseline `catalog.open_failed` 併送中。サーバが `catalog.schema_unsupported` を許可した今、Filmator アプリ側で baseline 併送を撤去できる（次セッション or 別 JT）。撤去前後も privacy / 集計の整合は維持（baseline は別カウントなので削除しても新コード集計は無影響）。
+- ⚠️ **Filmator 側の処理は別セッションで実施**（本 commit はサーバ側のみ）：Filmator リポジトリで Linear JT-279 を Done、docs/06 を ✅、Handoff.md 追記、main FF + push。
+
+
 ### [2026-06-18] Filmator M4 S1 完了（命名統一・実機検証）
 
 **完了したこと**

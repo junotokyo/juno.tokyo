@@ -82,6 +82,7 @@ let chartPhotos = null;
 let chartExportSize = null;
 let chartErrorTotal = null;
 let chartErrorByCode = null;
+let chartSeverityHigh = null;
 let cachedLogEntries = [];
 
 function showStatus(el, msg, kind) {
@@ -150,7 +151,12 @@ function reversedForChart(data) {
   for (const [k, v] of Object.entries(data.exportSizeBuckets || {})) {
     exportSizeBuckets[k] = { total: v.total, daily: [...v.daily].reverse() };
   }
-  return { days, events, errorsByCode, exportPhotos, exportSizeBuckets };
+  // JT-279: severity 別 counter（reverse して古い順）。
+  const severityCounts = {};
+  for (const [k, v] of Object.entries(data.severityCounts || {})) {
+    severityCounts[k] = { total: v.total, daily: [...v.daily].reverse() };
+  }
+  return { days, events, errorsByCode, exportPhotos, exportSizeBuckets, severityCounts };
 }
 
 function renderKpis(events, exportPhotos) {
@@ -317,6 +323,105 @@ function renderErrorByCodeChart(days, errorsByCode) {
   });
 }
 
+// JT-279: 高 severity KPI（カード 3 枚＝合計/日平均/最新）。
+// Codex B P3: API の `daily` は新しい日付が先頭＝最新日は `daily[0]`。
+// （reversedForChart を通した view.severityCounts は逆順だが、ここは生 data.severityCounts を受ける）
+function renderSeverityKpi(severityCounts) {
+  const grid = $('severityKpiGrid');
+  if (!grid) return;
+  grid.textContent = '';
+  const high = severityCounts?.high ?? { total: 0, daily: [] };
+  const total = high.total;
+  const days = high.daily.length || 1;
+  const avg = (total / days).toFixed(2);
+  const latest = high.daily[0] ?? 0;
+  const cards = [
+    { label: 'high 合計', value: total, tip: '期間内の high severity error_occurred 合計' },
+    { label: '1 日平均', value: avg, tip: `期間 ${days} 日の 1 日平均（合計 / 日数）` },
+    { label: '最新日', value: latest, tip: '期間内で最も新しい日の件数' },
+  ];
+  for (const c of cards) {
+    const card = document.createElement('div');
+    card.className = total > 0 ? 'kpi err' : 'kpi';
+    card.title = c.tip;
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = c.label;
+    const value = document.createElement('div');
+    value.className = 'value';
+    value.textContent = c.value;
+    card.append(label, value);
+    grid.append(card);
+  }
+}
+
+// JT-279: 高 severity 線グラフ。
+function renderSeverityChart(days, severityCounts) {
+  const totals = severityCounts?.high?.daily ?? days.map(() => 0);
+  if (chartSeverityHigh) chartSeverityHigh.destroy();
+  chartSeverityHigh = new Chart($('chartSeverityHigh').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: days,
+      datasets: [{
+        label: 'high severity',
+        data: totals,
+        borderColor: '#c026d3',
+        backgroundColor: 'rgba(192, 38, 211, 0.18)',
+        tension: 0.2,
+        fill: true,
+        pointRadius: 3,
+        borderWidth: 2,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+    },
+  });
+}
+
+// JT-279: LrC スキーマ診断のサマリ表示。
+function renderDiagSummary(dbVersionsObserved) {
+  const el = $('diagSummary');
+  if (!el) return;
+  const d = dbVersionsObserved;
+  if (!d || d.uniqueCount === 0) {
+    el.textContent = '（期間内に LrC スキーマ診断データなし）';
+    return;
+  }
+  el.textContent = `期間内 db_version: 観測値 ${d.uniqueCount} 種類（min ${d.allMin} / max ${d.allMax}）`;
+}
+
+// JT-279: top 20 観測日数テーブル描画（missing_tables / missing_columns）。
+function renderTopTable(tableEl, top) {
+  if (!tableEl) return;
+  const tbody = tableEl.querySelector('tbody');
+  if (!tbody) return;
+  tbody.textContent = '';
+  if (!Array.isArray(top) || top.length === 0) {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = 2;
+    td.className = 'muted';
+    td.textContent = '（観測なし）';
+    tr.append(td);
+    tbody.append(tr);
+    return;
+  }
+  for (const [name, daysSeen] of top) {
+    const tr = document.createElement('tr');
+    const tdName = document.createElement('td');
+    tdName.textContent = name;
+    const tdCount = document.createElement('td');
+    tdCount.textContent = daysSeen;
+    tr.append(tdName, tdCount);
+    tbody.append(tr);
+  }
+}
+
 async function refreshStats() {
   const btn = $('refreshBtn');
   btn.disabled = true;
@@ -330,6 +435,12 @@ async function refreshStats() {
     renderExportSizeChart(view.days, view.exportSizeBuckets);
     renderErrorTotalChart(view.days, view.events);
     renderErrorByCodeChart(view.days, view.errorsByCode);
+    // JT-279: 高 severity・診断。
+    renderSeverityKpi(data.severityCounts);
+    renderSeverityChart(view.days, view.severityCounts);
+    renderDiagSummary(data.dbVersionsObserved);
+    renderTopTable($('missingTablesTable'), data.missingTablesTop);
+    renderTopTable($('missingColumnsTable'), data.missingColumnsTop);
     $('lastUpdated').textContent = `更新: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`;
   } catch (e) {
     showStatus($('statsStatus'), `取得失敗: ${e.message}`, 'error');
@@ -356,6 +467,12 @@ function renderLogTable() {
   tbody.textContent = '';
   for (const e of filtered) {
     const tr = document.createElement('tr');
+    // JT-279: missing 列は tables / columns を 80 字省略で表示。
+    const missingParts = [];
+    if (e.missing_tables) missingParts.push(`tables: ${e.missing_tables}`);
+    if (e.missing_columns) missingParts.push(`columns: ${e.missing_columns}`);
+    let missingStr = missingParts.join(' / ');
+    if (missingStr.length > 80) missingStr = missingStr.slice(0, 80) + '…';
     const cells = [
       e.date || '',
       e.ts_hour ? e.ts_hour.replace('T', ' ') + ':00' : '',
@@ -364,6 +481,9 @@ function renderLogTable() {
       e.app_version || '',
       e.build || '',
       e.os_version || '',
+      e.severity || '',
+      e.db_version != null ? String(e.db_version) : '',
+      missingStr,
     ];
     for (const c of cells) {
       const td = document.createElement('td');

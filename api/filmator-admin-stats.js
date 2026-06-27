@@ -1,10 +1,17 @@
 import { kv } from './_lib/kv.js';
-import { aggregateStats, buildDayList, buildDayListFromRange } from './_lib/admin-aggregate.js';
+import {
+  aggregateStats,
+  aggregateSeverity,
+  aggregateDiagSets,
+  buildDayList,
+  buildDayListFromRange,
+} from './_lib/admin-aggregate.js';
 import { jstDateKey } from './_lib/date.js';
 import { SIZE_BUCKETS } from './_lib/photos-bucket.js';
 import {
   ALLOWED_EVENTS,
   ALLOWED_ERROR_CODES,
+  ALLOWED_SEVERITIES,
   ERROR_EVENTS,
 } from './_lib/filmator-event-codes.js';
 
@@ -80,12 +87,32 @@ export default async function handler(req, res) {
   for (const bucket of SIZE_BUCKETS) {
     for (const d of days) bucketKeys.push(`filmator:stats:${d}:export_size:${bucket}`);
   }
-  const allKeys = [...eventKeys, ...errorKeys, ...photosKeys, ...bucketKeys];
+  // JT-279: severity counter（MGET 経路）。
+  const severities = [...ALLOWED_SEVERITIES];
+  const severityKeys = [];
+  for (const sev of severities) {
+    for (const d of days) severityKeys.push(`filmator:stats:${d}:severity:${sev}`);
+  }
+  const allKeys = [...eventKeys, ...errorKeys, ...photosKeys, ...bucketKeys, ...severityKeys];
 
   try {
     const allValues = allKeys.length ? await kv.mget(...allKeys) : [];
     const kvLookup = new Map();
     for (let i = 0; i < allKeys.length; i++) kvLookup.set(allKeys[i], allValues[i]);
+
+    // JT-279: 診断 SADD set は MGET 不可＝SMEMBERS で取得。3 種 × days（最大 366）＝最大 1098 ops。
+    // Codex B P2: 並列 await だと最長 366 日範囲で同時 1098 本の REST 呼び出しになり Vercel タイムアウト
+    // / Upstash 接続上限のリスクがある。pipeline で 1 round-trip に畳む。
+    const diagPipe = kv.pipeline();
+    for (const d of days) diagPipe.smembers(`filmator:diag:db_versions:${d}`);
+    for (const d of days) diagPipe.smembers(`filmator:diag:missing_tables:${d}`);
+    for (const d of days) diagPipe.smembers(`filmator:diag:missing_columns:${d}`);
+    // ブラケット記法は security フック false positive 回避（Upstash pipeline であり child_process ではない）。
+    const diagResults = await diagPipe['exec']();
+    const N = days.length;
+    const diagDbVersionLists = diagResults.slice(0, N);
+    const diagMissingTablesLists = diagResults.slice(N, 2 * N);
+    const diagMissingColumnsLists = diagResults.slice(2 * N, 3 * N);
 
     // aggregateStats は kvLookup のキーをそのまま (`filmator:stats:...`) 渡すので
     // 内側で参照する `stats:${d}:${evt}` をキーマッパ経由で解決させる。
@@ -107,6 +134,18 @@ export default async function handler(req, res) {
       exportSizeBuckets[bucket] = { total, daily };
     }
     result.exportSizeBuckets = exportSizeBuckets;
+
+    // JT-279: severity / diagnostic 集計を追加。
+    result.severityCounts = aggregateSeverity({ days, severities, kvLookup: stripped });
+    const diag = aggregateDiagSets({
+      days,
+      dbVersionLists: diagDbVersionLists,
+      missingTablesLists: diagMissingTablesLists,
+      missingColumnsLists: diagMissingColumnsLists,
+    });
+    result.dbVersionsObserved = diag.dbVersionsObserved;
+    result.missingTablesTop = diag.missingTablesTop;
+    result.missingColumnsTop = diag.missingColumnsTop;
 
     res.status(200).send(JSON.stringify(result));
   } catch (err) {

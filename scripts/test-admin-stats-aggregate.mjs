@@ -17,6 +17,8 @@
 import assert from 'node:assert/strict';
 import {
   aggregateStats,
+  aggregateSeverity,
+  aggregateDiagSets,
   buildDayList,
   mergeErrorLogs,
 } from '../api/_lib/admin-aggregate.js';
@@ -191,6 +193,85 @@ test('mergeErrorLogs_handlesNullEntries — skips null/non-object entries', () =
 test('mergeErrorLogs_emptyLists — returns empty array', () => {
   const merged = mergeErrorLogs({ days: ['2026-05-12'], perDayLists: [[]] });
   assert.deepEqual(merged, []);
+});
+
+// ---- JT-279: aggregateSeverity ----
+
+test('aggregateSeverity_basic — total + daily', () => {
+  const kvLookup = new Map([
+    ['stats:2026-06-27:severity:high', 3],
+    ['stats:2026-06-26:severity:high', '1'],
+    ['stats:2026-06-25:severity:high', null],
+  ]);
+  const r = aggregateSeverity({
+    days: ['2026-06-27', '2026-06-26', '2026-06-25'],
+    severities: ['high'],
+    kvLookup,
+  });
+  assert.deepEqual(r.high.daily, [3, 1, 0]);
+  assert.equal(r.high.total, 4);
+});
+
+test('aggregateSeverity_emptyKv — zeros across', () => {
+  const r = aggregateSeverity({
+    days: ['2026-06-27', '2026-06-26'],
+    severities: ['high'],
+    kvLookup: new Map(),
+  });
+  assert.deepEqual(r.high.daily, [0, 0]);
+  assert.equal(r.high.total, 0);
+});
+
+// ---- JT-279: aggregateDiagSets ----
+
+test('aggregateDiagSets_basic — db_versions / top tables / top columns', () => {
+  const days = ['2026-06-27', '2026-06-26', '2026-06-25'];
+  const dbVersionLists = [['99', '100'], ['99'], []];
+  const missingTablesLists = [
+    ['AgLibrary', 'Adobe_images'],
+    ['AgLibrary'],
+    ['AgLibrary'],
+  ];
+  const missingColumnsLists = [
+    ['Adobe_images.fileFormat'],
+    [],
+    [],
+  ];
+  const r = aggregateDiagSets({ days, dbVersionLists, missingTablesLists, missingColumnsLists });
+  assert.equal(r.dbVersionsObserved.allMin, 99);
+  assert.equal(r.dbVersionsObserved.allMax, 100);
+  assert.equal(r.dbVersionsObserved.uniqueCount, 2);
+  assert.deepEqual(r.dbVersionsObserved.daily, [[99, 100], [99], []]);
+  // AgLibrary は 3 日観測・Adobe_images は 1 日観測
+  assert.deepEqual(r.missingTablesTop, [['AgLibrary', 3], ['Adobe_images', 1]]);
+  assert.deepEqual(r.missingColumnsTop, [['Adobe_images.fileFormat', 1]]);
+});
+
+test('aggregateDiagSets_empty — all nulls return safe defaults', () => {
+  const r = aggregateDiagSets({
+    days: ['2026-06-27'],
+    dbVersionLists: [null],
+    missingTablesLists: [null],
+    missingColumnsLists: [null],
+  });
+  assert.equal(r.dbVersionsObserved.allMin, null);
+  assert.equal(r.dbVersionsObserved.allMax, null);
+  assert.equal(r.dbVersionsObserved.uniqueCount, 0);
+  assert.deepEqual(r.dbVersionsObserved.daily, [[]]);
+  assert.deepEqual(r.missingTablesTop, []);
+  assert.deepEqual(r.missingColumnsTop, []);
+});
+
+test('aggregateDiagSets_topSortStability — same count alphabetical', () => {
+  const days = ['2026-06-27'];
+  const r = aggregateDiagSets({
+    days,
+    dbVersionLists: [[]],
+    missingTablesLists: [['Zz', 'Aa', 'Mm']],
+    missingColumnsLists: [[]],
+  });
+  // 全て count=1 なので alphabetical asc
+  assert.deepEqual(r.missingTablesTop.map(([name]) => name), ['Aa', 'Mm', 'Zz']);
 });
 
 // ---- summary ----

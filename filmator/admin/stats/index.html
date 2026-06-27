@@ -113,6 +113,41 @@
   </section>
 
   <section>
+    <h2>高 severity エラー</h2>
+    <p class="muted">サーバが <code>error_code</code> から導出した severity ＝ <code>high</code> の発生件数。
+      現在は <code>catalog.schema_unsupported</code> のみが該当。1 日 1 通だけ運用者宛にメール通知（dedupe）。</p>
+    <div id="severityKpiGrid" class="kpi-grid" style="grid-template-columns: repeat(3, minmax(0, 1fr));"></div>
+    <div class="chart-wrap"><canvas id="chartSeverityHigh"></canvas></div>
+  </section>
+
+  <section>
+    <h2>LrC スキーマ診断</h2>
+    <p class="muted">期間内に観測された LrC カタログ <code>db_version</code> と、未対応の Adobe テーブル／カラム名（観測日数 top 20）。
+      プライバシ: ユーザ写真名・パスは含まない＝Adobe schema name のみ（サーバ側 blacklist で文字種を遮断）。</p>
+    <div id="diagSummary" class="muted" style="margin-top: 0.5rem;"></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem;">
+      <div>
+        <h3 style="font-size: 0.9rem; margin-bottom: 0;">missing_tables（観測日数 top 20）</h3>
+        <div class="table-wrap" style="max-height: 320px;">
+          <table id="missingTablesTable">
+            <thead><tr><th>table</th><th>days seen</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size: 0.9rem; margin-bottom: 0;">missing_columns（観測日数 top 20）</h3>
+        <div class="table-wrap" style="max-height: 320px;">
+          <table id="missingColumnsTable">
+            <thead><tr><th>column</th><th>days seen</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <h2>エラーログ詳細</h2>
     <div class="controls">
       <label><input type="radio" name="logDays" value="1"> 直近 1日</label>
@@ -144,6 +179,9 @@
             <th>app</th>
             <th>build</th>
             <th>os</th>
+            <th>severity</th>
+            <th>db_version</th>
+            <th>missing</th>
           </tr>
         </thead>
         <tbody></tbody>

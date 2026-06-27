@@ -25,8 +25,17 @@ import {
 import {
   ALLOWED_EVENTS,
   ALLOWED_ERROR_CODES,
+  ALLOWED_SEVERITIES,
   ERROR_EVENTS,
+  ERROR_CODE_SEVERITY,
+  EXTENSION_FIELD_RULES,
+  SEVERITY_HIGH,
 } from '../api/_lib/filmator-event-codes.js';
+import {
+  isCsvField,
+  isIntInRange,
+  CONTENT_BLACKLIST,
+} from '../api/_lib/filmator-validators.js';
 
 let passed = 0;
 let failed = 0;
@@ -131,6 +140,7 @@ test('ALLOWED_ERROR_CODES — docs/08 §3.3 fixed list', () => {
     'catalog.open_failed',
     'catalog.corrupt',
     'catalog.locked',
+    'catalog.schema_unsupported', // JT-278/279
     'library.corrupt',
     'library.migration_failed',
     'export.render_failed',
@@ -139,6 +149,7 @@ test('ALLOWED_ERROR_CODES — docs/08 §3.3 fixed list', () => {
     'bookmark.resolve_failed',
     'photos.read_failed',
     'storekit.product_not_found',
+    'storekit.product_load_failed', // JT-249/JT-366
     'storekit.purchase_failed',
     'storekit.purchase_cancelled',
     'storekit.verification_failed',
@@ -166,6 +177,116 @@ test('ALLOWED_ERROR_CODES — PopScan-only codes rejected', () => {
   assert.equal(ALLOWED_ERROR_CODES.has('photos.write_failed'), false);
   assert.equal(ALLOWED_ERROR_CODES.has('photos.fetch_failed'), false);
   assert.equal(ALLOWED_ERROR_CODES.has('quota.time_endpoint_failed'), false);
+});
+
+// ---- JT-279: severity 汎用化 ----
+
+test('SEVERITY_HIGH — constant value', () => {
+  assert.equal(SEVERITY_HIGH, 'high');
+});
+
+test('ALLOWED_SEVERITIES — currently contains high only', () => {
+  assert.equal(ALLOWED_SEVERITIES.size, 1);
+  assert.ok(ALLOWED_SEVERITIES.has('high'));
+});
+
+test('ERROR_CODE_SEVERITY — catalog.schema_unsupported is high', () => {
+  assert.equal(ERROR_CODE_SEVERITY.get('catalog.schema_unsupported'), 'high');
+});
+
+test('ERROR_CODE_SEVERITY — other codes return undefined', () => {
+  assert.equal(ERROR_CODE_SEVERITY.get('catalog.open_failed'), undefined);
+  assert.equal(ERROR_CODE_SEVERITY.get('export.write_failed'), undefined);
+  assert.equal(ERROR_CODE_SEVERITY.get('unknown'), undefined);
+});
+
+// integrity test (Codex Q9): ERROR_CODE_SEVERITY の値が全て ALLOWED_SEVERITIES に含まれる。
+// 将来 medium/low を ERROR_CODE_SEVERITY に追加したら ALLOWED_SEVERITIES も拡張する
+// （拡張漏れはこのテストで検出）。
+test('ERROR_CODE_SEVERITY values ⊆ ALLOWED_SEVERITIES — integrity', () => {
+  for (const [code, sev] of ERROR_CODE_SEVERITY.entries()) {
+    assert.ok(ALLOWED_SEVERITIES.has(sev), `code ${code} mapped to unknown severity ${sev}`);
+  }
+});
+
+test('EXTENSION_FIELD_RULES — only catalog.schema_unsupported', () => {
+  const keys = Object.keys(EXTENSION_FIELD_RULES);
+  assert.deepEqual(keys, ['catalog.schema_unsupported']);
+  const rule = EXTENSION_FIELD_RULES['catalog.schema_unsupported'];
+  assert.equal(rule.severity.required, true);
+  assert.equal(rule.db_version.required, true);
+  assert.equal(rule.db_version.min, 1);
+  assert.equal(rule.db_version.max, 99999);
+  assert.equal(rule.missing_tables.required, false);
+  assert.equal(rule.missing_tables.maxEntries, 12);
+  assert.equal(rule.missing_columns.maxEntries, 12);
+});
+
+// ---- JT-279: validators ----
+
+test('isCsvField_valid — basic CSV / single / empty', () => {
+  assert.equal(isCsvField('a,b,c', { maxEntries: 12, maxEntryLen: 64 }), true);
+  assert.equal(isCsvField('AgLibrary', { maxEntries: 12, maxEntryLen: 64 }), true);
+  assert.equal(isCsvField('Adobe_images.fileFormat', { maxEntries: 12, maxEntryLen: 96 }), true);
+  assert.equal(isCsvField('', { maxEntries: 12, maxEntryLen: 64 }), true);
+});
+
+test('isCsvField_rejectsPathChars — / \\ space ; \' "', () => {
+  assert.equal(isCsvField('a/b', { maxEntries: 12, maxEntryLen: 64 }), false);
+  assert.equal(isCsvField('../etc', { maxEntries: 12, maxEntryLen: 64 }), false);
+  assert.equal(isCsvField('a b', { maxEntries: 12, maxEntryLen: 64 }), false);
+  assert.equal(isCsvField('a;b', { maxEntries: 12, maxEntryLen: 64 }), false);
+  assert.equal(isCsvField("a'b", { maxEntries: 12, maxEntryLen: 64 }), false);
+});
+
+test('isCsvField_rejectsOverEntries — 13 entries fails (cap 12)', () => {
+  const csv = Array.from({ length: 13 }, (_, i) => `t${i}`).join(',');
+  assert.equal(isCsvField(csv, { maxEntries: 12, maxEntryLen: 64 }), false);
+});
+
+test('isCsvField_rejectsLongEntry — entry over maxEntryLen', () => {
+  const longEntry = 'a'.repeat(70);
+  assert.equal(isCsvField(longEntry, { maxEntries: 12, maxEntryLen: 64 }), false);
+});
+
+test('isCsvField_rejectsBlacklistToken — file extension / path component', () => {
+  // path/filename 由来トークンは reject（content-free 防御・Codex Q4）
+  assert.equal(isCsvField('foo.lrcat', { maxEntries: 12, maxEntryLen: 96 }), false);
+  assert.equal(isCsvField('Users.jun', { maxEntries: 12, maxEntryLen: 96 }), false);
+  assert.equal(isCsvField('a.jpg', { maxEntries: 12, maxEntryLen: 96 }), false);
+  assert.equal(isCsvField('Volumes.disk', { maxEntries: 12, maxEntryLen: 96 }), false);
+  assert.equal(isCsvField('tmp.foo', { maxEntries: 12, maxEntryLen: 96 }), false);
+});
+
+test('isCsvField_acceptsAdobeIdentifiers — Adobe schema names pass', () => {
+  // Adobe テーブル / 列名は通る（接頭辞が Adobe_ / Ag* で blacklist と衝突しない）
+  assert.equal(isCsvField('Adobe_images', { maxEntries: 12, maxEntryLen: 96 }), true);
+  assert.equal(isCsvField('AgLibraryFolder,AgLibraryRootFolder', { maxEntries: 12, maxEntryLen: 96 }), true);
+  assert.equal(isCsvField('Adobe_images.fileFormat,Adobe_imageDevelopSettings.text', { maxEntries: 12, maxEntryLen: 96 }), true);
+});
+
+test('CONTENT_BLACKLIST_exported — contains expected tokens', () => {
+  assert.ok(CONTENT_BLACKLIST.includes('lrcat'));
+  assert.ok(CONTENT_BLACKLIST.includes('jpg'));
+  assert.ok(CONTENT_BLACKLIST.includes('Users'));
+  assert.ok(CONTENT_BLACKLIST.includes('Volumes'));
+});
+
+test('isIntInRange — basic ranges', () => {
+  assert.equal(isIntInRange(50, 1, 100), true);
+  assert.equal(isIntInRange(1, 1, 100), true);
+  assert.equal(isIntInRange(100, 1, 100), true);
+  assert.equal(isIntInRange(0, 1, 100), false);
+  assert.equal(isIntInRange(101, 1, 100), false);
+});
+
+test('isIntInRange_rejectsNonInteger', () => {
+  assert.equal(isIntInRange('50', 1, 100), false);
+  assert.equal(isIntInRange(50.5, 1, 100), false);
+  assert.equal(isIntInRange(null, 1, 100), false);
+  assert.equal(isIntInRange(undefined, 1, 100), false);
+  assert.equal(isIntInRange(NaN, 1, 100), false);
+  assert.equal(isIntInRange(Infinity, 1, 100), false);
 });
 
 // ---- summary ----
