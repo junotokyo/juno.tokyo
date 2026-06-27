@@ -14,7 +14,7 @@ const copy = {
     heroTitle1: "撮った色を、",
     heroTitle2: "そのまま作品に。",
     heroLead1:
-      "Filmatorは、写真をRAWから現像し直すのではなく、撮影者の意図とカメラの絵作りが込められたJPEGを活かして、作品として仕上げるMac用アプリです。",
+      "Filmatorは、撮影者の意図とカメラの絵作りが込められたJPEGを活かして、作品として仕上げるMac用アプリです。",
     heroLead2:
       "Lightroom Classicのカタログを使って、整理済みの写真を選び、必要な基本補正を加えて書き出せます。",
     trust1: "Lightroom Classic対応",
