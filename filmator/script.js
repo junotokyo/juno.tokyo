@@ -14,7 +14,7 @@ const copy = {
     heroTitle1: "撮った色を、",
     heroTitle2: "そのまま作品に。",
     heroLead1:
-      "Filmatorは、カメラが記録したJPEGを、RAWから作り直すのではなく、その一枚に込められた表現を活かして作品として仕上げるMac用アプリです。",
+      "Filmatorは、写真をRAWから現像し直すのではなく、撮影者の意図とカメラの絵作りが込められたJPEGを活かして、作品として仕上げるMac用アプリです。",
     heroLead2:
       "Lightroom Classicのカタログを使って、整理済みの写真を選び、必要な基本補正を加えて書き出せます。",
     trust1: "Lightroom Classic対応",
@@ -22,10 +22,10 @@ const copy = {
     trust3: "Core Image処理",
 
     // Concept（明朝・アイブローなし）
-    conceptTitle1: "カメラが描いた一枚に、",
-    conceptTitle2: "価値を見出す。",
+    conceptTitle1: "撮影時の表現を、",
+    conceptTitle2: "作品として扱う。",
     conceptBody1:
-      "RAWは、あとから仕上げ直すための素材。Filmatorが向き合うのは、撮影した時の光やカメラの絵作りが記録されたJPEGです。カメラが描いた一枚に、デジタル時代のフィルムのような価値を見出し、撮影時の表現を保ったまま作品として書き出す。名前に込めた“Film”は、フィルム風の加工ではなく、その考え方を表しています。",
+      "シャッターを切った瞬間の光、意図、カメラの絵作り。それらが一つになって、JPEGとして記録されています。Filmatorが向き合うのは、その一枚に込められた撮影時の表現。名前に込めた“Film”は、その一枚をデジタル時代のフィルムのように扱い、作品として仕上げるという考え方を表しています。",
 
     // Workflow（ゴシック）
     workflowEyebrow: "Workflow",
