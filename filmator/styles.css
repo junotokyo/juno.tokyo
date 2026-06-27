@@ -26,12 +26,12 @@ h1,h2{margin:0;font-family:var(--heading-sans);font-weight:700;letter-spacing:0;
 h3{margin:0 0 8px;font-family:var(--heading-sans);font-size:1.06rem;line-height:1.4;color:var(--ink-soft)}
 p{overflow-wrap:anywhere}
 
-/* Zen Kaku Gothic New は和文が少しゆったり、英数字が詰まって見えるため、本文領域だけ微調整する。 */
-.hero-lead,.section-lead,.concept-body,.trust-row span,.workflow-step p,.safety-note p,.app-shot-cap,.feature-card p,.plan-body,.qa-list p,.policy-card p,.policy-note,.site-footer small,.footer-social-link,.footer-links{
-  letter-spacing:-.018em;
-}
+/* Zen Kaku Gothic New はかなが少しゆったり見えるため、英数字とかなだけ微調整する。漢字は標準の字間を保つ。 */
 .latin-token{
   letter-spacing:.018em;
+}
+.kana-token{
+  letter-spacing:-.014em;
 }
 
 .accent{background:var(--grade);-webkit-background-clip:text;background-clip:text;color:transparent}
