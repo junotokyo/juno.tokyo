@@ -84,12 +84,12 @@ const copy = {
     // Pricing（ゴシック）
     pricingEyebrow: "Plans",
     pricingTitle: "料金",
-    freeLabel: "無料",
+    freeLabel: "無料プラン",
     freeBody:
       "書き出し無料枠の範囲で、機能的な制限なく写真を書き出すことができます。Lightroom Classic のカタログを開き、Filmator の機能をお楽しみください。",
-    proLabel: "Pro プラン\n¥⚪︎⚪︎（買い切り）",
+    proLabel: "PRO プラン\n¥⚪︎⚪︎（買い切り）",
     proBody:
-      "一度の購入で、書き出し枚数の制限が無くなります。多くの写真を取り扱う場合は、Pro プランをご利用ください。",
+      "一度の購入で、書き出し枚数の制限が無くなります。多くの写真を取り扱う場合は、PRO プランをご利用ください。",
 
     // Support（ゴシック・旧 FAQ・9 問）
     supportEyebrow: "Support",
@@ -144,6 +144,29 @@ const copy = {
 
 const buttons = document.querySelectorAll("[data-lang]");
 const translatable = document.querySelectorAll("[data-i18n]");
+const latinTokenPattern = /[A-Za-z0-9][A-Za-z0-9.+/-]*/g;
+
+function renderTextWithLatinSpans(element, text) {
+  element.replaceChildren();
+
+  let cursor = 0;
+  for (const match of text.matchAll(latinTokenPattern)) {
+    const start = match.index ?? 0;
+    if (start > cursor) {
+      element.append(document.createTextNode(text.slice(cursor, start)));
+    }
+
+    const span = document.createElement("span");
+    span.className = "latin-token";
+    span.textContent = match[0];
+    element.append(span);
+    cursor = start + match[0].length;
+  }
+
+  if (cursor < text.length) {
+    element.append(document.createTextNode(text.slice(cursor)));
+  }
+}
 
 function setLanguage(lang) {
   const dictionary = copy[lang] || copy.ja;
@@ -152,7 +175,7 @@ function setLanguage(lang) {
   translatable.forEach((element) => {
     const key = element.dataset.i18n;
     if (dictionary[key] !== undefined) {
-      element.textContent = dictionary[key];
+      renderTextWithLatinSpans(element, dictionary[key]);
     }
   });
 
