@@ -143,10 +143,13 @@ test('ALLOWED_ERROR_CODES — docs/08 §3.3 fixed list', () => {
     'catalog.schema_unsupported', // JT-278/279
     'library.corrupt',
     'library.migration_failed',
+    'library.read_failed', // JT-517/JT-559
     'export.render_failed',
     'export.write_failed',
     'export.encode_failed',
     'bookmark.resolve_failed',
+    'bookmark.create_failed', // JT-402/JT-559
+    'bookmark.persist_failed', // JT-516/JT-559
     'photos.read_failed',
     'storekit.product_not_found',
     'storekit.product_load_failed', // JT-249/JT-366
