@@ -46,7 +46,7 @@ p{overflow-wrap:anywhere}
 .nav-links a:hover{color:var(--teal-300)}
 .language-switch{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px}
 .language-button{min-width:64px;height:34px;border:0;border-radius:999px;background:transparent;color:var(--muted);font:inherit;font-size:.9rem;font-weight:800;cursor:pointer}
-.language-button.active{background:var(--ink);color:#fff}
+.language-button.active{background:var(--teal);color:#fff}
 
 /* ===== Sections ===== */
 .section{padding:clamp(64px,8vw,116px) clamp(20px,6vw,80px);border-top:1px solid var(--line)}
@@ -108,9 +108,10 @@ p{overflow-wrap:anywhere}
 .safety-note h3{margin:0 0 8px;color:var(--teal-300)}
 .safety-note p{margin:0;color:var(--muted)}
 
-/* ===== App screenshot（Workflow / Features） ===== */
-.app-shot{position:relative;max-width:1040px;margin:0 auto clamp(32px,4vw,48px);border-radius:16px;border:1px solid var(--line);
-  box-shadow:var(--shadow);overflow:hidden;background:#1a2226}
+/* ===== App screenshot（Workflow / Features）
+   背景色を surface-2 に上げて「本文背景（--bg 黒）→ 板（--surface-2）→ ダークな Filmator UI」の
+   繋ぎ役に。ドロップシャドウは撤去してレイヤー感を軽くする（Jun 指示 2026-07-09）。 */
+.app-shot{position:relative;max-width:1040px;margin:0 auto clamp(32px,4vw,48px);border-radius:16px;border:1px solid var(--line);overflow:hidden;background:var(--surface-2)}
 .app-shot img{display:block;width:100%;height:auto}
 
 /* ===== Features（ゴシック・番号なし・8 カード） ===== */
