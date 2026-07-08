@@ -49,13 +49,10 @@
         <a href="#support" data-i18n="navSupport">サポート</a>
         <a href="#privacy" data-i18n="navPrivacy">プライバシー</a>
       </nav>
-      <!-- TODO(JT-260): 英語版コピー確定後に言語スイッチを復帰（現在は日本語のみ） -->
-      <!--
       <div class="language-switch" aria-label="Language">
         <button class="language-button active" type="button" data-lang="ja" aria-pressed="true">日本語</button>
         <button class="language-button" type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      -->
     </header>
 
     <main id="top">
@@ -111,8 +108,11 @@
           <p class="section-lead" data-i18n="workflowLead">Lightroom Classic で写真を読み込み、整理し、構図と向きを整えます。Filmator でそのカタログを開くと、フォルダやコレクションがそのまま表示されます。カメラが生成した JPEG を元に書き出せます。</p>
         </div>
         <!-- TODO(JT-261): Filmator アプリ全体像のスクリーンショットに差し替え（2560×1600 / 16:10 @2x） -->
-        <div class="app-shot" role="img" aria-label="Filmator のスクリーンショット（準備中）">
-          <span class="app-shot-cap" data-i18n="shotApp">アプリ画面のスクリーンショット（準備中 / 2560×1600）</span>
+        <div class="app-shot">
+          <img src="assets/workflow-app-shot-ja.png"
+               data-i18n-src-ja="assets/workflow-app-shot-ja.png"
+               data-i18n-src-en="assets/workflow-app-shot-en.png"
+               alt="Filmator のブラウズ画面">
         </div>
         <ol class="workflow-steps">
           <li class="workflow-step"><span class="num">1</span><div><h3 data-i18n="step1Title">Lightroom Classic で管理</h3><p data-i18n="step1Body">写真を読み込み、いつものカタログで管理します。RAW + JPEG のペアも、単体 JPEG や HEIF も、Lightroom Classic 側の流れはそのままです。</p></div></li>
@@ -134,8 +134,11 @@
           <h2 id="features-title" data-i18n="featuresTitle">Filmator の機能</h2>
         </div>
         <!-- TODO(JT-261): 編集・書き出し画面のスクリーンショットに差し替え（2560×1600 / 16:10 @2x） -->
-        <div class="app-shot" role="img" aria-label="Filmator のスクリーンショット（準備中）">
-          <span class="app-shot-cap" data-i18n="shotFeature">編集・書き出し画面のスクリーンショット（準備中 / 2560×1600）</span>
+        <div class="app-shot">
+          <img src="assets/features-app-shot-ja.png"
+               data-i18n-src-ja="assets/features-app-shot-ja.png"
+               data-i18n-src-en="assets/features-app-shot-en.png"
+               alt="Filmator のエディット画面">
         </div>
         <div class="feature-grid">
           <article class="feature-card"><h3 data-i18n="feat1Title">カタログを読み取り専用で参照</h3><p data-i18n="feat1Body">Lightroom Classic のカタログ（.lrcat）を読み取り専用で開きます。あなたのカタログには一切書き込まず、Lightroom Classic 側から見ても何も変わりません。</p></article>

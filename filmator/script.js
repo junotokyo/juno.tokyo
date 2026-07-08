@@ -204,5 +204,5 @@ buttons.forEach((button) => {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));
 });
 
-// 現在は日本語のみ（en 未作成）。保存値が en でも copy.ja にフォールバックする。
-setLanguage("ja");
+// 起動時に localStorage の保存値を復元（en 辞書未追加でも画像 src だけは切り替わる）。
+setLanguage(localStorage.getItem("filmator-language") || "ja");
