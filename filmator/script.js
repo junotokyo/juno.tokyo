@@ -186,6 +186,11 @@ function setLanguage(lang) {
     }
   });
 
+  document.querySelectorAll("[data-i18n-src-ja]").forEach((el) => {
+    const src = lang === "en" ? el.dataset.i18nSrcEn : el.dataset.i18nSrcJa;
+    if (src) el.src = src;
+  });
+
   buttons.forEach((button) => {
     const isActive = button.dataset.lang === lang;
     button.classList.toggle("active", isActive);

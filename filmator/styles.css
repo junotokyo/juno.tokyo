@@ -78,7 +78,6 @@ p{overflow-wrap:anywhere}
   radial-gradient(120% 100% at 100% 100%, rgba(222,139,62,.26), transparent 55%),
   linear-gradient(160deg,#1a2226,#221d1a)}
 .mb-screen img{width:100%;height:100%;object-fit:cover;display:block}
-.mb-cap{padding:8px 14px;border-radius:8px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);color:#fff;font-size:.8rem;font-weight:700;text-align:center}
 
 /* ===== Concept（明朝・アイブローなし・風景写真を薄く敷く別デザイン） ===== */
 .concept{position:relative;overflow:hidden;background:#0E1417;
