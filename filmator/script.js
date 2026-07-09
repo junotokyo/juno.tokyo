@@ -47,14 +47,6 @@ const copy = {
     step5Title: "Filmator で開く",
     step5Body:
       "Filmator でカタログを開くと、整理したフォルダやコレクションが反映されます。そこから写真を選び、必要な補正を加えて書き出します。",
-    // Workflow flow diagram（試作）
-    flowLrCLabel: "Lightroom Classic",
-    flowStep1Label: "管理・整理",
-    flowStep2Label: "写真を整理",
-    flowStep3Label: "構図と向き",
-    flowStep4Label: "保存",
-    flowStep5Label: "で開く",
-
     safetyTitle: "Lightroom Classic 側には影響しません",
     safetyBody:
       "Filmator は、Lightroom Classic のカタログを読み取り専用で開きます。RAW ファイルは使用せず、対応する JPEG / HEIF / iPhone DNG 埋め込みの JPEG を参照します。元の写真ファイルにもカタログにも変更を加えないため、いつもの Lightroom Classic の管理をそのまま保てます。",
@@ -66,7 +58,7 @@ const copy = {
     // Browse group
     featBrowse1Title: "カタログを読み取り専用で参照",
     featBrowse1Body:
-      "Lightroom Classic のカタログ（.lrcat）を読み取り専用で開きます。あなたのカタログには一切書き込まず、Lightroom Classic 側から見ても何も変わりません。",
+      "Lightroom Classic のカタログ（.lrcat）を読み取り専用で開きます。カタログには一切書き込まず、Lightroom Classic 側には影響を及ぼしません。",
     featBrowse2Title: "整理した写真をそのまま探せる",
     featBrowse2Body:
       "Lightroom Classic で付けたフラグ、レーティング、カラーラベルを読み込み、Filmator 上でもフィルタリングできます。いつもの選別から、そのまま書き出しへ進めます。",
@@ -74,24 +66,24 @@ const copy = {
     featBrowse3Body:
       "RAW + JPEG ペアの JPEG、単体の JPEG / HEIF、iPhone DNG 埋め込みの JPEG に対応し、表示・編集・書き出しができます。RAW 現像や PNG / TIFF には対応していません。",
 
-    // Edit group
-    featEdit1Title: "構図と向きを反映",
+    // Edit group（JPEG ベースが特徴のためカードは「カメラの色 → 構図と向き → 基本補正」の順）
+    featEdit1Title: "カメラの色をそのまま",
     featEdit1Body:
-      "Lightroom Classic で決めたトリミング、傾き補正、向き、Upright を、JPEG の書き出しに反映します。カタログ上で整えた構図を活かせます。",
-    featEdit2Title: "カメラの色をそのまま",
+      "カメラが生成した JPEG そのものを参照。FUJIFILM のフィルムシミュレーションなど、カメラの色をそのまま活かせます。",
+    featEdit2Title: "構図と向きを反映",
     featEdit2Body:
-      "カメラが生成した JPEG そのものを参照。FUJIFILM のフィルムシミュレーションなど、カメラの色をそのまま活かせます。Lightroom Classic での現像パラメータは反映しません。",
+      "Lightroom Classic で決めたトリミング、傾き補正、向き、Upright を、JPEG に対して自動的に反映します。",
     featEdit3Title: "必要なぶんだけ、基本補正",
     featEdit3Body:
-      "明るさ、コントラスト、ハイライト、シャドウ、ホワイトバランス、彩度などを調整できます。ライブプレビューが軽快に追随し、Apple の写真編集エンジンで高画質に処理します。",
+      "明るさ、コントラスト、ハイライト、シャドウ、ホワイトバランス、彩度などを調整できます。Core Image を使用し、軽快なライブビューや高画質な編集処理を行います。",
 
     // Export group
     featExport1Title: "選んだ写真をすばやく書き出す",
     featExport1Body:
-      "ブラウズ画面・エディット画面から選んで書き出し。1 枚でも複数枚でも同じ流れで書き出せます。",
+      "ブラウズ画面・エディット画面から写真を選んで書き出し。1 枚でも複数枚でも同じ流れで書き出せます。",
     featExport2Title: "作品作りを支える書き出しオプション",
     featExport2Body:
-      "出力先、ファイル名、品質、透かし、メタデータなど設定でき、作品作りをサポートします。",
+      "出力先、ファイル名、画質・サイズ、透かし、メタデータなど設定でき、作品作りをサポートします。",
     featExport3Title: "オフラインで完結",
     featExport3Body:
       "写真やカタログの内容を外部へ送信せず、すべての機能がオフラインで動作します。匿名の利用統計も、設定でオフにできます。",

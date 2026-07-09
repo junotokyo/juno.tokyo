@@ -107,39 +107,12 @@
           <h2 id="workflow-title"><span data-i18n="workflowTitle1">Lightroom Classic で選び、</span><br><span data-i18n="workflowTitle2">Filmator で書き出す</span></h2>
           <p class="section-lead" data-i18n="workflowLead">Lightroom Classic で写真を読み込み、整理し、構図と向きを整えます。Filmator でそのカタログを開くと、フォルダやコレクションがそのまま表示されます。カメラが生成した JPEG を元に書き出せます。</p>
         </div>
-        <!-- 流れ図（試作・aria-hidden＝装飾。詳細説明は下の workflow-steps） -->
-        <div class="workflow-flow" aria-hidden="true">
-          <div class="flow-node">
-            <div class="flow-badge lrc"><span data-i18n="flowLrCLabel">Lightroom Classic</span></div>
-            <p class="flow-label"><span class="flow-num">1</span><span data-i18n="flowStep1Label">管理・整理</span></p>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-node">
-            <div class="flow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-            <p class="flow-label"><span class="flow-num">2</span><span data-i18n="flowStep2Label">写真を整理</span></p>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-node">
-            <div class="flow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg></div>
-            <p class="flow-label"><span class="flow-num">3</span><span data-i18n="flowStep3Label">構図と向き</span></p>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-node">
-            <div class="flow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></div>
-            <p class="flow-label"><span class="flow-num">4</span><span data-i18n="flowStep4Label">保存</span></p>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-node">
-            <div class="flow-badge filmator"><img src="assets/filmator-icon-1024.png" alt=""><span>Filmator</span></div>
-            <p class="flow-label"><span class="flow-num">5</span><span data-i18n="flowStep5Label">で開く</span></p>
-          </div>
-        </div>
         <ol class="workflow-steps">
-          <li class="workflow-step"><span class="num">1</span><div><h3 data-i18n="step1Title">Lightroom Classic で管理</h3><p data-i18n="step1Body">写真を読み込み、いつものカタログで管理します。RAW + JPEG のペアも、単体 JPEG や HEIF も、Lightroom Classic 側の流れはそのままです。</p></div></li>
-          <li class="workflow-step"><span class="num">2</span><div><h3 data-i18n="step2Title">写真を整理</h3><p data-i18n="step2Body">フラグ、レーティング、カラーラベルで、写真を整理します。</p></div></li>
-          <li class="workflow-step"><span class="num">3</span><div><h3 data-i18n="step3Title">構図と向きを決める</h3><p data-i18n="step3Body">必要に応じて、トリミング、傾き、向き、Upright を Lightroom Classic 側で設定します。</p></div></li>
-          <li class="workflow-step"><span class="num">4</span><div><h3 data-i18n="step4Title">カタログを閉じて保存</h3><p data-i18n="step4Body">変更内容を Filmator で読み込めるように、Lightroom Classic でカタログを閉じて保存します。</p></div></li>
-          <li class="workflow-step"><span class="num">5</span><div><h3 data-i18n="step5Title">Filmator で開く</h3><p data-i18n="step5Body">Filmator でカタログを開くと、整理したフォルダやコレクションが反映されます。そこから写真を選び、必要な補正を加えて書き出します。</p></div></li>
+          <li class="workflow-step"><div><h3 data-i18n="step1Title">Lightroom Classic で管理</h3><p data-i18n="step1Body">写真を読み込み、いつものカタログで管理します。RAW + JPEG のペアも、単体 JPEG や HEIF も、Lightroom Classic 側の流れはそのままです。</p></div></li>
+          <li class="workflow-step sub-step"><div><h3 data-i18n="step2Title">写真を整理</h3><p data-i18n="step2Body">フラグ、レーティング、カラーラベルで、写真を整理します。</p></div></li>
+          <li class="workflow-step sub-step"><div><h3 data-i18n="step3Title">構図と向きを決める</h3><p data-i18n="step3Body">必要に応じて、トリミング、傾き、向き、Upright を Lightroom Classic 側で設定します。</p></div></li>
+          <li class="workflow-step sub-step"><div><h3 data-i18n="step4Title">カタログを閉じて保存</h3><p data-i18n="step4Body">変更内容を Filmator で読み込めるように、Lightroom Classic でカタログを閉じて保存します。</p></div></li>
+          <li class="workflow-step filmator"><img src="assets/filmator-icon-1024.png" alt="" class="workflow-icon"><div><h3 data-i18n="step5Title">Filmator で開く</h3><p data-i18n="step5Body">Filmator でカタログを開くと、整理したフォルダやコレクションが反映されます。そこから写真を選び、必要な補正を加えて書き出します。</p></div></li>
         </ol>
         <div class="safety-note">
           <h3 data-i18n="safetyTitle">Lightroom Classic 側には影響しません</h3>
@@ -162,7 +135,7 @@
                  alt="Filmator のブラウズ画面">
           </div>
           <div class="feature-grid">
-            <article class="feature-card"><h3 data-i18n="featBrowse1Title">カタログを読み取り専用で参照</h3><p data-i18n="featBrowse1Body">Lightroom Classic のカタログ（.lrcat）を読み取り専用で開きます。あなたのカタログには一切書き込まず、Lightroom Classic 側から見ても何も変わりません。</p></article>
+            <article class="feature-card"><h3 data-i18n="featBrowse1Title">カタログを読み取り専用で参照</h3><p data-i18n="featBrowse1Body">Lightroom Classic のカタログ（.lrcat）を読み取り専用で開きます。カタログには一切書き込まず、Lightroom Classic 側には影響を及ぼしません。</p></article>
             <article class="feature-card"><h3 data-i18n="featBrowse2Title">整理した写真をそのまま探せる</h3><p data-i18n="featBrowse2Body">Lightroom Classic で付けたフラグ、レーティング、カラーラベルを読み込み、Filmator 上でもフィルタリングできます。いつもの選別から、そのまま書き出しへ進めます。</p></article>
             <article class="feature-card"><h3 data-i18n="featBrowse3Title">JPEG / HEIF / iPhone DNG に対応</h3><p data-i18n="featBrowse3Body">RAW + JPEG ペアの JPEG、単体の JPEG / HEIF、iPhone DNG 埋め込みの JPEG に対応し、表示・編集・書き出しができます。RAW 現像や PNG / TIFF には対応していません。</p></article>
           </div>
@@ -176,9 +149,9 @@
                  alt="Filmator のエディット画面">
           </div>
           <div class="feature-grid">
-            <article class="feature-card"><h3 data-i18n="featEdit1Title">構図と向きを反映</h3><p data-i18n="featEdit1Body">Lightroom Classic で決めたトリミング、傾き補正、向き、Upright を、JPEG の書き出しに反映します。カタログ上で整えた構図を活かせます。</p></article>
-            <article class="feature-card"><h3 data-i18n="featEdit2Title">カメラの色をそのまま</h3><p data-i18n="featEdit2Body">カメラが生成した JPEG そのものを参照。FUJIFILM のフィルムシミュレーションなど、カメラの色をそのまま活かせます。Lightroom Classic での現像パラメータは反映しません。</p></article>
-            <article class="feature-card"><h3 data-i18n="featEdit3Title">必要なぶんだけ、基本補正</h3><p data-i18n="featEdit3Body">明るさ、コントラスト、ハイライト、シャドウ、ホワイトバランス、彩度などを調整できます。ライブプレビューが軽快に追随し、Apple の写真編集エンジンで高画質に処理します。</p></article>
+            <article class="feature-card"><h3 data-i18n="featEdit1Title">カメラの色をそのまま</h3><p data-i18n="featEdit1Body">カメラが生成した JPEG そのものを参照。FUJIFILM のフィルムシミュレーションなど、カメラの色をそのまま活かせます。</p></article>
+            <article class="feature-card"><h3 data-i18n="featEdit2Title">構図と向きを反映</h3><p data-i18n="featEdit2Body">Lightroom Classic で決めたトリミング、傾き補正、向き、Upright を、JPEG に対して自動的に反映します。</p></article>
+            <article class="feature-card"><h3 data-i18n="featEdit3Title">必要なぶんだけ、基本補正</h3><p data-i18n="featEdit3Body">明るさ、コントラスト、ハイライト、シャドウ、ホワイトバランス、彩度などを調整できます。Core Image を使用し、軽快なライブビューや高画質な編集処理を行います。</p></article>
           </div>
         </div>
         <!-- Export group（書き出しダイアログは他画面より縦長のため .export で max-width を狭める） -->
@@ -190,8 +163,8 @@
                  alt="Filmator の書き出しダイアログ">
           </div>
           <div class="feature-grid">
-            <article class="feature-card"><h3 data-i18n="featExport1Title">選んだ写真をすばやく書き出す</h3><p data-i18n="featExport1Body">ブラウズ画面・エディット画面から選んで書き出し。1 枚でも複数枚でも同じ流れで書き出せます。</p></article>
-            <article class="feature-card"><h3 data-i18n="featExport2Title">作品作りを支える書き出しオプション</h3><p data-i18n="featExport2Body">出力先、ファイル名、品質、透かし、メタデータなど設定でき、作品作りをサポートします。</p></article>
+            <article class="feature-card"><h3 data-i18n="featExport1Title">選んだ写真をすばやく書き出す</h3><p data-i18n="featExport1Body">ブラウズ画面・エディット画面から写真を選んで書き出し。1 枚でも複数枚でも同じ流れで書き出せます。</p></article>
+            <article class="feature-card"><h3 data-i18n="featExport2Title">作品作りを支える書き出しオプション</h3><p data-i18n="featExport2Body">出力先、ファイル名、画質・サイズ、透かし、メタデータなど設定でき、作品作りをサポートします。</p></article>
             <article class="feature-card"><h3 data-i18n="featExport3Title">オフラインで完結</h3><p data-i18n="featExport3Body">写真やカタログの内容を外部へ送信せず、すべての機能がオフラインで動作します。匿名の利用統計も、設定でオフにできます。</p></article>
           </div>
         </div>
