@@ -108,37 +108,39 @@
           <p class="section-lead" data-i18n="workflowLead">Lightroom Classic で写真を読み込み、整理し、構図と向きを整えます。Filmator でそのカタログを開くと、フォルダやコレクションがそのまま表示されます。カメラが生成した JPEG を元に書き出せます。</p>
         </div>
         <div class="workflow-flow">
-          <div class="wf-lrc">
-            <h3 data-i18n="step1Title">Lightroom Classic で管理</h3>
-            <p data-i18n="step1Body">写真を読み込み、いつものカタログで管理します。RAW + JPEG のペアも、単体 JPEG や HEIF も、Lightroom Classic 側の流れはそのままです。</p>
-            <div class="wf-substeps">
-              <div class="wf-sub">
-                <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-                <div class="wf-sub-text">
-                  <h4 data-i18n="step2Title">写真を整理</h4>
-                  <p data-i18n="step2Body">フラグ、レーティング、カラーラベルで、写真を整理します。</p>
+          <div class="wf-app">
+            <div class="wf-app-badge lrc" aria-hidden="true">LrC</div>
+            <div class="wf-app-body">
+              <h3 data-i18n="step1Title">Lightroom Classic で管理</h3>
+              <p data-i18n="step1Body">写真を読み込み、いつものカタログで管理します。RAW + JPEG のペアも、単体 JPEG や HEIF も、Lightroom Classic 側の流れはそのままです。</p>
+              <div class="wf-substeps">
+                <div class="wf-sub">
+                  <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+                  <div class="wf-sub-text">
+                    <h4 data-i18n="step2Title">写真を整理</h4>
+                    <p data-i18n="step2Body">フラグ、レーティング、カラーラベルで、写真を整理します。</p>
+                  </div>
                 </div>
-              </div>
-              <div class="wf-sub">
-                <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg></div>
-                <div class="wf-sub-text">
-                  <h4 data-i18n="step3Title">構図と向きを決める</h4>
-                  <p data-i18n="step3Body">必要に応じて、トリミング、傾き、向き、Upright を Lightroom Classic 側で設定します。</p>
+                <div class="wf-sub">
+                  <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg></div>
+                  <div class="wf-sub-text">
+                    <h4 data-i18n="step3Title">構図と向きを決める</h4>
+                    <p data-i18n="step3Body">必要に応じて、トリミング、傾き、向き、Upright を Lightroom Classic 側で設定します。</p>
+                  </div>
                 </div>
-              </div>
-              <div class="wf-sub">
-                <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg></div>
-                <div class="wf-sub-text">
-                  <h4 data-i18n="step4Title">カタログを閉じて保存</h4>
-                  <p data-i18n="step4Body">変更内容を Filmator で読み込めるように、Lightroom Classic でカタログを閉じて保存します。</p>
+                <div class="wf-sub">
+                  <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg></div>
+                  <div class="wf-sub-text">
+                    <h4 data-i18n="step4Title">カタログを閉じて保存</h4>
+                    <p data-i18n="step4Body">変更内容を Filmator で読み込めるように、Lightroom Classic でカタログを閉じて保存します。</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="wf-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-          <div class="wf-filmator">
-            <img src="assets/filmator-icon-1024.png" alt="" class="wf-logo">
-            <div class="wf-filmator-text">
+          <div class="wf-app filmator">
+            <div class="wf-app-badge filmator" aria-hidden="true"><img src="assets/filmator-icon-1024.png" alt=""></div>
+            <div class="wf-app-body">
               <h3 data-i18n="step5Title">Filmator で開く</h3>
               <p data-i18n="step5Body">Filmator でカタログを開くと、整理したフォルダやコレクションが反映されます。そこから写真を選び、必要な補正を加えて書き出します。</p>
             </div>

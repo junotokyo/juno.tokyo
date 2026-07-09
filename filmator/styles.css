@@ -100,27 +100,23 @@ p{overflow-wrap:anywhere}
 
 /* ===== Workflow（ゴシック） ===== */
 /* WORKFLOW A案：カード枠を全撤去したタイポ主体の流れ。
-   LrC 見出し + 本文 → インデントされた 3 サブステップ（Lucide アイコン + h4 + p） → 縦線と
-   chevron の下向き矢印 → Filmator 見出し（ロゴ横並び）。線と間で階層と流れを表現し、
-   surface カードは使わない（LP の他セクションがカード多用のため差別化）。 */
-.workflow-flow{max-width:720px;margin:0 auto}
-.wf-lrc > h3{margin:0 0 10px;font-family:var(--heading-sans);font-weight:700}
-.wf-lrc > p{margin:0 0 clamp(20px,3vw,32px);color:var(--muted)}
-.wf-substeps{display:grid;gap:clamp(18px,2.6vw,26px);padding-left:clamp(20px,4vw,44px)}
+   LrC ブロック（自作 LrC バッジ + 見出し + 本文 + 3 サブステップ）と Filmator ブロック
+   （Filmator ロゴ + 見出し + 本文）を対に配置。バッジは同サイズ 56px の角丸で、
+   LrC は Lucide と同じ色使い（teal-300）テキスト、Filmator は自社ロゴ画像。
+   順序矢印は撤去し、縦の並びだけで LrC → Filmator の流れを示す。 */
+.workflow-flow{max-width:720px;margin:0 auto;display:grid;gap:clamp(36px,5vw,56px)}
+.wf-app{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+.wf-app-badge{width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--teal-300);flex-shrink:0;font-family:var(--heading-sans);font-weight:800;font-size:1.05rem;letter-spacing:.02em}
+.wf-app-badge.filmator{padding:0;overflow:hidden}
+.wf-app-badge.filmator img{width:100%;height:100%;display:block;object-fit:cover}
+.wf-app-body > h3{margin:6px 0 8px;font-family:var(--heading-sans);font-weight:700}
+.wf-app-body > p{margin:0;color:var(--muted)}
+.wf-substeps{display:grid;gap:clamp(18px,2.6vw,26px);margin-top:clamp(20px,3vw,32px)}
 .wf-sub{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
 .wf-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--teal-300);flex-shrink:0}
 .wf-icon svg{width:20px;height:20px}
 .wf-sub-text h4{margin:0 0 4px;font-family:var(--heading-sans);font-weight:700;font-size:1rem}
 .wf-sub-text p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.6}
-/* 順序矢印：インデント側（左）に細い縦線 + chevron。パワポ感を避けるため
-   線 1px / chevron stroke 1.75px の細身で。 */
-.wf-arrow{display:flex;flex-direction:column;align-items:center;color:var(--muted);width:40px;margin:clamp(20px,3vw,28px) 0 clamp(20px,3vw,28px) clamp(20px,4vw,44px)}
-.wf-arrow::before{content:"";display:block;width:1px;height:clamp(20px,3vw,32px);background:var(--line);margin-bottom:4px}
-.wf-arrow svg{width:22px;height:22px}
-.wf-filmator{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
-.wf-logo{width:56px;height:56px;border-radius:12px;display:block;flex-shrink:0}
-.wf-filmator-text h3{margin:6px 0 8px;font-family:var(--heading-sans);font-weight:700}
-.wf-filmator-text p{margin:0;color:var(--muted)}
 .safety-note{max-width:840px;margin:22px auto 0;padding:22px 24px;border:1px solid rgba(56,182,189,.34);border-radius:14px;background:rgba(56,182,189,.07)}
 .safety-note h3{margin:0 0 8px;color:var(--teal-300)}
 .safety-note p{margin:0;color:var(--muted)}
