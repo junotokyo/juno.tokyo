@@ -113,9 +113,10 @@ p{overflow-wrap:anywhere}
    繋ぎ役に。ドロップシャドウは撤去してレイヤー感を軽くする（Jun 指示 2026-07-09）。 */
 .app-shot{position:relative;max-width:1040px;margin:0 auto clamp(32px,4vw,48px);border-radius:16px;border:1px solid var(--line);overflow:hidden;background:var(--surface-2)}
 .app-shot img{display:block;width:100%;height:auto}
-/* WORKFLOW セクションのスクショだけに Pro プランと同じティール色のグロー（box-shadow のみ）。
-   ウインドウ枠に沿った線（border）は撤去し、柔らかい shadow だけで浮かせる（Jun 指示 2026-07-10）。 */
-.workflow .app-shot{border:none;box-shadow:0 24px 60px rgba(28,140,146,.12)}
+/* WORKFLOW セクションのスクショだけにティール色グロー。
+   四方に均等な明るいティール（--teal-300）＋下方向の濃いティール（--teal）の 2 重 shadow で、
+   右辺など背景と溶けやすい辺の境界も出す（Jun 指示 2026-07-10・border なし版の追加調整）。 */
+.workflow .app-shot{border:none;box-shadow:0 0 24px rgba(56,182,189,.24),0 24px 60px rgba(28,140,146,.16)}
 
 /* ===== Features（ゴシック・番号なし・8 カード） ===== */
 .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1080px;margin:0 auto}
