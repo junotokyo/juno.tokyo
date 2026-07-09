@@ -50,35 +50,42 @@ const copy = {
     safetyTitle: "Lightroom Classic 側には影響しません",
     safetyBody:
       "Filmator は、Lightroom Classic のカタログを読み取り専用で開きます。RAW ファイルは使用せず、対応する JPEG / HEIF / iPhone DNG 埋め込みの JPEG を参照します。元の写真ファイルにもカタログにも変更を加えないため、いつもの Lightroom Classic の管理をそのまま保てます。",
-    shotApp: "アプリ画面のスクリーンショット（準備中 / 2560×1600）",
 
-    // Features（ゴシック・8 カード・番号なし）
+    // Features（ゴシック・3 画面 × 3 ボックス／グループ）
     featuresEyebrow: "Features",
     featuresTitle: "Filmator の機能",
-    shotFeature: "編集・書き出し画面のスクリーンショット（準備中 / 2560×1600）",
-    feat1Title: "カタログを読み取り専用で参照",
-    feat1Body:
+
+    // Browse group
+    featBrowse1Title: "カタログを読み取り専用で参照",
+    featBrowse1Body:
       "Lightroom Classic のカタログ（.lrcat）を読み取り専用で開きます。あなたのカタログには一切書き込まず、Lightroom Classic 側から見ても何も変わりません。",
-    feat2Title: "整理した写真をそのまま探せる",
-    feat2Body:
+    featBrowse2Title: "整理した写真をそのまま探せる",
+    featBrowse2Body:
       "Lightroom Classic で付けたフラグ、レーティング、カラーラベルを読み込み、Filmator 上でもフィルタリングできます。いつもの選別から、そのまま書き出しへ進めます。",
-    feat3Title: "構図と向きを反映",
-    feat3Body:
-      "Lightroom Classic で決めたトリミング、傾き補正、向き、Upright を、JPEG の書き出しに反映します。カタログ上で整えた構図を活かせます。",
-    feat4Title: "カメラの色をそのまま",
-    feat4Body:
-      "カメラが生成した JPEG そのものを参照。FUJIFILM のフィルムシミュレーションなど、カメラの色をそのまま活かせます。Lightroom Classic での現像パラメータは反映しません。",
-    feat5Title: "必要なぶんだけ、基本補正",
-    feat5Body:
-      "明るさ、コントラスト、ハイライト、シャドウ、ホワイトバランス、彩度などを調整できます。Apple の写真編集エンジンを使って高画質に処理し、Lightroom Classic に慣れた人にも使いやすい操作感に整えています。",
-    feat6Title: "JPEG / HEIF / iPhone DNG に対応",
-    feat6Body:
+    featBrowse3Title: "JPEG / HEIF / iPhone DNG に対応",
+    featBrowse3Body:
       "RAW + JPEG ペアの JPEG、単体の JPEG / HEIF、iPhone DNG 埋め込みの JPEG に対応し、表示・編集・書き出しができます。RAW 現像や PNG / TIFF には対応していません。",
-    feat7Title: "軽快なプレビューと書き出し",
-    feat7Body:
-      "選んで、確認して、書き出す。ライブプレビューは調整に合わせて軽快に追随し、複数の写真もまとめて書き出せます。",
-    feat8Title: "オフラインで完結",
-    feat8Body:
+
+    // Edit group
+    featEdit1Title: "構図と向きを反映",
+    featEdit1Body:
+      "Lightroom Classic で決めたトリミング、傾き補正、向き、Upright を、JPEG の書き出しに反映します。カタログ上で整えた構図を活かせます。",
+    featEdit2Title: "カメラの色をそのまま",
+    featEdit2Body:
+      "カメラが生成した JPEG そのものを参照。FUJIFILM のフィルムシミュレーションなど、カメラの色をそのまま活かせます。Lightroom Classic での現像パラメータは反映しません。",
+    featEdit3Title: "必要なぶんだけ、基本補正",
+    featEdit3Body:
+      "明るさ、コントラスト、ハイライト、シャドウ、ホワイトバランス、彩度などを調整できます。ライブプレビューが軽快に追随し、Apple の写真編集エンジンで高画質に処理します。",
+
+    // Export group
+    featExport1Title: "選んだ写真をすばやく書き出す",
+    featExport1Body:
+      "ブラウズ画面・エディット画面から選んで書き出し。1 枚でも複数枚でも同じ流れで書き出せます。",
+    featExport2Title: "作品作りを支える書き出しオプション",
+    featExport2Body:
+      "出力先、ファイル名、品質、透かし、メタデータなど設定でき、作品作りをサポートします。",
+    featExport3Title: "オフラインで完結",
+    featExport3Body:
       "写真やカタログの内容を外部へ送信せず、すべての機能がオフラインで動作します。匿名の利用統計も、設定でオフにできます。",
 
     // Pricing（ゴシック）
