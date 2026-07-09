@@ -107,13 +107,43 @@
           <h2 id="workflow-title"><span data-i18n="workflowTitle1">Lightroom Classic で選び、</span><br><span data-i18n="workflowTitle2">Filmator で書き出す</span></h2>
           <p class="section-lead" data-i18n="workflowLead">Lightroom Classic で写真を読み込み、整理し、構図と向きを整えます。Filmator でそのカタログを開くと、フォルダやコレクションがそのまま表示されます。カメラが生成した JPEG を元に書き出せます。</p>
         </div>
-        <ol class="workflow-steps">
-          <li class="workflow-step"><div><h3 data-i18n="step1Title">Lightroom Classic で管理</h3><p data-i18n="step1Body">写真を読み込み、いつものカタログで管理します。RAW + JPEG のペアも、単体 JPEG や HEIF も、Lightroom Classic 側の流れはそのままです。</p></div></li>
-          <li class="workflow-step sub-step"><div><h3 data-i18n="step2Title">写真を整理</h3><p data-i18n="step2Body">フラグ、レーティング、カラーラベルで、写真を整理します。</p></div></li>
-          <li class="workflow-step sub-step"><div><h3 data-i18n="step3Title">構図と向きを決める</h3><p data-i18n="step3Body">必要に応じて、トリミング、傾き、向き、Upright を Lightroom Classic 側で設定します。</p></div></li>
-          <li class="workflow-step sub-step"><div><h3 data-i18n="step4Title">カタログを閉じて保存</h3><p data-i18n="step4Body">変更内容を Filmator で読み込めるように、Lightroom Classic でカタログを閉じて保存します。</p></div></li>
-          <li class="workflow-step filmator"><img src="assets/filmator-icon-1024.png" alt="" class="workflow-icon"><div><h3 data-i18n="step5Title">Filmator で開く</h3><p data-i18n="step5Body">Filmator でカタログを開くと、整理したフォルダやコレクションが反映されます。そこから写真を選び、必要な補正を加えて書き出します。</p></div></li>
-        </ol>
+        <div class="workflow-flow">
+          <div class="wf-lrc">
+            <h3 data-i18n="step1Title">Lightroom Classic で管理</h3>
+            <p data-i18n="step1Body">写真を読み込み、いつものカタログで管理します。RAW + JPEG のペアも、単体 JPEG や HEIF も、Lightroom Classic 側の流れはそのままです。</p>
+            <div class="wf-substeps">
+              <div class="wf-sub">
+                <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+                <div class="wf-sub-text">
+                  <h4 data-i18n="step2Title">写真を整理</h4>
+                  <p data-i18n="step2Body">フラグ、レーティング、カラーラベルで、写真を整理します。</p>
+                </div>
+              </div>
+              <div class="wf-sub">
+                <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg></div>
+                <div class="wf-sub-text">
+                  <h4 data-i18n="step3Title">構図と向きを決める</h4>
+                  <p data-i18n="step3Body">必要に応じて、トリミング、傾き、向き、Upright を Lightroom Classic 側で設定します。</p>
+                </div>
+              </div>
+              <div class="wf-sub">
+                <div class="wf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg></div>
+                <div class="wf-sub-text">
+                  <h4 data-i18n="step4Title">カタログを閉じて保存</h4>
+                  <p data-i18n="step4Body">変更内容を Filmator で読み込めるように、Lightroom Classic でカタログを閉じて保存します。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="wf-filmator">
+            <img src="assets/filmator-icon-1024.png" alt="" class="wf-logo">
+            <div class="wf-filmator-text">
+              <h3 data-i18n="step5Title">Filmator で開く</h3>
+              <p data-i18n="step5Body">Filmator でカタログを開くと、整理したフォルダやコレクションが反映されます。そこから写真を選び、必要な補正を加えて書き出します。</p>
+            </div>
+          </div>
+        </div>
         <div class="safety-note">
           <h3 data-i18n="safetyTitle">Lightroom Classic 側には影響しません</h3>
           <p data-i18n="safetyBody">Filmator は、Lightroom Classic のカタログを読み取り専用で開きます。RAW ファイルは使用せず、対応する JPEG / HEIF / iPhone DNG 埋め込みの JPEG を参照します。元の写真ファイルにもカタログにも変更を加えないため、いつもの Lightroom Classic の管理をそのまま保てます。</p>
@@ -179,11 +209,11 @@
         <div class="pricing-grid">
           <article class="plan-card">
             <h3 class="plan-name" data-i18n="freeLabel">無料プラン</h3>
-            <p class="plan-body" data-i18n="freeBody">書き出し無料枠の範囲で、機能的な制限なく写真を書き出すことができます。Lightroom Classic のカタログを開き、Filmator の機能をお楽しみください。</p>
+            <p class="plan-body" data-i18n="freeBody">累計 100 枚まで、機能的な制限なく写真を書き出すことができます。Lightroom Classic のカタログを開き、Filmator の機能をお楽しみください。</p>
           </article>
           <article class="plan-card featured-plan">
             <h3 class="plan-name" data-i18n="proLabel">Pro プラン
-¥⚪︎⚪︎（買い切り）</h3>
+¥3,000（買い切り）</h3>
             <p class="plan-body" data-i18n="proBody">一度の購入で、書き出し枚数の制限が無くなります。多くの写真を取り扱う場合は、Pro プランをご利用ください。</p>
           </article>
         </div>

@@ -93,8 +93,8 @@ const copy = {
     pricingTitle: "料金",
     freeLabel: "無料プラン",
     freeBody:
-      "書き出し無料枠の範囲で、機能的な制限なく写真を書き出すことができます。Lightroom Classic のカタログを開き、Filmator の機能をお楽しみください。",
-    proLabel: "Pro プラン\n¥⚪︎⚪︎（買い切り）",
+      "累計 100 枚まで、機能的な制限なく写真を書き出すことができます。Lightroom Classic のカタログを開き、Filmator の機能をお楽しみください。",
+    proLabel: "Pro プラン\n¥3,000（買い切り）",
     proBody:
       "一度の購入で、書き出し枚数の制限が無くなります。多くの写真を取り扱う場合は、Pro プランをご利用ください。",
 
