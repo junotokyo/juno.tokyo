@@ -47,6 +47,14 @@ const copy = {
     step5Title: "Filmator で開く",
     step5Body:
       "Filmator でカタログを開くと、整理したフォルダやコレクションが反映されます。そこから写真を選び、必要な補正を加えて書き出します。",
+    // Workflow flow diagram（試作）
+    flowLrCLabel: "Lightroom Classic",
+    flowStep1Label: "管理・整理",
+    flowStep2Label: "写真を整理",
+    flowStep3Label: "構図と向き",
+    flowStep4Label: "保存",
+    flowStep5Label: "で開く",
+
     safetyTitle: "Lightroom Classic 側には影響しません",
     safetyBody:
       "Filmator は、Lightroom Classic のカタログを読み取り専用で開きます。RAW ファイルは使用せず、対応する JPEG / HEIF / iPhone DNG 埋め込みの JPEG を参照します。元の写真ファイルにもカタログにも変更を加えないため、いつもの Lightroom Classic の管理をそのまま保てます。",
