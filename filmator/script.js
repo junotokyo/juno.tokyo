@@ -5,11 +5,10 @@ const copy = {
   ja: {
     // meta（<title> は言語不変で共通のため辞書化しない・html.lang / og:locale は setLanguage で個別更新）
     metaDescription:
-      "Filmator は、カメラが生成した JPEG の色をそのままに、Lightroom Classic で決めた構図と向きのまま書き出す Mac アプリです。",
+      "Filmator は、カメラが生成した JPEG の色を活かし、Lightroom Classic のカタログから作品として仕上げる Mac 用アプリです。",
     ogDescription:
-      "撮った時の色を、そのまま作品に。カメラが生成した JPEG を、Lightroom Classic のワークフローのまま書き出す Mac アプリ。",
-    ogImageAlt:
-      "Filmator — カメラが生成した JPEG を作品として書き出す Mac アプリ",
+      "撮った色を、そのまま作品に。カメラが生成した JPEG を、Lightroom Classic のカタログから書き出す Mac アプリ。",
+    ogImageAlt: "Filmator ロゴ",
 
     // alt / aria-label 系（画像の代替テキスト・ランドマーク）
     ariaBrand: "Filmator home",
@@ -184,11 +183,10 @@ const copy = {
   },
   en: {
     metaDescription:
-      "Filmator is a Mac app that keeps the color of JPEGs your camera crafted, exporting them with the framing and orientation you set in Lightroom Classic.",
+      "Filmator is a Mac app that helps you bring the color of camera-rendered JPEGs into your work through your Lightroom Classic catalog.",
     ogDescription:
-      "Turn the colors you captured into finished work. A Mac app that exports JPEGs from your Lightroom Classic workflow.",
-    ogImageAlt:
-      "Filmator — a Mac app for exporting the JPEGs your camera crafted as finished work",
+      "The light you saw. The image you meant. A Mac app for exporting camera-rendered JPEGs from your Lightroom Classic catalog.",
+    ogImageAlt: "Filmator wordmark",
 
     ariaBrand: "Filmator home",
     ariaLangSwitch: "Language",
@@ -211,10 +209,10 @@ const copy = {
     navPrivacy: "Privacy",
 
     // Hero（serif）
-    heroTitle1: "Turn the colors you captured",
-    heroTitle2: "into finished work.",
+    heroTitle1: "The light you saw.",
+    heroTitle2: "The image you meant.",
     heroLead1:
-      "Filmator is a Mac app that helps you turn the JPEGs shaped by your intent and your camera's rendering into finished photographs.",
+      "Filmator is a Mac app that helps you bring the camera-rendered JPEGs shaped by your intent into your work.",
     heroLead2:
       "Use your Lightroom Classic catalog to choose your photos, apply the basic adjustments you need, and export.",
     trust1: "Lightroom Classic support",
@@ -222,10 +220,10 @@ const copy = {
     trust3: "Powered by Core Image",
 
     // Concept（serif・no eyebrow）
-    conceptTitle1: "The expression at the moment of capture,",
-    conceptTitle2: "treated as a finished work.",
+    conceptTitle1: "Each image,",
+    conceptTitle2: "a work in its own right.",
     conceptBody1:
-      "At the moment you press the shutter, the light before you, your intent, and your camera's rendering come together in a single JPEG. Filmator is built around the expression held in that frame. The “Film” in the name reflects the idea of treating each image like a frame of film in the digital era—and finishing it as a piece of work.",
+      "At the moment you press the shutter, the light before you, your intent, and your camera's rendering come together in a single JPEG. Filmator is built around the expression held in that frame. The “Film” in the name reflects the idea of treating each image as the digital-era equivalent of a frame of film.",
 
     // Workflow
     workflowEyebrow: "Workflow",
@@ -287,7 +285,7 @@ const copy = {
       "Pick photos from the Browse or Edit screen and export. Whether you're exporting one photo or many, the process is the same.",
     featExport2Title: "Export options that support your craft",
     featExport2Body:
-      "Set the destination, file name, quality and size, watermark, metadata, and more to suit your final output.",
+      "Set the destination, file name, quality and size, watermark, metadata, and more to present your photographs as you intend.",
     featExport3Title: "Fully offline",
     featExport3Body:
       "Filmator works offline. No photo or catalog data is sent anywhere, and anonymous usage statistics can be turned off in Settings.",
