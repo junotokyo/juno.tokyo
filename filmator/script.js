@@ -55,6 +55,11 @@ const copy = {
     featuresEyebrow: "Features",
     featuresTitle: "Filmator の機能",
 
+    // Feature group ラベル（各スクショの左上に表示）
+    groupBrowseLabel: "ブラウズ",
+    groupEditLabel: "エディット",
+    groupExportLabel: "書き出し",
+
     // Browse group
     featBrowse1Title: "カタログを読み取り専用で参照",
     featBrowse1Body:
@@ -75,7 +80,7 @@ const copy = {
       "Lightroom Classic で決めたトリミング、傾き補正、向き、Upright を、JPEG に対して自動的に反映します。",
     featEdit3Title: "必要なぶんだけ、基本補正",
     featEdit3Body:
-      "明るさ、コントラスト、ハイライト、シャドウ、ホワイトバランス、彩度などを調整できます。Core Image を使用し、軽快なライブビューや高画質な編集処理を行います。",
+      "ホワイトバランス、トーン、彩度、フレーミングなどを調整できます。Core Image を使用し、軽快なライブビューや高画質な編集を行えます。",
 
     // Export group
     featExport1Title: "選んだ写真をすばやく書き出す",

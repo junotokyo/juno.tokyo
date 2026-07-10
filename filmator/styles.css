@@ -144,6 +144,9 @@ p{overflow-wrap:anywhere}
    縦横比が縦長のため .feature-group.export で .app-shot の max-width を狭くする。 */
 .feature-group{max-width:1080px;margin:0 auto clamp(56px,7vw,88px)}
 .feature-group:last-child{margin-bottom:0}
+/* 各グループのスクショ左上に置く小見出し（ブラウズ / エディット / 書き出し）。
+   max-width をスクショと揃え margin auto で中央寄せ→視覚的にはスクショ左端に整列 */
+.feature-group-label{max-width:1040px;margin:0 auto clamp(10px,1.3vw,14px);font-family:var(--heading-sans);font-weight:700;font-size:clamp(.95rem,1.2vw,1.05rem);color:var(--ink-soft);letter-spacing:.02em}
 .feature-group .app-shot{margin-bottom:clamp(24px,3vw,36px)}
 /* テキストカード 3 枚の合計幅をスクショ（.app-shot max-width:1040px）と左右揃えに */
 .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1040px;margin:0 auto}
