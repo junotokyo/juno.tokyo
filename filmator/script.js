@@ -3,6 +3,28 @@
 // 2026-07-10 英語版（en）辞書ドラフト追加。JT-260 日本語版完成後の Jun レビュー前提。
 const copy = {
   ja: {
+    // meta（<title> は言語不変で共通のため辞書化しない・html.lang / og:locale は setLanguage で個別更新）
+    metaDescription:
+      "Filmator は、カメラが生成した JPEG の色をそのままに、Lightroom Classic で決めた構図と向きのまま書き出す Mac アプリです。",
+    ogDescription:
+      "撮った時の色を、そのまま作品に。カメラが生成した JPEG を、Lightroom Classic のワークフローのまま書き出す Mac アプリ。",
+    ogImageAlt:
+      "Filmator — カメラが生成した JPEG を作品として書き出す Mac アプリ",
+
+    // alt / aria-label 系（画像の代替テキスト・ランドマーク）
+    ariaBrand: "Filmator home",
+    ariaLangSwitch: "Language",
+    ariaNavPrimary: "Primary",
+    altBrandWordmark: "Filmator",
+    ariaHeroVisual: "Filmator のアプリ画面",
+    altHeroAppShot: "Filmator の画面",
+    altWorkflowFilmatorIcon: "Filmator アプリアイコン",
+    altFeaturesBrowse: "Filmator のブラウズ画面",
+    altFeaturesEdit: "Filmator のエディット画面",
+    altFeaturesExport: "Filmator の書き出し画面",
+    ariaAppStore: "Mac App Store からダウンロード",
+    altAppStoreBadge: "Mac App Store からダウンロード",
+
     navConcept: "コンセプト",
     navWorkflow: "使い方",
     navFeatures: "機能",
@@ -80,7 +102,7 @@ const copy = {
       "Lightroom Classic で決めたトリミング、傾き補正、向き、Upright を、JPEG に対して自動的に反映します。",
     featEdit3Title: "必要なぶんだけ、基本補正",
     featEdit3Body:
-      "ホワイトバランス、トーン、彩度、フレーミングなどを調整できます。Core Image を使用し、軽快なライブビューや高画質な編集を行えます。",
+      "ホワイトバランス、トーン、彩度などを調整できます。Core Image を使用し、軽快なライブビューや高画質な編集を行えます。",
 
     // Export group
     featExport1Title: "選んだ写真をすばやく書き出す",
@@ -97,11 +119,11 @@ const copy = {
     pricingEyebrow: "Plans",
     pricingTitle: "料金",
     freeLabel: "Free",
-    freePrice: "¥0",
+    freePrice: "$0",
     freeBody:
       "累計 100 枚まで、機能的な制限なく写真を書き出すことができます。Lightroom Classic のカタログを開き、Filmator の機能をご利用ください。",
     proLabel: "Pro",
-    proPrice: "¥3,000",
+    proPrice: "$19.99",
     proBody:
       "一度の購入で、書き出し枚数の制限が無くなります。多くの写真を取り扱う場合は、Pro プランをご利用ください。",
 
@@ -161,6 +183,26 @@ const copy = {
     footerCopyright: "© 2026 JUNO Tokyo",
   },
   en: {
+    metaDescription:
+      "Filmator is a Mac app that keeps the color of JPEGs your camera crafted, exporting them with the framing and orientation you set in Lightroom Classic.",
+    ogDescription:
+      "Turn the colors you captured into finished work. A Mac app that exports JPEGs from your Lightroom Classic workflow.",
+    ogImageAlt:
+      "Filmator — a Mac app for exporting the JPEGs your camera crafted as finished work",
+
+    ariaBrand: "Filmator home",
+    ariaLangSwitch: "Language",
+    ariaNavPrimary: "Primary",
+    altBrandWordmark: "Filmator",
+    ariaHeroVisual: "The Filmator app",
+    altHeroAppShot: "The Filmator app",
+    altWorkflowFilmatorIcon: "Filmator app icon",
+    altFeaturesBrowse: "The Filmator Browse screen",
+    altFeaturesEdit: "The Filmator Edit screen",
+    altFeaturesExport: "The Filmator Export screen",
+    ariaAppStore: "Download on the Mac App Store",
+    altAppStoreBadge: "Download on the Mac App Store",
+
     navConcept: "Concept",
     navWorkflow: "Workflow",
     navFeatures: "Features",
@@ -169,10 +211,10 @@ const copy = {
     navPrivacy: "Privacy",
 
     // Hero（serif）
-    heroTitle1: "The colors you captured,",
-    heroTitle2: "into your finished work.",
+    heroTitle1: "Turn the colors you captured",
+    heroTitle2: "into finished work.",
     heroLead1:
-      "Filmator is a Mac app that turns the JPEGs your camera crafted — with the photographer's intent baked in — into finished work.",
+      "Filmator is a Mac app that helps you turn the JPEGs shaped by your intent and your camera's rendering into finished photographs.",
     heroLead2:
       "Use your Lightroom Classic catalog to choose your photos, apply the basic adjustments you need, and export.",
     trust1: "Lightroom Classic support",
@@ -183,31 +225,31 @@ const copy = {
     conceptTitle1: "The expression at the moment of capture,",
     conceptTitle2: "treated as a finished work.",
     conceptBody1:
-      "The light, the intent, the way your camera renders — captured together the instant you press the shutter, recorded as a single JPEG. Filmator faces the expression held in that one frame. The 'Film' in the name reflects the idea of treating each frame like film in the digital era, and finishing it as a piece of work.",
+      "At the moment you press the shutter, the light before you, your intent, and your camera's rendering come together in a single JPEG. Filmator is built around the expression held in that frame. The “Film” in the name reflects the idea of treating each image like a frame of film in the digital era—and finishing it as a piece of work.",
 
     // Workflow
     workflowEyebrow: "Workflow",
     workflowTitle1: "Choose in Lightroom Classic,",
     workflowTitle2: "export with Filmator.",
     workflowLead:
-      "Import, organize, and set your framing and orientation in Lightroom Classic. Open the same catalog in Filmator to see your folders and collections just as they are. Export from the JPEGs your camera crafted.",
+      "Import, organize, and set your framing and orientation in Lightroom Classic. Open the same catalog in Filmator to see your folders and collections just as they are. Export the camera-rendered JPEGs with Filmator.",
     step1Title: "Manage in Lightroom Classic",
     step1Body:
-      "Import your photos and manage them in your usual catalog. RAW + JPEG pairs, standalone JPEG, and HEIF — your Lightroom Classic workflow stays the same.",
+      "Import your photos and manage them in your usual catalog. RAW + JPEG pairs, standalone JPEGs, and HEIF — your Lightroom Classic workflow stays the same.",
     step2Title: "Organize photos",
     step2Body: "Organize with flags, ratings, and color labels.",
     step3Title: "Set framing and orientation",
     step3Body:
-      "As needed, apply cropping, straighten, orientation, and Upright in Lightroom Classic.",
+      "As needed, apply cropping, straightening, orientation adjustments, and Upright corrections in Lightroom Classic.",
     step4Title: "Close and save the catalog",
     step4Body:
       "Close and save the catalog in Lightroom Classic so Filmator can pick up your changes.",
     step5Title: "Open in Filmator",
     step5Body:
       "Open the catalog in Filmator to see your organized folders and collections. Choose your photos, apply the adjustments you need, and export.",
-    safetyTitle: "Your Lightroom Classic is untouched",
+    safetyTitle: "Your Lightroom Classic catalog stays untouched",
     safetyBody:
-      "Filmator opens your Lightroom Classic catalog as read-only. It doesn't use RAW files — only the supported JPEG, HEIF, and JPEG embedded in iPhone DNG. Neither your original photo files nor the catalog are modified, so your usual Lightroom Classic setup stays intact.",
+      "Filmator opens your Lightroom Classic catalog as read-only. It doesn't use RAW files — only supported JPEG and HEIF files, including JPEGs embedded in iPhone DNG files. Neither your original photo files nor the catalog are modified, so your usual Lightroom Classic setup stays intact.",
 
     // Features
     featuresEyebrow: "Features",
@@ -223,10 +265,10 @@ const copy = {
       "Filmator opens your Lightroom Classic catalog (.lrcat) as read-only. Nothing is ever written back, so Lightroom Classic remains unaffected.",
     featBrowse2Title: "Find photos as you organized them",
     featBrowse2Body:
-      "Flags, ratings, and color labels from Lightroom Classic come through and filter here too. Move straight from your usual selection into export.",
+      "Filmator reads the flags, ratings, and color labels from Lightroom Classic, so you can filter by them here, too. Move directly from your selection workflow to export.",
     featBrowse3Title: "Supports JPEG / HEIF / iPhone DNG",
     featBrowse3Body:
-      "Displays, edits, and exports JPEG from RAW + JPEG pairs, standalone JPEG and HEIF, and JPEG embedded in iPhone DNG. RAW development, PNG, and TIFF are not supported.",
+      "Filmator displays, edits, and exports JPEGs from RAW + JPEG pairs, standalone JPEGs and HEIF files, and JPEGs embedded in iPhone DNG files. RAW development, PNG, and TIFF are not supported.",
 
     // Edit group
     featEdit1Title: "Your camera's color, kept as-is",
@@ -237,28 +279,28 @@ const copy = {
       "Cropping, straightening, orientation, and Upright set in Lightroom Classic are applied automatically to the JPEG.",
     featEdit3Title: "Basic adjustments, only what you need",
     featEdit3Body:
-      "Adjust white balance, tone, saturation, framing, and more. Powered by Core Image for a responsive live view and high-quality editing.",
+      "Adjust white balance, tone, saturation, and more. Powered by Core Image for a responsive live view and high-quality editing.",
 
     // Export group
     featExport1Title: "Export your chosen photos, fast",
     featExport1Body:
-      "Pick photos from the Browse or Edit screen and export. One shot or many — the same single flow.",
+      "Pick photos from the Browse or Edit screen and export. Whether you're exporting one photo or many, the process is the same.",
     featExport2Title: "Export options that support your craft",
     featExport2Body:
-      "Set the destination, file name, quality and size, watermark, metadata, and more — all in support of your finished work.",
+      "Set the destination, file name, quality and size, watermark, metadata, and more to suit your final output.",
     featExport3Title: "Fully offline",
     featExport3Body:
-      "Nothing from your photos or catalog is sent anywhere. Every feature runs offline, and anonymous usage statistics can be turned off in Settings.",
+      "Filmator works offline. No photo or catalog data is sent anywhere, and anonymous usage statistics can be turned off in Settings.",
 
     // Plans
     pricingEyebrow: "Plans",
     pricingTitle: "Plans",
     freeLabel: "Free",
-    freePrice: "Free",
+    freePrice: "$0",
     freeBody:
       "Export up to 100 photos in total, with no feature restrictions. Open your Lightroom Classic catalog and try Filmator.",
     proLabel: "Pro",
-    proPrice: "¥3,000",
+    proPrice: "$19.99",
     proBody:
       "A one-time purchase removes the export limit. Choose the Pro plan if you work with a large volume of photos.",
 
@@ -269,16 +311,16 @@ const copy = {
       "Frequently asked questions about how Filmator works, supported formats, and pricing.",
     faqQ0: "What does 'Filmator' mean?",
     faqA0:
-      "Filmator is a coined name — Film + -ator. It doesn't refer to film-look processing. Instead, it reflects an idea: to give the JPEG your camera crafted — the light and rendering captured at the moment — the value of film in the digital era.",
+      "Filmator is a coined name — Film + -ator. It is not about applying a film look. It reflects a different idea: treating the JPEG that holds the light, intent, and camera rendering from the moment of capture as the digital-era equivalent of a frame of film.",
     faqQ1: "Does Filmator write to the Lightroom Classic catalog?",
     faqA1:
-      "No. Filmator opens the catalog as read-only and never writes to it. From Lightroom Classic's side, your catalog is unchanged.",
+      "No. Filmator opens the catalog as read-only and never writes to it. Your Lightroom Classic catalog remains unchanged.",
     faqQ2: "Does Filmator use RAW files?",
     faqA2:
       "No. Filmator doesn't use RAW files — it works with supported JPEG, HEIF, and JPEG embedded in iPhone DNG. It's not a RAW development app.",
     faqQ3: "Are my original photo files changed?",
     faqA3:
-      "No. Filmator doesn't modify your original files directly. Edits are held inside Filmator and written to new files at export.",
+      "No. Filmator doesn't modify your original files directly. Filmator stores edits separately and writes them only to newly exported files.",
     faqQ4: "Are Lightroom Classic's develop settings applied?",
     faqA4:
       "Only the composition and orientation-related settings — cropping, straightening, orientation, and Upright — are applied. Brightness, color, and other develop parameters are not applied.",
@@ -287,7 +329,7 @@ const copy = {
       "No. Composition and orientation are set in Lightroom Classic. Filmator reads that information from the catalog and applies it at export.",
     faqQ6: "What kinds of photos can I export?",
     faqA6:
-      "JPEG from RAW + JPEG pairs, standalone JPEG, HEIF, and JPEG embedded in iPhone DNG. RAW development, PNG, and TIFF are not supported.",
+      "Filmator supports JPEGs from RAW + JPEG pairs, standalone JPEGs, HEIF files, and JPEGs embedded in iPhone DNG files. RAW development, PNG, and TIFF are not supported.",
     faqQ7: "Can I use Filmator offline?",
     faqA7:
       "Yes. Every feature works offline. Nothing from your photos or catalog is sent anywhere.",
@@ -350,7 +392,8 @@ function renderTextWithTypographySpans(element, text) {
 
 function setLanguage(lang) {
   const dictionary = copy[lang] || copy.ja;
-  document.documentElement.lang = lang in copy ? lang : "ja";
+  const activeLang = lang in copy ? lang : "ja";
+  document.documentElement.lang = activeLang;
 
   translatable.forEach((element) => {
     const key = element.dataset.i18n;
@@ -363,6 +406,30 @@ function setLanguage(lang) {
     const src = lang === "en" ? el.dataset.i18nSrcEn : el.dataset.i18nSrcJa;
     if (src) el.src = src;
   });
+
+  // alt / aria-label の i18n（data-i18n-alt / data-i18n-aria 属性の値を辞書キーとして解決）
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+    const key = el.dataset.i18nAlt;
+    if (dictionary[key] !== undefined) el.setAttribute("alt", dictionary[key]);
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+    const key = el.dataset.i18nAria;
+    if (dictionary[key] !== undefined) el.setAttribute("aria-label", dictionary[key]);
+  });
+
+  // meta タグ（description / og:description / og:image:alt / twitter:description / og:locale）
+  const metaMap = [
+    { selector: 'meta[name="description"]', key: "metaDescription" },
+    { selector: 'meta[property="og:description"]', key: "ogDescription" },
+    { selector: 'meta[property="og:image:alt"]', key: "ogImageAlt" },
+    { selector: 'meta[name="twitter:description"]', key: "ogDescription" },
+  ];
+  metaMap.forEach(({ selector, key }) => {
+    const el = document.querySelector(selector);
+    if (el && dictionary[key] !== undefined) el.setAttribute("content", dictionary[key]);
+  });
+  const ogLocale = document.querySelector('meta[property="og:locale"]');
+  if (ogLocale) ogLocale.setAttribute("content", activeLang === "en" ? "en_US" : "ja_JP");
 
   buttons.forEach((button) => {
     const isActive = button.dataset.lang === lang;
