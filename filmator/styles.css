@@ -13,8 +13,10 @@
   --orange:#DE8B3E; --orange-300:#F0A95F;
   --grade:linear-gradient(135deg,#38B6BD 0%,#CC7E92 52%,#F0A95F 100%);
   --shadow:0 30px 80px rgba(0,0,0,.45);
-  --heading-sans:"DM Sans","Hiragino Kaku Gothic ProN","Hiragino Sans",-apple-system,system-ui,"Segoe UI",sans-serif;
-  --body-sans:"DM Sans","Hiragino Kaku Gothic ProN","Hiragino Sans",-apple-system,system-ui,"Segoe UI",sans-serif;
+  /* 英字は DM Sans、日本語は Zen Kaku Gothic New が担当（ブラウザがコードポイントごとに
+     glyph を持つ最初のフォントを選ぶ挙動）。fallback は system の Hiragino / Segoe UI 系。 */
+  --heading-sans:"DM Sans","Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans",-apple-system,system-ui,"Segoe UI",sans-serif;
+  --body-sans:"DM Sans","Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans",-apple-system,system-ui,"Segoe UI",sans-serif;
   --serif:"Fraunces","Zen Old Mincho","Hiragino Mincho ProN",serif;
 }
 *{box-sizing:border-box}
