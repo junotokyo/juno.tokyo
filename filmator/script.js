@@ -119,11 +119,11 @@ const copy = {
     pricingEyebrow: "Plans",
     pricingTitle: "料金",
     freeLabel: "Free",
-    freePrice: "$0",
+    freePrice: "¥0",
     freeBody:
       "累計 100 枚まで、機能的な制限なく写真を書き出すことができます。Lightroom Classic のカタログを開き、Filmator の機能をご利用ください。",
     proLabel: "Pro",
-    proPrice: "$19.99",
+    proPrice: "¥3,000",
     proBody:
       "一度の購入で、書き出し枚数の制限が無くなります。多くの写真を取り扱う場合は、Pro プランをご利用ください。",
 
