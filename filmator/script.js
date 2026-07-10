@@ -1,6 +1,6 @@
 // Filmator LP i18n（PopScan 流儀＝textContent 差替・localStorage 保持）。
 // リッチ表現（アクセント色・改行・プルクオート）は HTML 側の span/要素に固定し、文言だけを差し替える。
-// 英語版（en）は日本語の構成・文言が確定してから追加する（現在は日本語のみ・言語スイッチは HTML 側で非表示）。
+// 2026-07-10 英語版（en）辞書ドラフト追加。JT-260 日本語版完成後の Jun レビュー前提。
 const copy = {
   ja: {
     navConcept: "コンセプト",
@@ -157,6 +157,165 @@ const copy = {
     policyContactBody:
       "プライバシーに関するお問い合わせは、サポートセクションに記載のメールアドレスまでご連絡ください。",
     lastUpdated: "最終更新日: 2026年6月28日",
+
+    footerCopyright: "© 2026 JUNO Tokyo",
+  },
+  en: {
+    navConcept: "Concept",
+    navWorkflow: "Workflow",
+    navFeatures: "Features",
+    navPricing: "Plans",
+    navSupport: "Support",
+    navPrivacy: "Privacy",
+
+    // Hero（serif）
+    heroTitle1: "The colors you captured,",
+    heroTitle2: "into your finished work.",
+    heroLead1:
+      "Filmator is a Mac app that turns the JPEGs your camera crafted — with the photographer's intent baked in — into finished work.",
+    heroLead2:
+      "Use your Lightroom Classic catalog to choose your photos, apply the basic adjustments you need, and export.",
+    trust1: "Lightroom Classic support",
+    trust2: "Original data preserved",
+    trust3: "Powered by Core Image",
+
+    // Concept（serif・no eyebrow）
+    conceptTitle1: "The expression at the moment of capture,",
+    conceptTitle2: "treated as a finished work.",
+    conceptBody1:
+      "The light, the intent, the way your camera renders — captured together the instant you press the shutter, recorded as a single JPEG. Filmator faces the expression held in that one frame. The 'Film' in the name reflects the idea of treating each frame like film in the digital era, and finishing it as a piece of work.",
+
+    // Workflow
+    workflowEyebrow: "Workflow",
+    workflowTitle1: "Choose in Lightroom Classic,",
+    workflowTitle2: "export with Filmator.",
+    workflowLead:
+      "Import, organize, and set your framing and orientation in Lightroom Classic. Open the same catalog in Filmator to see your folders and collections just as they are. Export from the JPEGs your camera crafted.",
+    step1Title: "Manage in Lightroom Classic",
+    step1Body:
+      "Import your photos and manage them in your usual catalog. RAW + JPEG pairs, standalone JPEG, and HEIF — your Lightroom Classic workflow stays the same.",
+    step2Title: "Organize photos",
+    step2Body: "Organize with flags, ratings, and color labels.",
+    step3Title: "Set framing and orientation",
+    step3Body:
+      "As needed, apply cropping, straighten, orientation, and Upright in Lightroom Classic.",
+    step4Title: "Close and save the catalog",
+    step4Body:
+      "Close and save the catalog in Lightroom Classic so Filmator can pick up your changes.",
+    step5Title: "Open in Filmator",
+    step5Body:
+      "Open the catalog in Filmator to see your organized folders and collections. Choose your photos, apply the adjustments you need, and export.",
+    safetyTitle: "Your Lightroom Classic is untouched",
+    safetyBody:
+      "Filmator opens your Lightroom Classic catalog as read-only. It doesn't use RAW files — only the supported JPEG, HEIF, and JPEG embedded in iPhone DNG. Neither your original photo files nor the catalog are modified, so your usual Lightroom Classic setup stays intact.",
+
+    // Features
+    featuresEyebrow: "Features",
+    featuresTitle: "What Filmator does",
+
+    groupBrowseLabel: "Browse",
+    groupEditLabel: "Edit",
+    groupExportLabel: "Export",
+
+    // Browse group
+    featBrowse1Title: "Read-only catalog access",
+    featBrowse1Body:
+      "Filmator opens your Lightroom Classic catalog (.lrcat) as read-only. Nothing is ever written back, so Lightroom Classic remains unaffected.",
+    featBrowse2Title: "Find photos as you organized them",
+    featBrowse2Body:
+      "Flags, ratings, and color labels from Lightroom Classic come through and filter here too. Move straight from your usual selection into export.",
+    featBrowse3Title: "Supports JPEG / HEIF / iPhone DNG",
+    featBrowse3Body:
+      "Displays, edits, and exports JPEG from RAW + JPEG pairs, standalone JPEG and HEIF, and JPEG embedded in iPhone DNG. RAW development, PNG, and TIFF are not supported.",
+
+    // Edit group
+    featEdit1Title: "Your camera's color, kept as-is",
+    featEdit1Body:
+      "Filmator works with the JPEG your camera generated. FUJIFILM Film Simulation and other in-camera color renderings come through unchanged.",
+    featEdit2Title: "Framing and orientation carry over",
+    featEdit2Body:
+      "Cropping, straightening, orientation, and Upright set in Lightroom Classic are applied automatically to the JPEG.",
+    featEdit3Title: "Basic adjustments, only what you need",
+    featEdit3Body:
+      "Adjust white balance, tone, saturation, framing, and more. Powered by Core Image for a responsive live view and high-quality editing.",
+
+    // Export group
+    featExport1Title: "Export your chosen photos, fast",
+    featExport1Body:
+      "Pick photos from the Browse or Edit screen and export. One shot or many — the same single flow.",
+    featExport2Title: "Export options that support your craft",
+    featExport2Body:
+      "Set the destination, file name, quality and size, watermark, metadata, and more — all in support of your finished work.",
+    featExport3Title: "Fully offline",
+    featExport3Body:
+      "Nothing from your photos or catalog is sent anywhere. Every feature runs offline, and anonymous usage statistics can be turned off in Settings.",
+
+    // Plans
+    pricingEyebrow: "Plans",
+    pricingTitle: "Plans",
+    freeLabel: "Free",
+    freePrice: "Free",
+    freeBody:
+      "Export up to 100 photos in total, with no feature restrictions. Open your Lightroom Classic catalog and try Filmator.",
+    proLabel: "Pro",
+    proPrice: "¥3,000",
+    proBody:
+      "A one-time purchase removes the export limit. Choose the Pro plan if you work with a large volume of photos.",
+
+    // Support（FAQ）
+    supportEyebrow: "Support",
+    supportTitle: "Support",
+    supportLead:
+      "Frequently asked questions about how Filmator works, supported formats, and pricing.",
+    faqQ0: "What does 'Filmator' mean?",
+    faqA0:
+      "Filmator is a coined name — Film + -ator. It doesn't refer to film-look processing. Instead, it reflects an idea: to give the JPEG your camera crafted — the light and rendering captured at the moment — the value of film in the digital era.",
+    faqQ1: "Does Filmator write to the Lightroom Classic catalog?",
+    faqA1:
+      "No. Filmator opens the catalog as read-only and never writes to it. From Lightroom Classic's side, your catalog is unchanged.",
+    faqQ2: "Does Filmator use RAW files?",
+    faqA2:
+      "No. Filmator doesn't use RAW files — it works with supported JPEG, HEIF, and JPEG embedded in iPhone DNG. It's not a RAW development app.",
+    faqQ3: "Are my original photo files changed?",
+    faqA3:
+      "No. Filmator doesn't modify your original files directly. Edits are held inside Filmator and written to new files at export.",
+    faqQ4: "Are Lightroom Classic's develop settings applied?",
+    faqA4:
+      "Only the composition and orientation-related settings — cropping, straightening, orientation, and Upright — are applied. Brightness, color, and other develop parameters are not applied.",
+    faqQ5: "Can I edit composition or straightening inside Filmator?",
+    faqA5:
+      "No. Composition and orientation are set in Lightroom Classic. Filmator reads that information from the catalog and applies it at export.",
+    faqQ6: "What kinds of photos can I export?",
+    faqA6:
+      "JPEG from RAW + JPEG pairs, standalone JPEG, HEIF, and JPEG embedded in iPhone DNG. RAW development, PNG, and TIFF are not supported.",
+    faqQ7: "Can I use Filmator offline?",
+    faqA7:
+      "Yes. Every feature works offline. Nothing from your photos or catalog is sent anywhere.",
+    faqQ8: "How can I get in touch?",
+    faqA8:
+      "For questions, bug reports, or privacy inquiries, please contact us by email.",
+
+    // Privacy
+    privacyEyebrow: "Privacy",
+    privacyTitle: "Privacy Policy",
+    privacyLead:
+      "Filmator does not send the contents of your photos or catalog anywhere.",
+    policySummaryTitle: "About photo and catalog data",
+    policySummaryBody:
+      "Filmator processes photo files (RAW, JPEG, HEIF) and your Lightroom Classic catalog on your device. The catalog is opened as read-only; nothing is ever written back. The contents of your photos or images, your edits, file names, and catalog data (folders, collections, ratings, capture dates, camera models, and so on) are never sent to a server.",
+    policyTelemetryTitle: "Usage and diagnostics",
+    policyTelemetryBody:
+      "To improve quality and understand feature needs, Filmator may collect anonymous usage statistics and diagnostics — such as launches, catalog opens, edits, export counts, and errors. These never include the contents of your photos, images, or catalog, nor file names, user account information, or advertising identifiers. You can turn off usage-data transmission in the app's Settings. Filmator works offline as well.",
+    policyPromoTitle: "Promotion codes",
+    policyPromoBody:
+      "When you use a promotion code, the code you enter is sent to a verification endpoint. Promotion codes do not identify individuals.",
+    policyTrackingTitle: "About tracking",
+    policyTrackingBody:
+      "Filmator does not use third-party tracking SDKs and does not track users across other apps or websites.",
+    policyContactTitle: "Contact",
+    policyContactBody:
+      "For privacy inquiries, please use the email address listed in the Support section.",
+    lastUpdated: "Last updated: June 28, 2026",
 
     footerCopyright: "© 2026 JUNO Tokyo",
   },
