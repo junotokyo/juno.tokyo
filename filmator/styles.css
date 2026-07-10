@@ -71,8 +71,12 @@ p{overflow-wrap:anywhere}
 .hero-icon{width:clamp(72px,7vw,96px);height:auto;flex:0 0 auto;filter:drop-shadow(0 14px 30px rgba(0,0,0,.4))}
 .hero h1{font-size:clamp(2.4rem,4.6vw,4.2rem);line-height:1.18;color:var(--ink-soft)}
 .hero h1 > span{display:inline-block;white-space:nowrap}
-/* 英語版ヒーロー：1 行表示（span 間にスペース挿入 + 折り返し許容 + 1 行に収まる font-size） */
-html[lang="en"] .hero h1{font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.3}
+/* 英語版ヒーロー：日本語版に近い font-size で 1 行表示。hero-copy の max-width:600px 制約を
+   撤去して h1 が 1fr カラム全幅を使えるように（.hero-lead は個別に max-width を維持）。
+   1 行に収まらなければ自然折り返し許容（Jun 判断）。 */
+html[lang="en"] .hero-copy{max-width:none}
+html[lang="en"] .hero-copy .hero-lead{max-width:580px}
+html[lang="en"] .hero h1{font-size:clamp(1.8rem,3.3vw,2.8rem);line-height:1.25}
 html[lang="en"] .hero h1 > span{display:inline;white-space:normal}
 html[lang="en"] .hero h1 > span:nth-child(2)::before{content:" "}
 /* 英語版コンセプト見出し：小文字が多く日本語より小さく見えるため font-size を約 15% 引き上げ */
