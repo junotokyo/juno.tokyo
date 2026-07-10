@@ -11,9 +11,11 @@ const copy = {
     ogImageAlt: "Filmator ロゴ",
 
     // alt / aria-label 系（画像の代替テキスト・ランドマーク）
-    ariaBrand: "Filmator home",
-    ariaLangSwitch: "Language",
-    ariaNavPrimary: "Primary",
+    ariaBrand: "Filmator ホーム",
+    ariaLangSwitch: "言語",
+    ariaNavPrimary: "メインナビゲーション",
+    ariaFooterSocial: "SNS",
+    ariaFooterNav: "フッター",
     altBrandWordmark: "Filmator",
     ariaHeroVisual: "Filmator のアプリ画面",
     altHeroAppShot: "Filmator の画面",
@@ -110,7 +112,7 @@ const copy = {
     featExport2Title: "作品作りを支える書き出しオプション",
     featExport2Body:
       "出力先、ファイル名、画質・サイズ、透かし、メタデータなど設定でき、作品作りをサポートします。",
-    featExport3Title: "オフラインで完結",
+    featExport3Title: "オフラインで使える",
     featExport3Body:
       "写真やカタログの内容を外部へ送信せず、すべての機能がオフラインで動作します。匿名の利用統計も、設定でオフにできます。",
 
@@ -153,7 +155,7 @@ const copy = {
       "RAW + JPEG ペアの JPEG、単体の JPEG、HEIF、iPhone DNG 埋め込みの JPEG に対応しています。RAW 現像や PNG / TIFF の書き出しには対応していません。",
     faqQ7: "オフラインで使えますか？",
     faqA7:
-      "はい。すべての機能がオフラインで動作します。写真やカタログの内容を外部へ送信することはありません。",
+      "はい。写真の閲覧、編集、書き出しを含む Filmator の機能はオフラインで使えます。写真やカタログの内容を外部へ送信することはありません。",
     faqQ8: "問い合わせ先はありますか？",
     faqA8:
       "ご質問、不具合のご報告、プライバシーに関するお問い合わせは、メールでご連絡ください。",
@@ -164,7 +166,7 @@ const copy = {
     privacyLead: "Filmator は、写真とカタログの内容を外部へ送信しません。",
     policySummaryTitle: "写真とカタログのデータについて",
     policySummaryBody:
-      "Filmator は、写真ファイル（RAW・JPEG・HEIF）と Lightroom Classic のカタログを、お使いのデバイス内で処理します。カタログは読み取り専用で参照し、書き込みは一切行いません。写真や画像の内容、編集結果、ファイル名、カタログの内容（フォルダ・コレクション・レーティング・撮影日時・カメラ機種など）をサーバーへ送信することはありません。",
+      "Filmator は、写真ファイル（RAW・JPEG・HEIF）と Lightroom Classic のカタログを、お使いのデバイス内で処理します。カタログは読み取り専用で参照し、書き込みは一切行いません。写真ファイルの内容、編集結果、ファイル名、カタログの内容（フォルダ・コレクション・レーティング・撮影日時・カメラ機種など）をサーバーへ送信することはありません。",
     policyTelemetryTitle: "利用状況・診断情報",
     policyTelemetryBody:
       "アプリの品質改善と機能ニーズ把握のため、アプリ起動、カタログを開く、編集の利用、書き出しの回数・枚数、エラー発生状況などの匿名の利用統計・診断情報を収集する場合があります。これらには、写真、画像・カタログの内容、ファイル名、ユーザー登録情報、広告識別子は含まれません。利用状況データの送信は、アプリの設定でオフにできます。オフラインでも Filmator は利用できます。",
@@ -191,6 +193,8 @@ const copy = {
     ariaBrand: "Filmator home",
     ariaLangSwitch: "Language",
     ariaNavPrimary: "Primary",
+    ariaFooterSocial: "Social",
+    ariaFooterNav: "Footer",
     altBrandWordmark: "Filmator",
     ariaHeroVisual: "The Filmator app",
     altHeroAppShot: "The Filmator app",
@@ -271,7 +275,7 @@ const copy = {
     // Edit group
     featEdit1Title: "Your camera's color, kept as-is",
     featEdit1Body:
-      "Filmator works with the JPEG your camera generated. FUJIFILM Film Simulation and other in-camera color renderings come through unchanged.",
+      "Filmator works directly with the JPEG your camera rendered. FUJIFILM Film Simulation and other in-camera color renderings come through unchanged.",
     featEdit2Title: "Framing and orientation carry over",
     featEdit2Body:
       "Cropping, straightening, orientation, and Upright set in Lightroom Classic are applied automatically to the JPEG.",
@@ -286,7 +290,7 @@ const copy = {
     featExport2Title: "Export options that support your craft",
     featExport2Body:
       "Set the destination, file name, quality and size, watermark, metadata, and more to present your photographs as you intend.",
-    featExport3Title: "Fully offline",
+    featExport3Title: "Works offline",
     featExport3Body:
       "Filmator works offline. No photo or catalog data is sent anywhere, and anonymous usage statistics can be turned off in Settings.",
 
@@ -315,7 +319,7 @@ const copy = {
       "No. Filmator opens the catalog as read-only and never writes to it. Your Lightroom Classic catalog remains unchanged.",
     faqQ2: "Does Filmator use RAW files?",
     faqA2:
-      "No. Filmator doesn't use RAW files — it works with supported JPEG, HEIF, and JPEG embedded in iPhone DNG. It's not a RAW development app.",
+      "No. Filmator doesn't use RAW files — it works with supported JPEG and HEIF files, including JPEGs embedded in iPhone DNG files. It's not a RAW development app.",
     faqQ3: "Are my original photo files changed?",
     faqA3:
       "No. Filmator doesn't modify your original files directly. Filmator stores edits separately and writes them only to newly exported files.",
@@ -330,7 +334,7 @@ const copy = {
       "Filmator supports JPEGs from RAW + JPEG pairs, standalone JPEGs, HEIF files, and JPEGs embedded in iPhone DNG files. RAW development, PNG, and TIFF are not supported.",
     faqQ7: "Can I use Filmator offline?",
     faqA7:
-      "Yes. Every feature works offline. Nothing from your photos or catalog is sent anywhere.",
+      "Yes. Filmator's photo browsing, editing, and export features work offline. Nothing from your photos or catalog is sent anywhere.",
     faqQ8: "How can I get in touch?",
     faqA8:
       "For questions, bug reports, or privacy inquiries, please contact us by email.",
@@ -342,7 +346,7 @@ const copy = {
       "Filmator does not send the contents of your photos or catalog anywhere.",
     policySummaryTitle: "About photo and catalog data",
     policySummaryBody:
-      "Filmator processes photo files (RAW, JPEG, HEIF) and your Lightroom Classic catalog on your device. The catalog is opened as read-only; nothing is ever written back. The contents of your photos or images, your edits, file names, and catalog data (folders, collections, ratings, capture dates, camera models, and so on) are never sent to a server.",
+      "Filmator processes photo files (RAW, JPEG, HEIF) and your Lightroom Classic catalog on your device. The catalog is opened as read-only; nothing is ever written back. The contents of your photo files, your edits, file names, and catalog data (folders, collections, ratings, capture dates, camera models, and so on) are never sent to a server.",
     policyTelemetryTitle: "Usage and diagnostics",
     policyTelemetryBody:
       "To improve quality and understand feature needs, Filmator may collect anonymous usage statistics and diagnostics — such as launches, catalog opens, edits, export counts, and errors. These never include the contents of your photos, images, or catalog, nor file names, user account information, or advertising identifiers. You can turn off usage-data transmission in the app's Settings. Filmator works offline as well.",
