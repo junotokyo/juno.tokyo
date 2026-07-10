@@ -71,6 +71,12 @@ p{overflow-wrap:anywhere}
 .hero-icon{width:clamp(72px,7vw,96px);height:auto;flex:0 0 auto;filter:drop-shadow(0 14px 30px rgba(0,0,0,.4))}
 .hero h1{font-size:clamp(2.4rem,4.6vw,4.2rem);line-height:1.18;color:var(--ink-soft)}
 .hero h1 > span{display:inline-block;white-space:nowrap}
+/* 英語版ヒーロー：1 行表示（span 間にスペース挿入 + 折り返し許容 + 1 行に収まる font-size） */
+html[lang="en"] .hero h1{font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.3}
+html[lang="en"] .hero h1 > span{display:inline;white-space:normal}
+html[lang="en"] .hero h1 > span:nth-child(2)::before{content:" "}
+/* 英語版コンセプト見出し：小文字が多く日本語より小さく見えるため font-size を約 15% 引き上げ */
+html[lang="en"] .concept h2{font-size:clamp(2.2rem,3.9vw,3.4rem)}
 .hero-lead{max-width:580px;margin:16px 0 0;color:var(--text-body);font-size:clamp(1.08rem,1.5vw,1.24rem)}
 .hero-copy .hero-lead:first-child{margin-top:0}
 .hero-cta{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 18px;margin-top:34px}
