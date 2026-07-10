@@ -1,7 +1,10 @@
 :root{
   color-scheme: dark;
-  /* base — cool near-black（ブランドのロックアップ背景 #1A1B1E 系に整合） */
-  --bg:#15171A; --surface:#1E2125; --surface-2:#262A2F;
+  /* base — cool near-black（ブランドのロックアップ背景 #1A1B1E 系に整合）。
+     2026-07-10 全体の重たさ解消のため 1 段明るく（比較 4 案から Jun 選定＝旧 提案 A）：
+     bg #15171A→#1C1F22 / surface #1E2125→#262A2D / surface-2 は WORKFLOW アイコンタイル用に
+     さらに 1 段上げて #2E3338。 */
+  --bg:#1C1F22; --surface:#262A2D; --surface-2:#2E3338;
   --ink:#F1ECE4; --muted:#9AA0A7; --line:#2B3036;
   --ink-soft:#D8D4CC; /* 見出し（Hero/Concept）：純白(--ink)より少し落として馴染ませる */
   --text-body:#CAC6BD; /* 大見出し直下の本文/リード（Hero/Concept 本文・各 section-lead）：見出しより僅暗。小見出し(h3)下の本文は --muted で更に一段落として階層確保 */
@@ -108,14 +111,14 @@ p{overflow-wrap:anywhere}
    順序矢印は撤去し、縦の並びだけで LrC → Filmator の流れを示す。 */
 .workflow-flow{max-width:720px;margin:0 auto;display:grid;gap:clamp(36px,5vw,56px)}
 .wf-app{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
-.wf-app-badge{width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--teal-300);flex-shrink:0;font-family:var(--heading-sans);font-weight:800;font-size:1.05rem;letter-spacing:.02em}
+.wf-app-badge{width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);color:var(--teal-300);flex-shrink:0;font-family:var(--heading-sans);font-weight:800;font-size:1.05rem;letter-spacing:.02em}
 .wf-app-badge.filmator{padding:0;overflow:hidden}
 .wf-app-badge.filmator img{width:100%;height:100%;display:block;object-fit:cover}
 .wf-app-body > h3{margin:6px 0 8px;font-family:var(--heading-sans);font-weight:700}
 .wf-app-body > p{margin:0;color:var(--muted)}
 .wf-substeps{display:grid;gap:clamp(18px,2.6vw,26px);margin-top:clamp(20px,3vw,32px)}
 .wf-sub{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
-.wf-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--teal-300);flex-shrink:0}
+.wf-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);color:var(--teal-300);flex-shrink:0}
 .wf-icon svg{width:20px;height:20px}
 .wf-sub-text h4{margin:0 0 4px;font-family:var(--heading-sans);font-weight:700;font-size:1rem}
 .wf-sub-text p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.6}
