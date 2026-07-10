@@ -5,7 +5,7 @@
      bg #15171A→#1C1F22 / surface #1E2125→#262A2D / surface-2 は WORKFLOW アイコンタイル用に
      さらに 1 段上げて #2E3338。 */
   --bg:#1C1F22; --surface:#262A2D; --surface-2:#2E3338;
-  --ink:#F1ECE4; --muted:#9AA0A7; --line:#2B3036;
+  --ink:#F1ECE4; --muted:#9AA0A7; --line:#353B42; /* line は 2026-07-10 の bg/surface 明化に追随して 1 段明るく（#2B3036→） */
   --ink-soft:#D8D4CC; /* 見出し（Hero/Concept）：純白(--ink)より少し落として馴染ませる */
   --text-body:#CAC6BD; /* 大見出し直下の本文/リード（Hero/Concept 本文・各 section-lead）：見出しより僅暗。小見出し(h3)下の本文は --muted で更に一段落として階層確保 */
   /* brand accents — faded teal & orange（不変） */
@@ -111,18 +111,19 @@ p{overflow-wrap:anywhere}
    順序矢印は撤去し、縦の並びだけで LrC → Filmator の流れを示す。 */
 .workflow-flow{max-width:720px;margin:0 auto;display:grid;gap:clamp(36px,5vw,56px)}
 .wf-app{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
-.wf-app-badge{width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);color:var(--teal-300);flex-shrink:0;font-family:var(--heading-sans);font-weight:800;font-size:1.05rem;letter-spacing:.02em}
+.wf-app-badge{width:56px;height:56px;display:grid;place-items:center;border-radius:12px;background:var(--surface-2);border:1px solid rgba(255,255,255,.14);color:var(--teal-300);flex-shrink:0;font-family:var(--heading-sans);font-weight:800;font-size:1.05rem;letter-spacing:.02em}
 .wf-app-badge.filmator{padding:0;overflow:hidden}
 .wf-app-badge.filmator img{width:100%;height:100%;display:block;object-fit:cover}
 .wf-app-body > h3{margin:6px 0 8px;font-family:var(--heading-sans);font-weight:700}
 .wf-app-body > p{margin:0;color:var(--muted)}
 .wf-substeps{display:grid;gap:clamp(18px,2.6vw,26px);margin-top:clamp(20px,3vw,32px)}
 .wf-sub{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
-.wf-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);color:var(--teal-300);flex-shrink:0}
+/* アイコンタイルは Filmator アイコン（リキッドグラスの縁の光）に寄せて明るめボーダー */
+.wf-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:var(--surface-2);border:1px solid rgba(255,255,255,.14);color:var(--teal-300);flex-shrink:0}
 .wf-icon svg{width:20px;height:20px}
 .wf-sub-text h4{margin:0 0 4px;font-family:var(--heading-sans);font-weight:700;font-size:1rem}
 .wf-sub-text p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.6}
-.safety-note{max-width:840px;margin:22px auto 0;padding:22px 24px;border:1px solid rgba(56,182,189,.34);border-radius:14px;background:rgba(56,182,189,.07)}
+.safety-note{max-width:840px;margin:clamp(48px,6vw,72px) auto 0;padding:22px 24px;border:1px solid rgba(56,182,189,.34);border-radius:14px;background:rgba(56,182,189,.07)}
 .safety-note h3{margin:0 0 8px;color:var(--teal-300)}
 .safety-note p{margin:0;color:var(--muted)}
 
@@ -135,7 +136,8 @@ p{overflow-wrap:anywhere}
    border-color は初期 .featured-plan .4 の 75% ＝ .3、box-shadow は Pro プラン初期と同値 .12
    に落ち着かせる（Jun 確定 2026-07-10）。WORKFLOW セクションのスクショは撤去したため、
    .workflow .app-shot への指定は削除。 */
-.feature-group .app-shot{border-color:rgba(56,182,189,.3);box-shadow:0 24px 60px rgba(28,140,146,.12)}
+/* グローは背景明化（2026-07-10）で広がりすぎに見えたため範囲半分・強さ弱めに */
+.feature-group .app-shot{border-color:rgba(56,182,189,.3);box-shadow:0 12px 30px rgba(28,140,146,.09)}
 
 /* ===== Features（ゴシック・3 画面 × 3 ボックス／グループ） =====
    各 .feature-group は「スクショ + 3 カード」の 1 セット。Export は書き出しダイアログのみで
