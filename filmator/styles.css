@@ -88,9 +88,10 @@ html[lang="en"] .concept h2{font-size:clamp(2.2rem,3.9vw,3.4rem)}
 .app-store-badge img{height:52px;width:auto;display:block}
 .app-store-badge:hover{opacity:.86}
 .trust-row{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:34px}
-/* trust ピルの背景・ボーダーを .safety-note と同じ薄いティール系に（テキスト色は --muted 維持・
-   Jun 指示 2026-07-10：色使い＝ボーダー＋背景のみ） */
-.trust-row > span{display:inline-flex;align-items:center;min-height:34px;padding:0 14px;border:1px solid rgba(56,182,189,.34);border-radius:999px;background:rgba(56,182,189,.07);color:var(--muted);font-size:.86rem;font-weight:700;white-space:nowrap}
+/* trust ピルを .safety-note と同じ色使いに揃える（背景・ボーダー・タイトル文字色）：
+   border rgba(56,182,189,.34) / background rgba(56,182,189,.07) / color var(--teal-300)
+   ＝ safety-note h3 と同じティール系（Jun 指示 2026-07-10） */
+.trust-row > span{display:inline-flex;align-items:center;min-height:34px;padding:0 14px;border:1px solid rgba(56,182,189,.34);border-radius:999px;background:rgba(56,182,189,.07);color:var(--teal-300);font-size:.86rem;font-weight:700;white-space:nowrap}
 .hero-visual{position:relative;display:grid;place-items:center}
 /* MacBook モックアップ（CSS・横長／画面アスペクトは実機 14" の 3024:1964≈3:2） */
 .macbook{position:relative;width:100%;max-width:700px;margin:0 auto;filter:drop-shadow(0 26px 54px rgba(0,0,0,.5))}
