@@ -216,6 +216,8 @@ html[lang="en"] .concept h2{font-size:clamp(2.2rem,3.9vw,3.4rem)}
   .site-header{grid-template-columns:1fr auto}
   .nav-links{display:none}
   .hero-body{grid-template-columns:1fr;gap:32px}
+  /* 1 カラム積みでは見出し直後に MacBook を見せ、テキスト・CTA・ピルを後ろへ（Jun 指示 2026-07-12） */
+  .hero-visual{order:-1}
   .hero-copy,.hero-lead{max-width:none}
   .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .pricing-grid{grid-template-columns:1fr}
@@ -224,6 +226,15 @@ html[lang="en"] .concept h2{font-size:clamp(2.2rem,3.9vw,3.4rem)}
   .site-header{padding:12px 16px;gap:10px}
   .brand-wm{height:38px}
   .hero h1{font-size:clamp(2rem,8.6vw,2.9rem)}
+  /* Concept 本文は右端まで使う（サーファーへの重なりは許容・text-shadow で可読性確保済み） */
+  .concept-body{max-width:none}
+  /* Concept / WORKFLOW 見出しは明示改行をやめて自然折り返しに＝本文と同じく右端まで使う
+     （狭幅で 1 行目が入り切らず改行が乱れる・左半分に寄るため） */
+  #workflow-title br,#concept-title br{display:none}
+  #workflow-title > span:last-child::before,#concept-title > span:last-child::before{content:" "}
+  #concept-title > span{display:inline}
+  /* 全幅は保ちつつ最終行の 1 文字ぶら下がり（「す」等）だけ回避（非対応ブラウザは自然折り返し） */
+  #workflow-title,#concept-title{text-wrap:pretty}
   .feature-grid{grid-template-columns:1fr}
   .workflow-step{padding:18px}
   .app-store-badge{width:100%;justify-content:center}
