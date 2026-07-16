@@ -170,9 +170,6 @@ const copy = {
     policyTelemetryTitle: "利用状況・診断情報",
     policyTelemetryBody:
       "アプリの品質改善と機能ニーズ把握のため、アプリ起動、カタログを開く、編集の利用、書き出しの回数・枚数、エラー発生状況などの匿名の利用統計・診断情報を収集する場合があります。これらには、写真、画像・カタログの内容、ファイル名、ユーザー登録情報、広告識別子は含まれません。利用状況データの送信は、アプリの設定でオフにできます。オフラインでも Filmator は利用できます。",
-    policyPromoTitle: "プロモーションコード",
-    policyPromoBody:
-      "プロモーションコードを利用する場合のみ、入力されたコードを検証用エンドポイントへ送信します。コードは個人を特定するものではありません。",
     policyTrackingTitle: "トラッキングについて",
     policyTrackingBody:
       "Filmator は、第三者のトラッキング SDK を使用せず、ユーザーを他社のアプリや Web サイトをまたいで追跡することはありません。",
@@ -350,9 +347,6 @@ const copy = {
     policyTelemetryTitle: "Usage and diagnostics",
     policyTelemetryBody:
       "To improve quality and understand feature needs, Filmator may collect anonymous usage statistics and diagnostics — such as launches, catalog opens, edits, export counts, and errors. These never include the contents of your photos, images, or catalog, nor file names, user account information, or advertising identifiers. You can turn off usage-data transmission in the app's Settings. Filmator works offline as well.",
-    policyPromoTitle: "Promotion codes",
-    policyPromoBody:
-      "When you use a promotion code, the code you enter is sent to a verification endpoint. Promotion codes do not identify individuals.",
     policyTrackingTitle: "About tracking",
     policyTrackingBody:
       "Filmator does not use third-party tracking SDKs and does not track users across other apps or websites.",

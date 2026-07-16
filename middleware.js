@@ -28,9 +28,7 @@ export const config = {
     '/filmator/admin/(.*)',
     '/filmator/admin-stats',
     '/filmator/admin-error-log',
-    '/filmator/manage-promos',
     // Filmator: Function 直アクセスパス
-    '/api/filmator-manage-promos',
     '/api/filmator-admin-stats',
     '/api/filmator-admin-error-log',
   ],

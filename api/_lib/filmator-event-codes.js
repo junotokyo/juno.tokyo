@@ -10,7 +10,6 @@ export const ALLOWED_EVENTS = new Set([
   'export_succeeded',
   'paywall_shown',
   'purchase_succeeded',
-  'promo_redeemed',
   'error_occurred',
 ]);
 
@@ -37,8 +36,6 @@ export const ALLOWED_ERROR_CODES = new Set([
   'storekit.purchase_cancelled',
   'storekit.verification_failed',
   'storekit.restore_failed',
-  'promo.invalid_code',
-  'promo.network_error',
   'network.timeout',
   'network.offline',
   'network.server_error',

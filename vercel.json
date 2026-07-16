@@ -13,8 +13,6 @@
     { "source": "/popscan/admin-stats", "destination": "/api/popscan-admin-stats" },
     { "source": "/popscan/admin-error-log", "destination": "/api/popscan-admin-error-log" },
     { "source": "/filmator/analytics", "destination": "/api/filmator-analytics" },
-    { "source": "/filmator/redeem-promo", "destination": "/api/filmator-redeem-promo" },
-    { "source": "/filmator/manage-promos", "destination": "/api/filmator-manage-promos" },
     { "source": "/filmator/admin-stats", "destination": "/api/filmator-admin-stats" },
     { "source": "/filmator/admin-error-log", "destination": "/api/filmator-admin-error-log" }
   ],
