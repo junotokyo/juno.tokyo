@@ -67,9 +67,9 @@ const copy = {
     policySummaryTitle: "写真・画像データについて",
     policySummaryBody:
       "PopScanで撮影・保存する写真、画像処理、解析結果は、原則として端末内で処理されます。これらの画像データや解析結果をサーバーへ送信することはありません。",
-    policyTimeTitle: "利用枠判定のための通信",
+    policyTimeTitle: "キャンペーン情報の確認のための通信",
     policyTimeBody:
-      "利用枠の判定を行うため、オンライン時に日時確認サーバーへ通信する場合があります。この通信には、アプリの種類、バージョン、ビルド番号など、動作確認に必要な最小限の情報が含まれる場合があります。オフラインの場合でも、アプリは引き続き利用できます。",
+      "ネットワーク接続がある場合、プロモーションキャンペーンの実施状況を確認するため、juno.tokyoのサーバーへ通信することがあります。送信されるのはアプリの種類・バージョンなどの最小限の情報のみです。利用枠の管理は端末内で行われます。オフラインでも利用できます。",
     policyDataTitle: "利用状況・診断情報",
     policyDataBody:
       "アプリの品質改善のため、アプリ起動、機能利用、保存成功、エラー発生状況などの匿名の利用統計や診断情報を収集する場合があります。これらには、写真、画像の内容、解析結果、ユーザー登録情報、広告識別子など、個人を特定する情報は一切含まれません。設定画面から、送信をオフにすることもできます。",
@@ -227,9 +227,9 @@ const copy = {
     policySummaryTitle: "Photos and Image Data",
     policySummaryBody:
       "Photos captured or saved in PopScan, image processing, and analysis results are processed on device by default. These photos, image contents, and analysis results are not sent to servers.",
-    policyTimeTitle: "Communication for Usage Allowance Checks",
+    policyTimeTitle: "Communication to Check Campaign Status",
     policyTimeBody:
-      "When network access is available, PopScan may contact a time-check server to evaluate usage allowances. This request may include the app type, version, build number, and other minimal information needed for operation. The app remains usable offline if this request cannot be completed.",
+      "When network access is available, the app may contact a juno.tokyo server to check whether a promotional campaign is active. Only minimal information, such as app type and version, is sent. Usage allowances are managed entirely on your device. The app works offline.",
     policyDataTitle: "Usage and Diagnostic Information",
     policyDataBody:
       "To improve app quality, PopScan may collect anonymous usage statistics and diagnostic information, such as app launch, feature usage, save success, and error status. This information does not include photos, image contents, analysis results, user account information, advertising identifiers, or any other personally identifiable information. You can also turn off sending this information from Settings.",
