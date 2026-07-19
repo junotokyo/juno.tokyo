@@ -108,6 +108,9 @@ test('SIZE_BUCKETS_orderAndContents — order matters for stacked chart', () => 
 // ---- event allow-list ----
 
 test('ALLOWED_EVENTS — docs/08 §3.2 contract', () => {
+  // promo_redeemed は JT-615 で廃止済み（ALLOWED_EVENTS から削除済）。
+  // purchase_succeeded_offer_code は Apple Offer Code 引き換えでの Pro 解錠（無償配布分）を
+  // purchase_succeeded（有料購入）と別カウントするための新イベント。
   const expected = new Set([
     'launch',
     'catalog_opened',
@@ -115,7 +118,7 @@ test('ALLOWED_EVENTS — docs/08 §3.2 contract', () => {
     'export_succeeded',
     'paywall_shown',
     'purchase_succeeded',
-    'promo_redeemed',
+    'purchase_succeeded_offer_code',
     'error_occurred',
   ]);
   assert.equal(ALLOWED_EVENTS.size, expected.size, 'event count');
@@ -136,6 +139,7 @@ test('ERROR_EVENTS — only error_occurred', () => {
 // ---- error_code allow-list ----
 
 test('ALLOWED_ERROR_CODES — docs/08 §3.3 fixed list', () => {
+  // promo.invalid_code / promo.network_error は JT-615 で廃止済み（ALLOWED_ERROR_CODES から削除済）。
   const expected = [
     'catalog.open_failed',
     'catalog.corrupt',
@@ -157,8 +161,6 @@ test('ALLOWED_ERROR_CODES — docs/08 §3.3 fixed list', () => {
     'storekit.purchase_cancelled',
     'storekit.verification_failed',
     'storekit.restore_failed',
-    'promo.invalid_code',
-    'promo.network_error',
     'network.timeout',
     'network.offline',
     'network.server_error',

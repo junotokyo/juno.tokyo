@@ -10,6 +10,7 @@ export const ALLOWED_EVENTS = new Set([
   'export_succeeded',
   'paywall_shown',
   'purchase_succeeded',
+  'purchase_succeeded_offer_code',
   'error_occurred',
 ]);
 

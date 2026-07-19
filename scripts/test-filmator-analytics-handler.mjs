@@ -199,6 +199,20 @@ await test('400 unexpected_extension — catalog.open_failed に severity 付き
   assert.ok(r.body.includes('unexpected_extension'));
 });
 
+await test('purchase_succeeded_offer_code — passes validation (not invalid_event)', async () => {
+  // このテストが証明すること: purchase_succeeded_offer_code が ALLOWED_EVENTS に
+  // 含まれ、event/error_code/photos の validation を通過して try ブロック（KV 書き込み）
+  // まで到達すること（= 400 で reject されないこと）。
+  // このテストが証明しないこと: 実際に KV へ INCR されること。本ファイルの他テスト同様、
+  // CI 実行環境には実 KV 資格情報を注入していない（`api/_lib/kv.js` は実 Upstash
+  // クライアントで、モック差し替えの仕組みがまだ無い＝実資格情報を使うと本番/共用 KV に
+  // 書き込んでしまうため意図的に避けている）。よって実行環境によっては 200（実 KV 到達可）
+  // または 500 kv_failure（未到達）のどちらもあり得るが、いずれにせよ 400 にはならない。
+  // 実際の INCR 反映確認は Preview deploy での E2E verify に委任する（既存の 200 経路と同じ運用）。
+  const r = await runHandler(makeReq({ body: { event: 'purchase_succeeded_offer_code' } }));
+  assert.notEqual(r.status, 400);
+});
+
 await test('405 method_not_allowed — GET', async () => {
   const r = await runHandler(makeReq({ method: 'GET' }));
   assert.equal(r.status, 405);
