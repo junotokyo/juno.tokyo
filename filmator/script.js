@@ -179,6 +179,7 @@ const copy = {
     lastUpdated: "最終更新日: 2026年6月28日",
 
     footerCopyright: "© 2026 JUNO Tokyo",
+    footerPress: "プレスリリース",
   },
   en: {
     metaDescription:
@@ -356,6 +357,7 @@ const copy = {
     lastUpdated: "Last updated: June 28, 2026",
 
     footerCopyright: "© 2026 JUNO Tokyo",
+    footerPress: "Press Release",
   },
 };
 

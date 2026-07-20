@@ -158,6 +158,7 @@ const copy = {
     footerPricing: "料金",
     footerSupport: "サポート",
     footerPrivacy: "プライバシーポリシー",
+    footerPress: "プレスリリース",
   },
   en: {
     navFeatures: "Features",
@@ -317,6 +318,7 @@ const copy = {
     footerPricing: "Plans",
     footerSupport: "Support",
     footerPrivacy: "Privacy Policy",
+    footerPress: "Press Release",
   },
 };
 
