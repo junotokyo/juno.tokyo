@@ -8,6 +8,28 @@
 
 ---
 
+### [2026-07-23] JUNO Tokyo トップページ新設（ルートの PopScan リダイレクト廃止・本番反映済み）
+
+**完了したこと**
+
+- ルート `index.html` を「PopScan への meta refresh リダイレクト」から JUNO Tokyo スタジオトップ（1 枚もの・Hero / Products / Media / About us / Contact）に全面差し替え。`0d184c7`〜`fcd04f3` の 10 commits を main FF + push 済み・本番反映確認済み（canonical・OGP・既存 LP/press 無影響・アセット 200）。
+- `assets/` を新設: `juno-tokyo-logo.png`（note プロフィールロゴ 512px 流用）・`favicon.png`（180px）・`og.png`（1200x630）。すべて macOS `sips` で生成。
+- press 3 ページ（`press/`・`press/popscan/`・`press/filmator/`）の favicon を PopScan/Filmator アイコンから `/assets/favicon.png` に統一。
+- デザインは `press/styles.css` のトーン（クリーム背景・オレンジ・Inter）を CSS 変数値ごとインライン `<style>` にコピーしてスコープ独立（press とは意図的に非共有）。
+- Codex 投入実績: A プランレビュー 1 回（Q1〜Q9＝採用 7・問題なし 2、OG パッド色 #FFFFFF 化・og:image:width/height 追加等を反映）＋ B 実装後 `codex review --uncommitted` 1 回（指摘ゼロ）。
+- 検証: ローカル `npx http-server` + ブラウザペイン（デスクトップ / 375px）・全内部リンクとアセット 11 パス 200・meta refresh 消滅確認・既存単体テスト 17 件 green・本番デプロイ後の再確認まで実施。
+- 委譲実績: リポジトリ調査と codex-collab 基準確認＝haiku、プラン設計＝opus、HTML 実装とカードレイアウト調整（2 回）＝sonnet。直営はアセット生成 Bash・1〜2 行の文言/CSS 修正・ブラウザ検証・採否判断・コミットのみ。
+
+**申し送り**
+
+- 🔴 **公開窓口メールは `contact@juno.tokyo`**。`code@juno.tokyo` は Apple Developer 登録専用で、それ以外には使わない（Jun 指示・2026-07-22）。
+- Hero コピー「シンプルで、使い勝手の良いアプリを。」は暫定確定。後日練り直しの可能性あり（h1 1 行差し替えで済む）。
+- ロゴ元画像は PopScan リポジトリ側 `~/Library/CloudStorage/Dropbox/Projects/PopScan/Docs/Blog/assets/juno-tokyo-note-profile.png`（白背景 512px）。ヒーローでは `mix-blend-mode: multiply` でクリーム背景 `--bg:#fffaf6` に馴染ませているため、**背景色を変えるとロゴの見えも変わる**点に注意。
+- `og.png` はロゴを白背景 1200x630 に sips パッドしただけの簡易版。X 等での実カード表示は初回シェア時に要確認（OGP キャッシュはデバッガで更新可能）。
+- `.claude/launch.json`（ローカルプレビュー用 `npx http-server` 設定）は意図的に未コミット・worktree ごと破棄。次回ローカル確認時は再作成する（python3 http.server はこの環境の sandbox で PermissionError になる罠あり）。
+
+---
+
 ### [2026-06-27] Filmator JT-279 サーバ側＝ catalog.schema_unsupported 受信＋ severity 汎用化＋メール通知＋admin/stats 拡張
 
 **完了したこと**
@@ -42,6 +64,7 @@
 - 🔴 **Filmator 側 dual-send 撤去は別 JT**：JT-278 が baseline `catalog.open_failed` 併送中。サーバが `catalog.schema_unsupported` を許可した今、Filmator アプリ側で baseline 併送を撤去できる（次セッション or 別 JT）。撤去前後も privacy / 集計の整合は維持（baseline は別カウントなので削除しても新コード集計は無影響）。
 - ⚠️ **Filmator 側の処理は別セッションで実施**（本 commit はサーバ側のみ）：Filmator リポジトリで Linear JT-279 を Done、docs/06 を ✅、Handoff.md 追記、main FF + push。
 
+---
 
 ### [2026-06-18] Filmator M4 S1 完了（命名統一・実機検証）
 
