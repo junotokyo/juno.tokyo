@@ -151,7 +151,10 @@
       }
 
       .product-card {
-        display: block;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 20px;
+        align-items: start;
         padding: 28px;
         background: var(--paper);
         border: 1px solid var(--line);
@@ -169,25 +172,17 @@
       .product-card img {
         display: block;
         border-radius: 16px;
-        margin-bottom: 16px;
       }
 
-      .product-card .platform-label {
-        display: block;
-        margin: 0 0 6px;
+      .product-card .platform {
         color: var(--muted);
-        font-size: 0.85rem;
         font-weight: 750;
+        font-size: 0.85em;
       }
 
       .product-card p {
-        margin: 0 0 14px;
+        margin: 0;
         color: #3f332c;
-      }
-
-      .product-card .cta {
-        color: var(--orange-dark);
-        font-weight: 850;
       }
 
       .media-list {
@@ -263,6 +258,11 @@
           height: 120px;
         }
 
+        .product-card img {
+          width: 56px;
+          height: 56px;
+        }
+
         .footer-inner {
           align-items: flex-start;
           flex-direction: column;
@@ -289,17 +289,17 @@
         <div class="product-grid">
           <a class="product-card" href="/popscan/">
             <img src="/popscan/assets/popscan-icon-512.png" alt="" width="72" height="72">
-            <span class="platform-label">iPhone</span>
-            <h3>PopScan</h3>
-            <p>書類をカメラ感覚でスキャン。自動で切り抜き、写真ライブラリに保存する iPhone アプリ。</p>
-            <span class="cta">サイトを見る →</span>
+            <div>
+              <h3>PopScan <span class="platform">for iPhone</span></h3>
+              <p>書類をカメラ感覚でスキャン。自動で切り抜き、写真ライブラリに保存する iPhone アプリ。</p>
+            </div>
           </a>
           <a class="product-card" href="/filmator/">
             <img src="/filmator/assets/filmator-icon-1024.png" alt="" width="72" height="72">
-            <span class="platform-label">Mac</span>
-            <h3>Filmator</h3>
-            <p>カメラが生成した JPEG の色を活かし、Lightroom Classic のカタログから作品として仕上げる Mac アプリ。</p>
-            <span class="cta">サイトを見る →</span>
+            <div>
+              <h3>Filmator <span class="platform">for Mac</span></h3>
+              <p>カメラが生成した JPEG の色を活かし、Lightroom Classic のカタログから作品として仕上げる Mac アプリ。</p>
+            </div>
           </a>
         </div>
       </section>
